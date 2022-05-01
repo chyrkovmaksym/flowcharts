@@ -1,17 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <title>Page Title</title>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <textarea name="code" id="code" cols="100" rows="50"></textarea>
-    <button id="button">Send Code</button>
-    <script src="scripts/script.js"></script>
-</body>
 
+<div class="header">
+    <h1>My Website</h1>
+    <p>A <b>responsive</b> website created by me.</p>
+</div>
+
+<div class="navbar">
+    <a href="#" class="active">Home</a>
+    <a href="#">Information</a>
+</div>
+
+<div class="row">
+    <div class="side">
+        <h2 class="info_us">About us</h2>
+        <div class="fakeimg" style="height:auto;">
+            <h4 class="inf_pro">Information of our project:</h4>
+            <p class="inf_pro">As part of the project life cycle, a significant amount of data and information in various formats is collected, analyzed, transformed and disseminated to project team members and other stakeholders. Project data is collected as a result of various execution processes, after which it is provided to project team members. The collected data is analyzed in context, combined and transformed into project information during various control processes. The information can then be transmitted orally or stored and distributed in the form of reports presented in a variety of formats.</p>
+        </div>
+        <h3 class="info_us" >Our contacts</h3>
+        <ol class="bullet">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Telegram</a></li>
+            <li><a href="#">GitHub</a></li>
+
+        </ol>
+    </div>
+    <div class="main">
+        <h2 class="info_us" >Let's start creating a flowchart</h2>
+        <h5 >Just paste some code here!</h5>
+        <div class="code_" style="height:300px;">
+            <textarea  id="code" placeholder="Your code..."></textarea>
+        </div>
+        <a href="" id="button" class="button">Send</a>
+        <p>Some text..</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <br>
+        <h2 class="info_us" >A flowchart will be displayed here</h2>
+        <h5>Wait a bit!</h5>
+        <div class="fakeimg" style="height:200px;">Image</div>
+        <p>Some text..</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
+</div>
+
+<div class="footer">
+    <h2>Footer</h2>
+</div>
+<script src="script.js"></script>
+</body>
 </html>
