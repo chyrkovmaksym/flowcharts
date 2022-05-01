@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?k1fchl');
+  src:  url('fonts/icomoon.eot?k1fchl#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?k1fchl') format('truetype'),
+    url('fonts/icomoon.woff?k1fchl') format('woff'),
+    url('fonts/icomoon.svg?k1fchl#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-envelope-o:before {
+  content: "\f003";
+}
+.icon-home:before {
+  content: "\f015";
+}
+.icon-comment:before {
+  content: "\f075";
+}
+.icon-wrench:before {
+  content: "\f0ad";
+}
+.icon-cc-visa:before {
+  content: "\f1f0";
+}
+.icon-cc-mastercard:before {
+  content: "\f1f1";
+}
+.icon-share2:before {
+  content: "\ea82";
+}
+.icon-instagram:before {
+  content: "\ea92";
+}
+.icon-telegram:before {
+  content: "\ea95";
+}
+.icon-github:before {
+  content: "\eab0";
+}

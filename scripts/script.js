@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 const code = document.getElementById('code');
 const button = document.getElementById('button');
 
@@ -88,37 +89,37 @@ class BlockBuilder {
     currStrLimits = this.insideRoundBrackets(str);
 
     this.resGeneration(
-        keyWord,
-        str
-            .split('')
-            .slice(currStrLimits[0], currStrLimits[1] + 1)
-            .join(''),
-        this.id,
-        previousId
+      keyWord,
+      str
+        .split('')
+        .slice(currStrLimits[0], currStrLimits[1] + 1)
+        .join(''),
+      this.id,
+      previousId,
     );
     if (
-        str.split('')[str.split('').length - 1] === '{' ||
-        arr[i + 1].trimStart().split('')[0] === '{'
+      str.split('')[str.split('').length - 1] === '{' ||
+      arr[i + 1].trimStart().split('')[0] === '{'
     ) {
       BlockBuilder.currArr = arr.slice(i, arr.length);
       currRowLimits = this.insideCurlyBrackets(BlockBuilder.currArr);
       this.prevId = this.id;
       this.findKeyWords(
-          BlockBuilder.currArr.slice(currRowLimits[0] + 1, currRowLimits[1]),
-          this.prevId
+        BlockBuilder.currArr.slice(currRowLimits[0] + 1, currRowLimits[1]),
+        this.prevId,
       );
       return i + currRowLimits[1];
     } else {
       if (str.split('')[str.split('').length - 1] === ';') {
         this.prevId = this.id;
         this.findKeyWords(
-            [
-              str
-                  .split('')
-                  .slice(currStrLimits[1] + 1, str.split('').length)
-                  .join(''),
-            ],
-            this.prevId
+          [
+            str
+              .split('')
+              .slice(currStrLimits[1] + 1, str.split('').length)
+              .join(''),
+          ],
+          this.prevId,
         );
       } else {
         this.prevId = this.id;
@@ -134,58 +135,96 @@ class BlockBuilder {
     if (BlockBuilder.currArr[0].includes('while')) {
       const findInsideWhile = this.insideRoundBrackets(BlockBuilder.currArr[0]);
       this.resGeneration(
-          'do/while',
-          str
-              .split('')
-              .slice(findInsideWhile[0], findInsideWhile[1] + 1)
-              .join(''),
-          this.id,
-          previousId
+        'do/while',
+        str
+          .split('')
+          .slice(findInsideWhile[0], findInsideWhile[1] + 1)
+          .join(''),
+        this.id,
+        previousId,
       );
-
     } else if (BlockBuilder.currArr[1].includes('while')) {
       const findInsideWhile = this.insideRoundBrackets(BlockBuilder.currArr[1]);
       this.resGeneration(
-          'do/while',
-          str
-              .split('')
-              .slice(findInsideWhile[0], findInsideWhile[1] + 1)
-              .join(''),
-          this.id,
-          previousId
+        'do/while',
+        str
+          .split('')
+          .slice(findInsideWhile[0], findInsideWhile[1] + 1)
+          .join(''),
+        this.id,
+        previousId,
       );
     }
   }
-  findTern (arr, i, previousId, str){
+
+  findCase(arr, i, previousId) {
     BlockBuilder.currArr = arr.slice(i, arr.length);
-    if (BlockBuilder.currArr[0].includes('?') && BlockBuilder.currArr[0].includes(':')) {
+    const findInCase = [];
+    for (let j = 0; j < BlockBuilder.currArr.length; j++) {
+      if (BlockBuilder.currArr[j].includes('break')) {
+        break;
+      }
+      findInCase.push(BlockBuilder.currArr[j]);
+    }
+    this.resGeneration(
+      'case',
+      findInCase.join(''),
+      this.id + 1,
+      previousId,
+    );
+    return i;
+  }
+
+  findDefault(arr, i, previousId) {
+    BlockBuilder.currArr = arr.slice(i, arr.length);
+    const findInDefault = [];
+    for (let j = 0; j < BlockBuilder.currArr.length; j++) {
+      if (BlockBuilder.currArr[j].includes('}')) {
+        break;
+      }
+      findInDefault.push(BlockBuilder.currArr[j]);
+    }
+    this.resGeneration(
+      'default',
+      findInDefault.join(''),
+      this.id + 1,
+      previousId,
+    );
+    return i + 1;
+  }
+
+  findTern(arr, i, previousId, str) {
+    BlockBuilder.currArr = arr.slice(i, arr.length);
+    if (BlockBuilder.currArr[0].includes('?') &&
+      BlockBuilder.currArr[0].includes(':')) {
       const findInsideTernary = this.insideRoundBrackets(BlockBuilder.currArr[0]);
       this.resGeneration(
-          'ternary operator',
-          str
-              .split('')
-              .slice(findInsideTernary[0], findInsideTernary[1] + 1)
-              .join(''),
-          this.id,
-          previousId
+        'ternary operator',
+        str
+          .split('')
+          .slice(findInsideTernary[0], findInsideTernary[1] + 1)
+          .join(''),
+        this.id += 1,
+        previousId,
       );
     }
+    return i;
   }
 
   findKeyWords(arr, previousId) {
     BlockBuilder.currArr = arr;
     for (let i = 0; i < arr.length; i++) {
-      let str = arr[i];
+      const str = arr[i];
       if (
-          str.trimStart().split('').slice(0, 7).join('').includes('print') ||
-          str.trimStart().split('').slice(0, 7).join('').includes('scan')
+        str.trimStart().split('').slice(0, 7).join('').includes('print') ||
+        str.trimStart().split('').slice(0, 7).join('').includes('scan')
       ) {
         this.id++;
         this.resGeneration('print/scan', str, this.id, previousId);
       } else if (
-          str.includes('main') &&
-          str.includes('(') &&
-          str.includes(')')
+        str.includes('main') &&
+        str.includes('(') &&
+        str.includes(')')
       ) {
         i = this.nestedBlocks('main', arr, str, i, previousId);
       } else if (str.includes('if')) {
@@ -200,12 +239,15 @@ class BlockBuilder {
         i = this.nestedBlocks('do', arr, str, i, previousId);
         this.findDw(arr, i, previousId, str);
       } else if (str.includes('?') && str.includes(':')) {
-        this.findTern(arr, i, previousId, str);
-      } else  if (str.includes('switch')) {
+        i = this.findTern(arr, i, previousId, str);
+      } else if (str.includes('switch')) {
         i = this.nestedBlocks('switch', arr, str, i, previousId);
-      }  else  if (str.includes('case')) {
-        i = this.nestedBlocks('case', arr, str, i, previousId);
+      } else if (str.includes('case')) {
+        i = this.findCase(arr, i, previousId);
+      } else if (str.includes('default')) {
+        i = this.findDefault(arr, i, previousId);
       }
     }
   }
 }
+

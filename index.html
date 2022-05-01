@@ -1,62 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Page Title</title>
+    <title>Document</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
 </head>
+
 <body>
-
-<div class="header">
-    <h1>My Website</h1>
-    <p>A <b>responsive</b> website created by me.</p>
-</div>
-
-<div class="navbar">
-    <a href="#" class="active">Home</a>
-    <a href="#">Information</a>
-</div>
-
-<div class="row">
-    <div class="side">
-        <h2 class="info_us">About us</h2>
-        <div class="fakeimg" style="height:auto;">
-            <h4 class="inf_pro">Information of our project:</h4>
-            <p class="inf_pro">As part of the project life cycle, a significant amount of data and information in various formats is collected, analyzed, transformed and disseminated to project team members and other stakeholders. Project data is collected as a result of various execution processes, after which it is provided to project team members. The collected data is analyzed in context, combined and transformed into project information during various control processes. The information can then be transmitted orally or stored and distributed in the form of reports presented in a variety of formats.</p>
+    <div class="header">
+        <div class="wrapper">
+            <p class="title">FLOWCHARTS</p>
         </div>
-        <h3 class="info_us" >Our contacts</h3>
-        <ol class="bullet">
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Telegram</a></li>
-            <li><a href="#">GitHub</a></li>
-
-        </ol>
     </div>
-    <div class="main">
-        <h2 class="info_us" >Let's start creating a flowchart</h2>
-        <h5 >Just paste some code here!</h5>
-        <div class="code_" style="height:300px;">
-            <textarea  id="code" placeholder="Your code..."></textarea>
+    <div class="navbar">
+        <a href="#" class="active">Home</a>
+        <a href="#">Information</a>
+    </div>
+
+    <div class="row">
+        <div class="side">
+            <h2 class="about_us">About us</h2>
+            <div class="text_about_us" style="height:auto;">
+                <h4 class="inf_pro">Information of our project:</h4>
+                <p class="inf_pro">As part of the project life cycle, a significant amount of data and information in
+                    various formats is collected, analyzed, transformed and disseminated to project team members and
+                    other stakeholders. Project data is collected as a result of various execution processes, after
+                    which it is provided to project team members. The collected data is analyzed in context, combined
+                    and transformed into project information during various control processes. The information can then
+                    be transmitted orally or stored and distributed in the form of reports presented in a variety of
+                    formats.</p>
+            </div>
+            <h3 class="contacts">Our contacts</h3>
+            <ol class="bullet">
+                <li class="li_inst"><a href="#">Instagram</a></li>
+                <li class="li_tg"><a href="#">Telegram</a></li>
+                <li class="li_git"><a href="#">GitHub</a></li>
+            </ol>
         </div>
-        <a href="" id="button" class="button">Send</a>
-        <p>Some text..</p>
-        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-        <br>
-        <h2 class="info_us" >A flowchart will be displayed here</h2>
-        <h5>Wait a bit!</h5>
-        <div class="fakeimg" style="height:200px;">Image</div>
-        <p>Some text..</p>
-        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <div class="main">
+            <h2 class="headers">Let's start creating a flowchart</h2>
+            <textarea name="code" id="code" class="code_" style="height: 300px;" placeholder="Your code..."></textarea>
+            <button id="button" class="button">Send</button>
+            <p>Some text..</p>
+            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco.</p>
+            <br>
+            <h2 class="headers">A flowchart will be displayed here</h2>
+            <div class="fakeimg" style="height:600px;">Image</div>
+            <p>Some text..</p>
+            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco.</p>
+        </div>
     </div>
-</div>
-
-<div class="footer">
-    <h2>Footer</h2>
-</div>
-<script src="script.js"></script>
+    <footer>
+        <div class="row primary">
+            <div class="column about">
+                <h3>FLOWCHARTS</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae,
+                    voluptatem corporis error non,
+                </p>
+            </div>
+            <div class="column links">
+                <h3>Some Links</h3>
+                <ul>
+                    <li>
+                        <a href="#faq">F.A.Q</a>
+                    </li>
+                    <li>
+                        <a href="#cookies-policy">Cookies Policy</a>
+                    </li>
+                    <li>
+                        <a href="#terms-of-services">Terms Of Service</a>
+                    </li>
+                    <li>
+                        <a href="#support">Support</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="column links">
+                <h3>Some Links</h3>
+                <ul>
+                    <li>
+                        <a href="#home">Home</a>
+                    </li>
+                    <li>
+                        <a href="#information">Information</a>
+                    </li>
+                    <li>
+                        <a href="#contacts">Contacts</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="column subscribe">
+                <h3>Newsletter</h3>
+                <div>
+                    <input placeholder="Your email id here" type="email" />
+                    <button>Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="row copyright">
+            <p>Copyright &copy; 2022 Course Team</p>
+        </div>
+    </footer>
+    <script src="scripts/script.js"></script>
 </body>
+
 </html>
