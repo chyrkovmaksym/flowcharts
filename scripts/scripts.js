@@ -1,84 +1,63 @@
 
-const code = document.getElementById('code');
-const button = document.getElementById('button');
-
-button.addEventListener('click', () => {
-  const code1 = new BlockBuilder(code.value);
-});
-
 class BlockBuilder {
   constructor(text) {
-    this.id = 0; // id of this code string
-    this.prevId = 0; // id of parent string
-    this.res = []; // result
-    text = text.replaceAll('}', '}\n'); // put Enter after curly brackets
-    text = text.replaceAll('{', '\n{');
-    this.strArray = text.split(/\r\n|\r|\n/g); // split text on strings
-    this.strArray = this.cleanCode(this.strArray); // clean code
+    this.id = 0;
+    this.prevId = 0;
+    this.res = [];
+    this.strArray = text;
     this.findKeyWords(this.strArray, 0);
-    console.log(this.res);
-  }
-
-  cleanCode(arr) {
-    for (let i = 0; i < arr.length; i++) {
-      arr[i] = arr[i].trimStart();
-      arr[i] = arr[i].trimEnd();
-    }
-    arr = arr.filter((str) => str !== ''); // clean empty strings
-    return arr;
   }
 
   insideRoundBrackets(txt) {
     let counter = 0;
-    let startId;
-    let endId;
+    let idOfRoundBrackets = [];
     const splitedString = txt.split('');
     for (let i = 0; i < splitedString.length; i++) {
       if (splitedString[i] === '(') {
-        if (counter === 0) {
-          startId = i;
+        if (!counter) {
+          idOfRoundBrackets.push(i);
         }
         counter++;
       }
       if (splitedString[i] === ')') {
         counter--;
-        if (counter === 0) {
-          endId = i;
+        if (!counter) {
+          idOfRoundBrackets.push(i);
           break;
         }
       }
     }
-    return [startId, endId];
+    return idOfRoundBrackets;
   }
 
   insideCurlyBrackets(txt) {
     let counter = 0;
-    let startId;
-    let endId;
+    let idOfCurlyBrackets = [];
     for (let i = 0; i < txt.length; i++) {
       if (txt[i].includes('{')) {
-        if (counter === 0) {
-          startId = i;
+        if (!counter) {
+          idOfCurlyBrackets.push(i);
         }
         counter++;
       } else if (txt[i].includes('}')) {
         counter--;
-        if (counter === 0) {
-          endId = i;
+        if (!counter) {
+          idOfCurlyBrackets.push(i);
           break;
         }
       }
     }
-    return [startId, endId];
+    return idOfCurlyBrackets;
   }
 
   resGeneration(type, text, id, prevId) {
-    this.res.push({
+    const element = {
       type: type,
       text: text,
       id: id,
       prevId: prevId,
-    });
+    };
+    this.res.push(element);
   }
 
   static currArr = [];
@@ -90,13 +69,13 @@ class BlockBuilder {
     currStrLimits = this.insideRoundBrackets(str);
 
     this.resGeneration(
-        keyWord,
-        str
-            .split('')
-            .slice(currStrLimits[0], currStrLimits[1] + 1)
-            .join(''),
-        this.id,
-        previousId,
+      keyWord,
+      str
+        .split('')
+        .slice(currStrLimits[0], currStrLimits[1] + 1)
+        .join(''),
+      this.id,
+      previousId,
     );
 
     if (
@@ -107,21 +86,21 @@ class BlockBuilder {
       currRowLimits = this.insideCurlyBrackets(BlockBuilder.currArr);
       this.prevId = this.id;
       this.findKeyWords(
-          BlockBuilder.currArr.slice(currRowLimits[0] + 1, currRowLimits[1]),
-          this.prevId,
+        BlockBuilder.currArr.slice(currRowLimits[0] + 1, currRowLimits[1]),
+        this.prevId,
       );
       return i + currRowLimits[1];
     } else {
       if (str.split('')[str.split('').length - 1] === ';') {
         this.prevId = this.id;
         this.findKeyWords(
-            [
-              str
-                  .split('')
-                  .slice(currStrLimits[1] + 1, str.split('').length)
-                  .join(''),
-            ],
-            this.prevId,
+          [
+            str
+              .split('')
+              .slice(currStrLimits[1] + 1, str.split('').length)
+              .join(''),
+          ],
+          this.prevId,
         );
       } else {
         this.prevId = this.id;
@@ -131,14 +110,16 @@ class BlockBuilder {
     }
     return i;
   }
+
   findCaseDefault(arr, i, previousId, end, resType) {
-    BlockBuilder.currArr = arr.slice(i, arr.length);
     const findInCase = [];
-    for (let j = 0; j < BlockBuilder.currArr.length; j++) {
-      if (BlockBuilder.currArr[j].includes(end)) {
+    BlockBuilder.currArr = arr.slice(i, arr.length);
+    const array = BlockBuilder.currArr;
+    for (let j = 0; j < array.length; j++) {
+      if (array[j].includes(end)) {
         break;
       }
-      findInCase.push(BlockBuilder.currArr[j]);
+      findInCase.push(array[j]);
     }
     this.id++;
     this.resGeneration(resType, findInCase[0], this.id, previousId);
@@ -148,15 +129,14 @@ class BlockBuilder {
     return i + findInCase.length;
   }
 
-  findTern(arr, i, previousId, str) {
-    let ternParts = [];
-    ternParts = str.replace('?', ':').split(':');
+  findTern(i, previousId, str) {
     this.id++;
-    this.resGeneration('tern', ternParts[0], this.id, previousId);
     this.prevId = this.id;
+    const ternParts = str.replace('?', ':').split(':');
+    this.resGeneration('tern', ternParts[0], this.id, previousId);
     ternParts.shift();
     this.findKeyWords(ternParts, this.prevId);
-    return i + 1;
+    return ++i;
   }
 
   findKeyWords(arr, previousId) {
@@ -196,7 +176,7 @@ class BlockBuilder {
       } else if (str.includes('default')) {
         i = this.findCaseDefault(arr, i, previousId, '}', 'default');
       } else if (str.includes('?') && str.includes(':')) {
-        i = this.findTern(arr, i, previousId, str);
+        i = this.findTern(i, previousId, str);
       } else if (
         (str.includes('char') ||
           str.includes('int') ||
@@ -221,4 +201,9 @@ class BlockBuilder {
       }
     }
   }
+  getResult() {
+    return this.res;
+  }
 }
+
+export { BlockBuilder };
