@@ -79,9 +79,9 @@ body {
     width: 100%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
     -webkit-backdrop-filter: blur(10px);
-    border-radius:15px;
+    border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     padding: 20px;
 }
 
@@ -89,26 +89,28 @@ body {
     width: 100%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
     -webkit-backdrop-filter: blur(10px);
-    border-radius:15px;
+    border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     padding: 20px;
 }
 
 
 textarea {
-    width:100%;
+    width: 100%;
     resize: none;
-    padding:30px;
+    padding: 30px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
     -webkit-backdrop-filter: blur(10px);
-    border-radius:15px;
+    border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
-    height:300px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    height: 300px;
 }
 
-.contacts, .headers, .about_us {
+.contacts,
+.headers,
+.about_us {
     font-family: 'Courier Prime', monospace;
     color: #121315;
 }
@@ -125,10 +127,13 @@ textarea {
 
 
 
-.bullet .li_inst, .li_git, .li_tg {
+.bullet .li_inst,
+.li_git,
+.li_tg {
     position: static;
     margin-bottom: 13px;
-    border: 3px solid #1abc9c;;
+    border: 3px solid #1abc9c;
+    ;
     padding: 10px;
     border-radius: 10px;
     background: #FEFEFE;
@@ -139,7 +144,7 @@ textarea {
 .bullet li:hover {
     border: 3px solid white;
     background: #1abc9c;
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     color: #000000;
     font-family: 'Courier Prime', monospace;
 }
@@ -185,13 +190,14 @@ footer * {
     width: 100%;
     display: flex;
     flex-direction: column;
+    text-align: center;
     padding: 0 2em;
     min-height: 15em;
 }
 
-h3 {
+.column h3 {
     width: 100%;
-    text-align: left;
+    text-align: center;
     color: white;
     font-size: 1.4em;
     white-space: nowrap;
@@ -267,9 +273,10 @@ button {
     text-decoration: none;
     display: inline-block;
     padding: 15px 30px;
-    margin-top: 10px ;
+    margin-top: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 40px 40px #1abc9c inset, 0 0 0 0 #1abc9c;;
+    box-shadow: 0 0 40px 40px #1abc9c inset, 0 0 0 0 #1abc9c;
+    ;
     font-family: 'Courier Prime', monospace;
     font-weight: bold;
     letter-spacing: 2px;
@@ -289,23 +296,25 @@ button {
 
 .title {
     width: 10ch;
-     color: white;
-     font-family: 'Courier Prime', monospace;
-     font-size: 120px;
-     white-space: nowrap;
-     overflow: hidden;
-     border-right: 5px solid white;
-     animation: flashing-border 0.75s step-end infinite,
-      text 5s steps(10);
+    color: white;
+    font-family: 'Courier Prime', monospace;
+    font-size: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 5px solid white;
+    animation: flashing-border 0.75s step-end infinite,
+        text 5s steps(10);
 }
 
 @keyframes flashing-border {
     0% {
         border-color: white;
     }
+
     50% {
         border-color: transparent;
     }
+
     100% {
         border-color: white;
     }
@@ -317,15 +326,39 @@ button {
     }
 }
 
- .contacts::after {
-     padding-left: 20px;
-     content: "\ea82";
-     font-family: 'icomoon';
- }
+.contacts::after {
+    padding-left: 20px;
+    content: "\ea82";
+    font-family: 'icomoon';
+}
 
- .about_us::after {
+.about_us::after {
     padding-left: 20px;
     content: "\f0ad";
     font-family: 'icomoon';
- }
+}
 
+.img-footer {
+    text-align: center;
+}
+
+.img-footer :nth-child(1) {
+    text-decoration: none;
+    color: #c7940a;
+    font-size: 16px;
+}
+
+.img-footer :nth-child(1):hover {
+    color: #2a8ded;
+}
+
+
+.img-footer :nth-child(2) {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: #c7940a 2px solid;
+    border-radius: 10px;
+}
