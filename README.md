@@ -1,4 +1,4 @@
-# FLOWCHART <br>
+# FLOWCHARTS <br>
 We are a team of five students ftom ImiX flow of Kyiv Politechnic Institute: <br>
 
 1. [Martynenko Oleh IM-11](https://github.com/olegoofy)<br>
