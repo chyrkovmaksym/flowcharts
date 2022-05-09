@@ -1,3 +1,4 @@
+import { checkFunc, checkDef, checkCase, maps } from './config.js';
 
 class BlockBuilder {
   constructor(text) {
@@ -150,57 +151,51 @@ class BlockBuilder {
       ) {
         this.id++;
         this.resGeneration('print/scan', str, this.id, previousId);
-      } else if (
-        str.includes('main') &&
-        str.includes('(') &&
-        str.includes(')')
-      ) {
-        i = this.nestedBlocks('main', arr, str, i, previousId);
-      } else if (str.includes('while') && str.includes(';')) {
-        this.id++;
-        this.resGeneration('while(do)', str, this.id, previousId);
-      } else if (str.includes('else')) {
-        i = this.nestedBlocks('else', arr, str, i, previousId);
-      } else if (str.includes('if')) {
-        i = this.nestedBlocks('if', arr, str, i, previousId);
-      } else if (str.includes('while') && !str.includes(';')) {
-        i = this.nestedBlocks('while', arr, str, i, previousId);
-      } else if (str.includes('for')) {
-        i = this.nestedBlocks('for', arr, str, i, previousId);
-      } else if (str.includes('do')) {
-        i = this.nestedBlocks('do', arr, str, i, previousId);
-      } else if (str.includes('switch')) {
-        i = this.nestedBlocks('switch', arr, str, i, previousId);
-      } else if (str.includes('case')) {
-        i = this.findCaseDefault(arr, i, previousId, 'break', 'case');
-      } else if (str.includes('default')) {
-        i = this.findCaseDefault(arr, i, previousId, '}', 'default');
-      } else if (str.includes('?') && str.includes(':')) {
-        i = this.findTern(i, previousId, str);
-      } else if (
-        (str.includes('char') ||
-          str.includes('int') ||
-          str.includes('float') ||
-          str.includes('double')) &&
-        str.includes(';')
-      ) {
-        this.id++;
-        this.resGeneration('variable def', str, this.id, previousId);
-      } else if (
-        (str.includes('char') ||
-          str.includes('int') ||
-          str.includes('float') ||
-          str.includes('double') ||
-          str.includes('void')) &&
-        !str.includes(';')
-      ) {
-        i = this.nestedBlocks('custom function', arr, str, i, previousId);
-      } else if (!str.includes('#')) {
-        this.id++;
-        this.resGeneration('expression', str, this.id, previousId);
-      }
+      } else {
+        for (const key in maps) {
+          const elems = maps[key];
+          if (typeof elems === 'object') {
+            if (checkFunc(elems)) {
+              const item = elems[0];
+              if (str.includes(item) && !str.includes(';')) {
+                i = this.nestedBlocks(key, arr, str, i, previousId);
+                break;
+              }
+            } else if (checkDef(elems)) {
+              const item = elems[0];
+              if (str.includes(item) && !str.includes('(', ')', '?')) {
+                this.id++;
+                this.resGeneration(key, str, this.id, previousId);
+                break;
+              }
+            } else if (checkCase(elems)) {
+              const item = elems[1];
+              if (str.includes(item)) {
+                i = this.findCaseDefault(arr, i, previousId, elems[0], elems[1]);
+                break;
+              }
+            } else {
+              const item = elems[0];
+              if (str.includes(item) && str.includes(':')) {
+                i = this.findTern(i, previousId, str);
+                break;
+              } else {
+                if (!str.includes('#') && str.length != 1) {
+                  this.id++;
+                  this.resGeneration('expression', str, this.id, previousId);
+                }
+              }
+            }
+          }
+          if (str.includes(elems)) {
+            i = this.nestedBlocks(key, arr, str, i, previousId);
+            break;
+          }
+        }
+      } 
     }
   }
+
   getResult() {
     return this.res;
   }
