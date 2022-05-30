@@ -1,5 +1,5 @@
-import { BlockBuilder } from './blockbuilder.js';
-import { Cleaner } from './cleaner.js';
+import { BlockBuilder } from './parsecode.js';
+import { Cleaner } from './cleancode.js';
 
 const code = document.getElementById('code');
 const button = document.getElementById('button');
