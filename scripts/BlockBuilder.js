@@ -1,4 +1,6 @@
-import { checkFunc, checkDef, checkCase, maps } from './config.js';
+import {
+  checkFunc, checkDef, checkCase, checkPrintOrScan, maps, processingFunc, processingDef, processingPrintOrScan, processingExp, checkTern
+} from './config.js';
 
 class BlockBuilder {
   constructor(text) {
@@ -11,7 +13,7 @@ class BlockBuilder {
 
   insideRoundBrackets(txt) {
     let counter = 0;
-    let idOfRoundBrackets = [];
+    const idOfRoundBrackets = [];
     const splitedString = txt.split('');
     for (let i = 0; i < splitedString.length; i++) {
       if (splitedString[i] === '(') {
@@ -33,7 +35,7 @@ class BlockBuilder {
 
   insideCurlyBrackets(txt) {
     let counter = 0;
-    let idOfCurlyBrackets = [];
+    const idOfCurlyBrackets = [];
     for (let i = 0; i < txt.length; i++) {
       if (txt[i].includes('{')) {
         if (!counter) {
@@ -53,10 +55,10 @@ class BlockBuilder {
 
   resGeneration(type, text, id, prevId) {
     const element = {
-      type: type,
-      text: text,
-      id: id,
-      prevId: prevId,
+      type,
+      text,
+      id,
+      prevId,
     };
     this.res.push(element);
   }
@@ -80,8 +82,8 @@ class BlockBuilder {
     );
 
     if (
-      str.split('')[str.split('').length - 1] === '{' ||
-      arr[i + 1].trimStart().split('')[0] === '{'
+      str.split('')[str.split('').length - 1] === '{'
+      || arr[i + 1].trimStart().split('')[0] === '{'
     ) {
       BlockBuilder.currArr = arr.slice(i, arr.length);
       currRowLimits = this.insideCurlyBrackets(BlockBuilder.currArr);
@@ -91,23 +93,22 @@ class BlockBuilder {
         this.prevId,
       );
       return i + currRowLimits[1];
+    }
+    if (str.split('')[str.split('').length - 1] === ';') {
+      this.prevId = this.id;
+      this.findKeyWords(
+        [
+          str
+            .split('')
+            .slice(currStrLimits[1] + 1, str.split('').length)
+            .join(''),
+        ],
+        this.prevId,
+      );
     } else {
-      if (str.split('')[str.split('').length - 1] === ';') {
-        this.prevId = this.id;
-        this.findKeyWords(
-          [
-            str
-              .split('')
-              .slice(currStrLimits[1] + 1, str.split('').length)
-              .join(''),
-          ],
-          this.prevId,
-        );
-      } else {
-        this.prevId = this.id;
-        this.findKeyWords([arr[i + 1]], this.prevId);
-        i++;
-      }
+      this.prevId = this.id;
+      this.findKeyWords([arr[i + 1]], this.prevId);
+      i++;
     }
     return i;
   }
@@ -144,55 +145,35 @@ class BlockBuilder {
     BlockBuilder.currArr = arr;
     for (let i = 0; i < arr.length; i++) {
       const str = arr[i];
-      // REMOVE MAGIC NUMBER
-      if (
-        str.trimStart().split('').slice(0, 7).join('').includes('print') ||
-        str.trimStart().split('').slice(0, 7).join('').includes('scan')
-      ) {
-        this.id++;
-        this.resGeneration('print/scan', str, this.id, previousId);
-      } else {
-        for (const key in maps) {
-          const elems = maps[key];
-          if (typeof elems === 'object') {
-            if (checkFunc(elems)) {
-              const item = elems[0];
-              if (str.includes(item) && !str.includes(';')) {
-                i = this.nestedBlocks(key, arr, str, i, previousId);
-                break;
-              }
-            } else if (checkDef(elems)) {
-              const item = elems[0];
-              if (str.includes(item) && !str.includes('(', ')', '?')) {
-                this.id++;
-                this.resGeneration(key, str, this.id, previousId);
-                break;
-              }
-            } else if (checkCase(elems)) {
-              const item = elems[1];
-              if (str.includes(item)) {
-                i = this.findCaseDefault(arr, i, previousId, elems[0], elems[1]);
-                break;
-              }
-            } else {
-              const item = elems[0];
-              if (str.includes(item) && str.includes(':')) {
-                i = this.findTern(i, previousId, str);
-                break;
-              } else {
-                if (!str.includes('#') && str.length != 1) {
-                  this.id++;
-                  this.resGeneration('expression', str, this.id, previousId);
-                }
-              }
-            }
+      let flag= false;
+      for (const key in maps) {
+        const elems = maps[key];
+        if (str.includes(elems) && !flag) {
+          i = this.nestedBlocks(key, arr, str, i, previousId);
+          flag = true;
+        } else if (typeof elems === 'object' && !flag) {
+          if (checkDef(elems, maps)) {
+            flag = processingDef.apply(this, [elems, str, key, previousId]);
           }
-          if (str.includes(elems)) {
+          if (checkCase(elems) && str.includes(elems[1])) {
+            i = this.findCaseDefault(arr, i, previousId, elems[0], elems[1]);
+            flag = true;
+          }
+          if (checkPrintOrScan(elems)) {
+            flag = processingPrintOrScan.apply(this, [elems, str, key, previousId]);
+          }
+          if (checkFunc(elems, maps) && processingFunc(elems, str)) {
             i = this.nestedBlocks(key, arr, str, i, previousId);
-            break;
+            flag = true;
+          }
+          if (checkTern(elems) && str.includes(elems[0], elems[1])) {
+            i = this.findTern(i, previousId, str);
+            flag = true;
           }
         }
-      } 
+      } if (!flag && !str.includes('#') && str.length != 1) {
+        flag = processingExp.apply(this, [str, previousId]);
+      }
     }
   }
 

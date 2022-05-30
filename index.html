@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
+    <title>FLOWCHARTS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/style.css">
@@ -24,11 +24,12 @@
     </div>
     <div class="navbar">
         <a href="#" class="active">Home</a>
-        <a href="#">Information</a>
+        <a href="#inf_pro">Information</a>
+        <a href="#inf_contacts">Contacts</a>
     </div>
-
     <div class="row">
         <div class="side">
+            <a name="inf_pro"></a>
             <h2 class="about_us">About us</h2>
             <div class="text_about_us" style="height:auto;">
                 <h4 class="inf_pro">Information of our project:</h4>
@@ -40,12 +41,33 @@
                     be transmitted orally or stored and distributed in the form of reports presented in a variety of
                     formats.</p>
             </div>
-            <h3 class="contacts">Our contacts</h3>
-            <ol class="bullet">
-                <li class="li_inst"><a href="#">Instagram</a></li>
-                <li class="li_tg"><a href="#">Telegram</a></li>
-                <li class="li_git"><a href="#">GitHub</a></li>
-            </ol>
+            <a name="inf_contacts"></a>
+            <h2 class="contacts">Our contacts</h2>
+                <div class="dropdown-inst">
+                    <button class="dropbtn-inst">Instagram</button>
+                    <div class="dropdown-inst-content">
+                      <a href="#">Vlad</a>
+                      <a href="#">Oleg</a>
+                      <a href="#">Vita</a>
+                    </div>
+                </div>
+                <div class="dropdown-git">
+                    <button class="dropbtn-git">GitHub</button>
+                    <div class="dropdown-git-content">
+                      <a href="#">Vlad</a>
+                      <a href="#">Oleg</a>
+                      <a href="#">Vita</a>
+                    </div>
+                </div>
+                <div class="dropdown-tg">
+                    <button class="dropbtn-tg">Telegram</button>
+                    <div class="dropdown-tg-content">
+                      <a href="#tg">Vlad</a>
+                      <a href="#">Oleg</a>
+                      <a href="#">Vita</a>
+                    </div>
+                </div>
+            
         </div>
         <div class="main">
             <h2 class="headers">Let's start creating a flowchart</h2>
@@ -75,7 +97,7 @@
             </div>
             <div class="column links">
                 <h3>Some Links</h3>
-                <ul>
+                <ul class="footer-list">
                     <li>
                         <a href="#faq">F.A.Q</a>
                     </li>
@@ -86,13 +108,13 @@
                         <a href="#terms-of-services">Terms Of Service</a>
                     </li>
                     <li>
-                        <a href="#support">Support</a>
+                        <a class="support" href="#modal">Support</a>
                     </li>
                 </ul>
             </div>
             <div class="column links">
                 <h3>Some Links</h3>
-                <ul>
+                <ul class="footer-list">
                     <li>
                         <a href="#home">Home</a>
                     </li>
@@ -105,10 +127,12 @@
                 </ul>
             </div>
             <div class="column subscribe">
-                <h3>Newsletter</h3>
-                <div>
-                    <input placeholder="Your email id here" type="email" />
-                    <button>Subscribe</button>
+                <h3>Updates</h3>
+                <div class="img-footer">
+                    <span>
+                        <a target="_blank" id="link_fot" href="">Last commit was made by!</a>
+                    </span>
+                    <img src="" id="img_fot" alt="There is an img">
                 </div>
             </div>
         </div>
@@ -117,9 +141,11 @@
         </div>
     </footer>
     <script src="scripts/main.js" type="module"></script>
-    <script src="scripts/Cleaner.js" type="module"></script>
-    <script src="scripts/config.js" type="module"></script>
-    <script src="scripts/BlockBuilder.js" type="module"></script>
+    <script src="scripts/dropmenus.js" type="module"></script>
+    <script src="scripts/creatinglinks.js" type="module"></script>
+    <script src="scripts/plugins/base.js"></script>
+    <script src="scripts/plugins/modal.js"></script>
+    <script src="scripts/plugins/index.js"></script>
 </body>
 
 </html>

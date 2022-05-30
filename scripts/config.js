@@ -1,50 +1,64 @@
-
 const maps = {
-    defD: ['double', ';'],
-    defV: ['void', ';'],
-    defC: ['char', ';'],
-    defI: ['int', ';'],
-    defF: ['float', ';'],
-    else: 'else',
-    if: 'if',
-    main: ['main', '(', ')'],
-    for: 'for',
-    customFD: ['double', '(', ')'],
-    customFV: ['void', '(', ')'],
-    customFC: ['char', '(', ')'],
-    customFI: ['int', '(', ')'],
-    customFF: ['float', '(', ')'],
-    while: ['while', '(', ')'],
-    do: 'do',
-    doWhile: 'while',
-    switch: 'switch',
-    case: ['break', 'case'],
-    default: ['}', 'default'],
-    tern: ['?', ':'],
+  customF: [['main', '(', ')'], ['double', '(', ')'], ['void', '(', ')'], ['char', '(', ')'], ['int', '(', ')'], ['float', '(', ')']],
+  def: [['double', ';'], ['void', ';'], ['char', ';'], ['int', ';'], ['float', ';']],
+  else: 'else',
+  if: 'if',
+  for: 'for',
+  do: 'do',
+  while: 'while',
+  switch: 'switch',
+  case: ['break', 'case'],
+  default: ['}', 'default'],
+  tern: ['?', ':'],
+  printf: ['printf','(', ')', '"'],
+  scanf: ['scanf','(', ')', '"'],
 };
 
-const checkFunc = function (array) {
-    let flag = false;
-    if (array.includes('(', ')')) {
-        flag = true;
+const checkFunc = (array, maps) => array === maps.customF;
+
+const checkDef = (array, maps) => array === maps.def;
+
+const checkCase = (array) => array.includes('break', 'case') || array.includes('}', 'default');
+
+const checkPrintOrScan = (array) => array.includes('printf') || array.includes('scanf');
+
+const checkTern = (array) => array === maps.tern;
+
+function processingFunc(elems, str) {
+  for (const func of elems) {
+    if (str.includes(...func) && !str.includes(';')) {
+      return true;
     }
-    return flag;
+  }
+  return false;
+}
+
+function processingDef(elems, str, key, previousId) {
+  for (const def of elems) {
+    if (str.includes(...def) && !str.includes('(', ')', '?')) {
+      this.id++;
+      this.resGeneration(key, str, this.id, previousId);
+      return true;
+    }
+  }
+  return false;
+}
+
+function processingPrintOrScan(elems, str, key, previousId) {
+    if (str.includes(...elems)) {
+      this.id++;
+      this.resGeneration(key, str, this.id, previousId);
+      return true;
+    }
+  return false;
+}
+
+function processingExp(str, previousId) {
+  this.id++;
+  this.resGeneration('expression', str, this.id, previousId);
+  return true;
+}
+
+export {
+  maps, checkFunc, checkDef, checkCase, checkPrintOrScan, processingFunc, processingDef, processingPrintOrScan, processingExp, checkTern
 };
-
-const checkDef = function (array) {
-    let flag = false;
-    if (array.includes(';')) {
-        flag = true;
-    }
-    return flag;
-}
-
-const checkCase = function (array) {
-    let flag = false;
-    if (array.includes('break', 'case') || array.includes('}', 'default')) {
-        flag = true;
-    }
-    return flag;
-}
-
-export { maps, checkFunc, checkDef, checkCase };
