@@ -1,7 +1,7 @@
 const selectElement = (selector) => {
   const element = document.querySelector(selector);
   if (element) return element;
-  throw new Error ('Make sure that everything is correct!');
+  throw new Error('Make sure that everything is correct!');
 };
 
 const dropbtnInst = selectElement('.dropbtn-inst');
@@ -32,4 +32,3 @@ supportBtn.addEventListener('click', () => {
 closingBtn.addEventListener('click', () => {
   modal.close();
 });
-
