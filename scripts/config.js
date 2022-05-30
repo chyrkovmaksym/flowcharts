@@ -10,8 +10,8 @@ const maps = {
   case: ['break', 'case'],
   default: ['}', 'default'],
   tern: ['?', ':'],
-  printf: ['printf','(', ')', '"'],
-  scanf: ['scanf','(', ')', '"'],
+  printf: ['printf', '(', ')', '"'],
+  scanf: ['scanf', '(', ')', '"'],
 };
 
 const checkFunc = (array, maps) => array === maps.customF;
@@ -45,11 +45,11 @@ function processingDef(elems, str, key, previousId) {
 }
 
 function processingPrintOrScan(elems, str, key, previousId) {
-    if (str.includes(...elems)) {
-      this.id++;
-      this.resGeneration(key, str, this.id, previousId);
-      return true;
-    }
+  if (str.includes(...elems)) {
+    this.id++;
+    this.resGeneration(key, str, this.id, previousId);
+    return true;
+  }
   return false;
 }
 
@@ -60,5 +60,5 @@ function processingExp(str, previousId) {
 }
 
 export {
-  maps, checkFunc, checkDef, checkCase, checkPrintOrScan, processingFunc, processingDef, processingPrintOrScan, processingExp, checkTern
+  maps, checkFunc, checkDef, checkCase, checkPrintOrScan, processingFunc, processingDef, processingPrintOrScan, processingExp, checkTern,
 };

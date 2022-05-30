@@ -1,5 +1,5 @@
 import {
-  checkFunc, checkDef, checkCase, checkPrintOrScan, maps, processingFunc, processingDef, processingPrintOrScan, processingExp, checkTern
+  checkFunc, checkDef, checkCase, checkPrintOrScan, maps, processingFunc, processingDef, processingPrintOrScan, processingExp, checkTern,
 } from './config.js';
 
 class BlockBuilder {
@@ -145,7 +145,7 @@ class BlockBuilder {
     BlockBuilder.currArr = arr;
     for (let i = 0; i < arr.length; i++) {
       const str = arr[i];
-      let flag= false;
+      let flag = false;
       for (const key in maps) {
         const elems = maps[key];
         if (str.includes(elems) && !flag) {
