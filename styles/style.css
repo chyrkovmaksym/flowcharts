@@ -114,9 +114,32 @@ textarea {
     color: #121315;
 }
 
+<<<<<<< HEAD
 .dropbtn-inst, .dropbtn-git, .dropbtn-tg {
     background-color: white;
     border: #1abc9c 3px solid;
+=======
+.bullet {
+    font-family: "Poppins", sans-serif;
+    margin-left: 0;
+    list-style: none;
+    counter-reset: li;
+    padding: 0px;
+    width: 40%;
+    text-align: center;
+}
+
+
+
+.bullet .li_inst,
+.li_git,
+.li_tg {
+    position: static;
+    margin-bottom: 13px;
+    border: 3px solid #1abc9c;
+    ;
+    padding: 10px;
+>>>>>>> 965cf01074f43e832010d9e373eece3273365328
     border-radius: 10px;
     color: black;
     padding: 16px;
@@ -126,11 +149,20 @@ textarea {
     width: 160px;
 }
 
+<<<<<<< HEAD
   .dropbtn-inst::before {
     font-size: 18px;
     padding-right: 15px;
     content: "\ea92";
     font-family: 'icomoon';
+=======
+.bullet li:hover {
+    border: 3px solid white;
+    background: #1abc9c;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    color: #000000;
+    font-family: 'Courier Prime', monospace;
+>>>>>>> 965cf01074f43e832010d9e373eece3273365328
 }
 
   .dropbtn-git::before {
@@ -283,6 +315,10 @@ button {
     margin-top: 10px;
     border-radius: 10px;
     box-shadow: 0 0 40px 40px #1abc9c inset, 0 0 0 0 #1abc9c;
+<<<<<<< HEAD
+=======
+    ;
+>>>>>>> 965cf01074f43e832010d9e373eece3273365328
     font-family: 'Courier Prime', monospace;
     font-weight: bold;
     letter-spacing: 2px;
@@ -304,7 +340,11 @@ button {
     width: 10ch;
     color: white;
     font-family: 'Courier Prime', monospace;
+<<<<<<< HEAD
     font-size: 115px;
+=======
+    font-size: 120px;
+>>>>>>> 965cf01074f43e832010d9e373eece3273365328
     white-space: nowrap;
     overflow: hidden;
     border-right: 5px solid white;
@@ -343,6 +383,7 @@ button {
     content: "\f0ad";
     font-family: 'icomoon';
 }
+<<<<<<< HEAD
 
 .img-footer {
     text-align: center;
@@ -476,4 +517,30 @@ button {
 
 .modal-body {
     padding: 15px;
+=======
+
+.img-footer {
+    text-align: center;
+}
+
+.img-footer :nth-child(1) {
+    text-decoration: none;
+    color: #c7940a;
+    font-size: 16px;
+}
+
+.img-footer :nth-child(1):hover {
+    color: #2a8ded;
+}
+
+
+.img-footer :nth-child(2) {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: #c7940a 2px solid;
+    border-radius: 10px;
+>>>>>>> 965cf01074f43e832010d9e373eece3273365328
 }
