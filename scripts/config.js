@@ -1,16 +1,16 @@
 const maps = {
+  printf: ['printf', '(', ')', '"'],
   customF: [['main', '(', ')'], ['double', '(', ')'], ['void', '(', ')'], ['char', '(', ')'], ['int', '(', ')'], ['float', '(', ')']],
   def: [['double', ';'], ['void', ';'], ['char', ';'], ['int', ';'], ['float', ';']],
+  do: 'do',
   else: 'else',
   if: 'if',
   for: 'for',
-  do: 'do',
   while: 'while',
   switch: 'switch',
   case: ['break', 'case'],
   default: ['}', 'default'],
   tern: ['?', ':'],
-  printf: ['printf', '(', ')', '"'],
   scanf: ['scanf', '(', ')', '"'],
 };
 

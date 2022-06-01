@@ -148,10 +148,7 @@ class BlockBuilder {
       let flag = false;
       for (const key in maps) {
         const elems = maps[key];
-        if (str.includes(elems) && !flag) {
-          i = this.nestedBlocks(key, arr, str, i, previousId);
-          flag = true;
-        } else if (typeof elems === 'object' && !flag) {
+        if (typeof elems === 'object' && !flag) {
           if (checkDef(elems, maps)) {
             flag = processingDef.apply(this, [elems, str, key, previousId]);
           }
@@ -170,6 +167,9 @@ class BlockBuilder {
             i = this.findTern(i, previousId, str);
             flag = true;
           }
+        } else if (str.includes(elems) && !flag) {
+          i = this.nestedBlocks(key, arr, str, i, previousId);
+          flag = true;
         }
       } if (!flag && !str.includes('#') && str.length != 1) {
         flag = processingExp.apply(this, [str, previousId]);
