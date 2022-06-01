@@ -1,5 +1,14 @@
 import {
-  checkFunc, checkDef, checkCase, checkPrintOrScan, maps, processingFunc, processingDef, processingPrintOrScan, processingExp, checkTern,
+  checkFunc,
+  checkDef,
+  checkCase,
+  checkPrintOrScan,
+  maps,
+  processingFunc,
+  processingDef,
+  processingPrintOrScan,
+  processingExp,
+  checkTern,
 } from './config.js';
 
 class BlockBuilder {
@@ -66,48 +75,43 @@ class BlockBuilder {
   static currArr = [];
 
   nestedBlocks(keyWord, arr, str, i, previousId) {
-    let currRowLimits = [];
-    let currStrLimits = [];
     this.id++;
-    currStrLimits = this.insideRoundBrackets(str);
-
+    const [leftBorderStr, rightBorderStr] = this.insideRoundBrackets(str);
+    const strArray = str.split('');
+    const lastElement = (arr) => arr[arr.length - 1];
+    const lastSymbolOfStr = lastElement(strArray);
+    const nextRow = arr[i + 1];
     this.resGeneration(
       keyWord,
-      str
-        .split('')
-        .slice(currStrLimits[0], currStrLimits[1] + 1)
-        .join(''),
+      strArray.slice(leftBorderStr, rightBorderStr + 1).join(''),
       this.id,
-      previousId,
+      previousId
     );
 
     if (
-      str.split('')[str.split('').length - 1] === '{'
-      || arr[i + 1].trimStart().split('')[0] === '{'
+      lastSymbolOfStr === '{' ||
+      nextRow.split('')[0] === '{'
     ) {
       BlockBuilder.currArr = arr.slice(i, arr.length);
-      currRowLimits = this.insideCurlyBrackets(BlockBuilder.currArr);
-      this.prevId = this.id;
-      this.findKeyWords(
-        BlockBuilder.currArr.slice(currRowLimits[0] + 1, currRowLimits[1]),
-        this.prevId,
+      const [leftBorderRow, rightBorderRow] = this.insideCurlyBrackets(
+        BlockBuilder.currArr
       );
-      return i + currRowLimits[1];
-    }
-    if (str.split('')[str.split('').length - 1] === ';') {
       this.prevId = this.id;
       this.findKeyWords(
-        [
-          str
-            .split('')
-            .slice(currStrLimits[1] + 1, str.split('').length)
-            .join(''),
-        ],
-        this.prevId,
+        BlockBuilder.currArr.slice(leftBorderRow + 1, rightBorderRow),
+        this.prevId
+      );
+      return i + rightBorderRow;
+    }
+    if (lastSymbolOfStr === ';') {
+      this.prevId = this.id;
+      this.findKeyWords(
+        [strArray.slice(rightBorderStr + 1, strArray.length).join('')],
+        this.prevId
       );
     } else {
       this.prevId = this.id;
-      this.findKeyWords([arr[i + 1]], this.prevId);
+      this.findKeyWords([nextRow], this.prevId);
       i++;
     }
     return i;
@@ -157,7 +161,12 @@ class BlockBuilder {
             flag = true;
           }
           if (checkPrintOrScan(elems)) {
-            flag = processingPrintOrScan.apply(this, [elems, str, key, previousId]);
+            flag = processingPrintOrScan.apply(this, [
+              elems,
+              str,
+              key,
+              previousId,
+            ]);
           }
           if (checkFunc(elems, maps) && processingFunc(elems, str)) {
             i = this.nestedBlocks(key, arr, str, i, previousId);
@@ -171,7 +180,8 @@ class BlockBuilder {
           i = this.nestedBlocks(key, arr, str, i, previousId);
           flag = true;
         }
-      } if (!flag && !str.includes('#') && str.length != 1) {
+      }
+      if (!flag && !str.includes('#') && str.length != 1) {
         flag = processingExp.apply(this, [str, previousId]);
       }
     }
