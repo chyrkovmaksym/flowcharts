@@ -1,14 +1,10 @@
-const selectElement = (selector) => {
-  const element = document.querySelector(selector);
-  if (element) return element;
-  throw new Error('Make sure that everything is correct!');
-};
 
 const dropbtnInst = selectElement('.dropbtn-inst');
 const dropbtnGit = selectElement('.dropbtn-git');
 const dropbtnTg = selectElement('.dropbtn-tg');
 const supportBtn = selectElement('.support');
 const termsOfServiceBtn = selectElement('.termsOfSupport');
+const FAQBtn = selectElement('.FAQ');
 
 dropbtnInst.addEventListener('click', () => {
   const dropdownInst = selectElement('.dropdown-inst');
@@ -31,4 +27,8 @@ supportBtn.addEventListener('click', () => {
 
 termsOfServiceBtn.addEventListener('click', () => {
   modalTermsOfService.open();
+});
+
+FAQBtn.addEventListener('click', () => {
+  modalFAQ.open();
 });
