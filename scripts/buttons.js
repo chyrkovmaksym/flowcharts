@@ -8,7 +8,7 @@ const dropbtnInst = selectElement('.dropbtn-inst');
 const dropbtnGit = selectElement('.dropbtn-git');
 const dropbtnTg = selectElement('.dropbtn-tg');
 const supportBtn = selectElement('.support');
-const closingBtn = selectElement('.modal-close');
+const termsOfServiceBtn = selectElement('.termsOfSupport');
 
 dropbtnInst.addEventListener('click', () => {
   const dropdownInst = selectElement('.dropdown-inst');
@@ -26,9 +26,9 @@ dropbtnTg.addEventListener('click', () => {
 });
 
 supportBtn.addEventListener('click', () => {
-  modal.open();
+  modalSupport.open();
 });
 
-closingBtn.addEventListener('click', () => {
-  modal.close();
+termsOfServiceBtn.addEventListener('click', () => {
+  modalTermsOfService.open();
 });

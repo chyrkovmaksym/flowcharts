@@ -1,15 +1,15 @@
+import { maps } from './config.js';
 import {
   checkFunc,
   checkDef,
   checkCase,
   checkPrintOrScan,
-  maps,
   processingFunc,
   processingDef,
   processingPrintOrScan,
   processingExp,
   checkTern,
-} from './config.js';
+} from './processingfunctions.js';
 
 class BlockBuilder {
   constructor(text) {
@@ -85,21 +85,21 @@ class BlockBuilder {
       keyWord,
       strArray.slice(leftBorderStr, rightBorderStr + 1).join(''),
       this.id,
-      previousId
+      previousId,
     );
 
     if (
-      lastSymbolOfStr === '{' ||
-      nextRow.split('')[0] === '{'
+      lastSymbolOfStr === '{'
+      || nextRow.split('')[0] === '{'
     ) {
       BlockBuilder.currArr = arr.slice(i, arr.length);
       const [leftBorderRow, rightBorderRow] = this.insideCurlyBrackets(
-        BlockBuilder.currArr
+        BlockBuilder.currArr,
       );
       this.prevId = this.id;
       this.findKeyWords(
         BlockBuilder.currArr.slice(leftBorderRow + 1, rightBorderRow),
-        this.prevId
+        this.prevId,
       );
       return i + rightBorderRow;
     }
@@ -107,7 +107,7 @@ class BlockBuilder {
       this.prevId = this.id;
       this.findKeyWords(
         [strArray.slice(rightBorderStr + 1, strArray.length).join('')],
-        this.prevId
+        this.prevId,
       );
     } else {
       this.prevId = this.id;
@@ -142,7 +142,7 @@ class BlockBuilder {
     this.resGeneration('tern', ternParts[0], this.id, previousId);
     ternParts.shift();
     this.findKeyWords(ternParts, this.prevId);
-    return ++i;
+    return i++;
   }
 
   findKeyWords(arr, previousId) {
@@ -155,25 +155,21 @@ class BlockBuilder {
         if (typeof elems === 'object' && !flag) {
           if (checkDef(elems, maps)) {
             flag = processingDef.apply(this, [elems, str, key, previousId]);
-          }
-          if (checkCase(elems) && str.includes(elems[1])) {
+          } else if (checkCase(elems) && str.includes(elems[1])) {
             i = this.findCaseDefault(arr, i, previousId, elems[0], elems[1]);
             flag = true;
-          }
-          if (checkPrintOrScan(elems)) {
+          } else if (checkPrintOrScan(elems)) {
             flag = processingPrintOrScan.apply(this, [
               elems,
               str,
               key,
               previousId,
             ]);
-          }
-          if (checkFunc(elems, maps) && processingFunc(elems, str)) {
-            i = this.nestedBlocks(key, arr, str, i, previousId);
-            flag = true;
-          }
-          if (checkTern(elems) && str.includes(elems[0], elems[1])) {
+          } else if (checkTern(elems) && str.includes(elems[0], elems[1])) {
             i = this.findTern(i, previousId, str);
+            flag = true;
+          } else if (checkFunc(elems, maps) && processingFunc(elems, str)) {
+            i = this.nestedBlocks(key, arr, str, i, previousId);
             flag = true;
           }
         } else if (str.includes(elems) && !flag) {

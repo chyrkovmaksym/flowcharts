@@ -447,7 +447,6 @@ button {
 }
 
 .modal-window {
-    width: 600px;
     border-radius: 10px;
     background-color: white;
     height: max-content;
