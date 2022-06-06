@@ -11,10 +11,6 @@ const configs = {
   toText1: 15,
   toText2: 10,
   uniHeight: 50,
-  startX: 1000,
-  startY: 50,
-  classicHeight: 75,
-  lineLength: 200
 };
 
 class EllipseRect {
@@ -139,7 +135,7 @@ class Rectangle {
     context.font = configs.sizeAndFont;
     context.fillText(
       this.text,
-      this.x - this.width / 2 + configs.xTextMove,
+      this.x - this.width / 2,
       this.y + configs.yTextMove
     );
     context.stroke();
@@ -345,7 +341,7 @@ const res4 = [
   //позамовчуванню був End // елементи що не відносяться до цикла, ifа prevId=1
 ];
 const res5 = [
-  { type: 'main', text: 'Begin', id: 1, prevId: 0 },
+  { type: 'main', text: '(Begin)', id: 1, prevId: 0 },
   { type: 'variable def', text: 'int i;', id: 2, prevId: 1 },
   { type: 'for', text: '(i = 1; i < 11; ++i)', id: 3, prevId: 1 },
   { type: 'print/scan', text: 'printf("%d ", i);', id: 4, prevId: 3 },
@@ -358,14 +354,73 @@ const res5 = [
   { type: 'expression', text: 'a+3;', id: 11, prevId: 8 },
   { type: 'else', text: '', id: 12, prevId: 8 },
   { type: 'else', text: '', id: 13, prevId: 5 },
+  { type: 'end', text: 'End ', id: 14, prevId: 1 },
 ];
 
-const endPrevId = res5.find(item => item.prevId === 0);
-
-res5.push({
-  type: 'end', text: 'End',id: res5.length + 1, prevId: endPrevId.id 
-});
-
+const res6 = [
+  { type: 'main', text: '(Begin)', id: 1, prevId: 0 },
+  { type: 'variable def', text: 'int i;', id: 2, prevId: 1 },
+  { type: 'for', text: '(i = 1; i < 11; ++i)', id: 3, prevId: 1 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 4, prevId: 3 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 5, prevId: 3 },
+  { type: 'if', text: '(i>5)', id: 6, prevId: 1 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 7, prevId: 6 },
+  { type: 'expression', text: 'const a=0;', id: 8, prevId: 6 },
+  { type: 'if', text: '(x < 9)', id: 9, prevId: 6 },
+  { type: 'expression', text: 'const b = x;', id: 10, prevId: 9 },
+  { type: 'else', text: '', id: 11, prevId: 6 },
+  { type: 'expression', text: 'const b = x-1;', id: 12, prevId: 11 },
+  { type: 'expression', text: 'a+3;', id: 13, prevId: 6 },
+  { type: 'end', text: 'End ', id: 14, prevId: 1 },
+];
+const res7 = [
+  { type: 'main', text: '(Begin)', id: 1, prevId: 0 },
+  { type: 'variable def', text: 'float x;', id: 2, prevId: 1 },
+  { type: 'print/scan', text: 'printf("Enter x: \\n");', id: 3, prevId: 1 },
+  { type: 'print/scan', text: 'scanf("%f", &x);', id: 4, prevId: 1 },
+  { type: 'if', text: 'x<-10 || x>0 && x<=10)', id: 5, prevId: 1 },
+  { type: 'expression', text: 'x=10*x*x*x+7*x/5+2;', id: 6, prevId: 5 },
+  { type: 'print/scan', text: 'printf("%f", x);', id: 7, prevId: 5 },
+  { type: 'if', text: '(x>20)', id: 8, prevId: 1 },
+  { type: 'expression', text: 'x=-x+9;', id: 9, prevId: 8 },
+  { type: 'print/scan', text: 'printf("%f", x);', id: 10, prevId: 8 },
+  { type: 'else', text: '', id: 11, prevId: 1 },
+  { type: 'expression', text: 'return 0;', id: 12, prevId: 11 },
+  { type: 'end', text: 'End ', id: 13, prevId: 1 },
+];
+const res8 = [
+  { type: 'main', text: '(Begin)', id: 1, prevId: 0 },
+  { type: 'variable def', text: 'int i;', id: 2, prevId: 1 },
+  { type: 'for', text: '(i = 1; i < 11; ++i)', id: 3, prevId: 1 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 4, prevId: 3 },
+  { type: 'if', text: '(x < 9)', id: 5, prevId: 3 },
+  { type: 'expression', text: 'const b = x;', id: 6, prevId: 5 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 7, prevId: 3 },
+  { type: 'if', text: '(i>5)', id: 8, prevId: 1 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 9, prevId: 8 },
+  { type: 'expression', text: 'const a=0;', id: 10, prevId: 8 },
+  { type: 'if', text: '(x < 9)', id: 11, prevId: 8 },
+  { type: 'expression', text: 'const b = x;', id: 12, prevId: 11 },
+  { type: 'else', text: '', id: 13, prevId: 8 },
+  { type: 'expression', text: 'const b = x-1;', id: 14, prevId: 13 },
+  { type: 'expression', text: 'a+3;', id: 15, prevId: 8 },
+  { type: 'expression', text: 'a+3;', id: 16, prevId: 1 },
+];
+const res9 = [
+  { type: 'main', text: '()', id: 1, prevId: 0 },
+  { type: 'variable def', text: 'int i;', id: 2, prevId: 1 },
+  { type: 'for', text: '(i = 1; i < 11; ++i)', id: 3, prevId: 1 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 4, prevId: 3 },
+  { type: 'expression', text: 'return 0;', id: 5, prevId: 1 },
+  { type: 'if', text: '(i>5)', id: 6, prevId: 1 },
+  { type: 'for', text: '(i = 1; i < 11; ++i)', id: 7, prevId: 6 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 8, prevId: 7 },
+  { type: 'else', text: '', id: 9, prevId: 1 },
+  { type: 'print/scan', text: 'printf("%d ", i);', id: 10, prevId: 9 },
+  { type: 'expression', text: 'const a=0;', id: 11, prevId: 9 },
+  { type: 'expression', text: 'a+3;', id: 12, prevId: 9 },
+  { type: 'end', text: 'End ', id: 13, prevId: 1 },
+];
 // #include <stdio.h>
 
 // int main() {
@@ -382,201 +437,233 @@ res5.push({
 // }
 //start position
 //  { type: 'end', text: 'End ', id: 11, prevId: 1 },
+let X = 600;
+let Y = 25;
+const H = 75;
 
-//let X = 1000;
-//let Y = 50;
-//const H = 75;
-let flagIf = 'start';
-let idFor = null;
-let idIf = null;
-const resFigures = new Array();
-const figuresAfterIf = new Array();
+const resFigures = [];
+const figuresAfterIf = [];
 
 const cordinatX = (prevId) => resFigures[prevId - 1].x;
 
 const cordinatY = (prevId) => resFigures[prevId - 1].y;
 
+// function withoutElse() {
+//   let currId = null;
+//   ifPrevId !== 1 && ifPrevId != idFor ? (currId = ifPrevId) : (currId = idIf);
+//   const ifX = cordinatX(currId);
+//   const ifY = cordinatY(currId);
+//   context.moveTo(ifX + 200, ifY + configs.uniHeight);
+//   context.lineTo(ifX + 200, Y);
+//   context.lineTo(X, Y);
+//   context.stroke();
+// }
+
 //виходить з else
-const afterIf = (id) => {
-  //-1 - тільки після else буде виконуватись
-  figuresAfterIf.push(resFigures[id - 2]); //останній елемент справа
-  configs.startX = cordinatX(1);
-  configs.startY = cordinatY(1);
-  let lastY = 0;
+const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse) => {
+  console.log(id);
+  figuresAfterIf.push(resFigures[id - 2]);
+  X = cordinatX(prevId);
+  Y = cordinatY(prevId);
+  if (prevId != 1 && prevId != idFor) X -= 200;
   for (const figure of figuresAfterIf) {
     //знаходить найнижчий Y
-    const currY = figure.y;
-    if (currY > lastY) {
-      lastY = currY;
-    }
+    if (figure.y > Y) Y = figure.y;
   }
-  configs.startY = lastY;
   for (const figure of figuresAfterIf) {
     //малює з'єднання
     const currY = figure.y + configs.uniHeight;
     const currX = figure.x;
     context.moveTo(currX, currY);
-    context.lineTo(currX, configs.startY + configs.classicHeight);
-    context.lineTo(configs.startX, configs.startY + configs.classicHeight);
+    context.lineTo(currX, Y + H);
+    context.lineTo(X, Y + H);
     context.stroke();
   }
-  context.moveTo(configs.startX,
-    configs.startY + configs.uniHeight + configs.classicHeight / 3
-  );
-  context.lineTo(configs.startX, configs.startY + configs.classicHeight * 2);
+  //вертикальне з'єднання
+  context.moveTo(X, Y + configs.uniHeight + H / 3);
+  context.lineTo(X, Y + H * 2);
   context.stroke();
-  flagIf = 'start';
-  //малюєм
-  configs.startY = lastY + configs.classicHeight;
+  Y += H;
+  if (idElse == null && figuresAfterIf[0].x <= 500) {
+    //просто хз
+    let currId = null;
+    ifPrevId !== 1 && ifPrevId != idFor ? (currId = ifPrevId) : (currId = idIf);
+    const ifX = cordinatX(currId);
+    const ifY = cordinatY(currId);
+    context.moveTo(ifX + 200, ifY + configs.uniHeight);
+    context.lineTo(ifX + 200, Y);
+    context.lineTo(X, Y);
+    context.stroke();
+  }
+  figuresAfterIf.length = null;
+  // if (flagIfFor == null) idFor = null;
+  return { X, Y };
 };
 
-function finder(array) {
+function afterFor(X, Y, idFor, flagIfFor) {
+  if (flagIfFor != 'false') {
+    //якщо в for був if
+    X += 200;
+    Y += 25;
+  }
+  Y += H;
+  context.moveTo(X, Y);
+  if (flagIfFor != 'false') X -= 150;
+  context.lineTo(X - 200, Y);
+  let forX = cordinatX(idFor);
+  let forY = cordinatY(idFor);
+  context.lineTo(X - 200, forY + configs.uniHeight / 2);
+  context.lineTo(forX - 100, forY + configs.uniHeight / 2);
+  context.moveTo(forX + 100, forY + configs.uniHeight / 2);
+  if (flagIfFor != 'false') forX += 150;
+  context.lineTo(forX + 200, forY + configs.uniHeight / 2);
+  context.lineTo(forX + 200, Y + 25);
+  if (flagIfFor != 'false') forX -= 150;
+  context.lineTo(forX, Y + 25);
+  if (flagIfFor != 'false') Y -= 25;
+  context.lineTo(forX, Y + 75);
+  context.stroke();
+  return { X, Y };
+}
+
+function drowLine(X, Y) {
+  context.moveTo(X, Y + configs.uniHeight);
+  context.lineTo(X, Y + H);
+  context.stroke();
+}
+
+function ifLines(X, Y, text) {
+  context.moveTo(X - text.length * 10, Y + configs.uniHeight / 2);
+  context.lineTo(X - 200, Y + configs.uniHeight / 2);
+  context.lineTo(X - 200, Y + configs.uniHeight / 2 + configs.uniHeight);
+  context.moveTo(X + text.length * 10, Y + configs.uniHeight / 2);
+  context.lineTo(X + 200, Y + configs.uniHeight / 2);
+  context.lineTo(X + 200, Y + configs.uniHeight / 2 + configs.uniHeight);
+  context.stroke();
+}
+
+function finder(array, x, y) {
+  let X = x;
+  let Y = y;
+  let flagIf = 'start';
+  let flagIfFor = 'false';
+  let idFor = null;
+  let idIf = null;
+  let ifPrevId = null;
+  let idElse = null;
   for (const obj of array) {
     const type = obj.type;
     const text = obj.text;
     const id = obj.id;
     const prevId = obj.prevId;
+    // console.log(id);
+    // console.log(X);
+    // console.log(Y);
     //розпізнавання For
-    if (idFor !== null) {
-      if (prevId === idFor && type === 'if') {
-        idIf = id;
-      }
-      if (prevId !== idFor && prevId !== idIf) {
-        console.log(id);
-        const lastFigureFor = resFigures[id - 2];
-        idIf = null;
-        idFor = null;
-        console.log(lastFigureFor);
-      }
+    if (idFor !== null && prevId !== idFor && prevId !== idIf) {
+      const currCordinats = afterFor(X, Y, idFor, flagIfFor);
+      X = currCordinats.X;
+      Y = currCordinats.Y;
+      idFor = null;
+      flagIfFor = 'false';
     }
-    if (id !== 1 && prevId === 1 && flagIf === 'end') afterIf(id);
-    if (type === 'main' || type === 'end') {
-      if (type === 'end') {
-        configs.startY += configs.classicHeight;
-        const arrowDown = new ArrowDown(configs.startX, configs.startY);
-        arrowDown.draw();
-      }
-      const ellipseRect = new EllipseRect(
-        configs.startX, configs.startY,
+    if (prevId !== idIf && prevId !== idElse) flagIf = 'end';
+    if (
+      flagIf === 'end' &&
+      idIf !== null &&
+      prevId !== idElse &&
+      type !== 'else' &&
+      prevId !== idFor
+    ) {
+      console.log(resFigures);
+      const currCordinats = afterIf(
         id,
-        prevId
+        prevId,
+        X,
+        Y,
+        idFor,
+        idIf,
+        ifPrevId,
+        idElse
       );
+      X = currCordinats.X;
+      Y = currCordinats.Y;
+      idElse = null;
+      flagIf = 'end';
+    }
+    if (type === 'main' || type === 'end') {
+      if (type === 'end') Y += H;
+      const ellipseRect = new EllipseRect(X, Y, id, prevId);
       ellipseRect.textSet = obj.text;
       ellipseRect.radiusSet = configs.uniHeight / 2;
-      ellipseRect.widthSet = text.length * configs.toText1 + configs.xTextMove;
+      ellipseRect.widthSet = text.length * configs.toText1;
       ellipseRect.draw();
+      //context.beginPath();
+      if (type === 'main') drowLine(X, Y);
       resFigures.push(ellipseRect);
-      context.beginPath();
-      if (type === 'main') {
-        context.moveTo(configs.startX, configs.startY + configs.uniHeight);
-        context.lineTo(configs.startX, configs.startY + configs.classicHeight);
-        context.stroke();
-      }
     } else if (
-      type === 'print/scan' ||
-      type === 'variable def'
+      type == 'print/scan' ||
+      type == 'variable def' ||
+      type == 'expression'
     ) {
-      configs.startY += configs.classicHeight;
-      const arrowDown = new ArrowDown(configs.startX, configs.startY);
-      arrowDown.draw();
-      const parallelogram = new Parallelogram45(configs.startX, configs.startY);
+      Y += H;
+      const parallelogram = new Parallelogram45(X, Y);
       parallelogram.textSet = obj.text;
       parallelogram.heightSet = configs.uniHeight;
       parallelogram.widthSet =
         2 * configs.uniHeight + text.length * configs.toText2;
       parallelogram.draw();
       resFigures.push(parallelogram);
-      context.moveTo(configs.startX, configs.startY + configs.uniHeight);
-      context.lineTo(configs.startX, configs.startY + configs.classicHeight);
-      context.stroke();
-    } else if (
-      type === 'expression'
-    ) {
-      configs.startY += configs.classicHeight;
-      const arrowDown = new ArrowDown(configs.startX, configs.startY);
-      arrowDown.draw();
-      const rectangle = new Rectangle(configs.startX, configs.startY);
-      rectangle.textSet = obj.text;
-      rectangle.heightSet = configs.uniHeight;
-      rectangle.widthSet =
-        text.length * configs.toText2 + configs.xTextMove;
-      rectangle.draw();
-      resFigures.push(rectangle);
-      context.moveTo(configs.startX, configs.startY + configs.uniHeight);
-      context.lineTo(configs.startX, configs.startY + configs.classicHeight);
-      context.stroke();
+      drowLine(X, Y);
     } else if (type === 'if') {
-      configs.startY += configs.classicHeight;
-      const arrowDown = new ArrowDown(configs.startX, configs.startY);
-      arrowDown.draw();
-      const rhombus = new Rhombus(configs.startX, configs.startY);
+      if (idFor != null) flagIfFor = 'true';
+      flagIf = 'start';
+      idIf = id;
+      ifPrevId = prevId;
+      Y += H;
+      const rhombus = new Rhombus(X, Y);
       rhombus.textSet = obj.text;
       rhombus.heightSet = configs.uniHeight;
       rhombus.widthSet = 2 * (text.length * configs.toText2);
       rhombus.draw();
       resFigures.push(rhombus);
-      context.moveTo(
-        configs.startX - text.length * configs.toText2,
-        configs.startY + configs.uniHeight / 2
-      );
-      context.lineTo(
-        configs.startX - configs.lineLength,
-        configs.startY + configs.uniHeight / 2
-      );
-      context.lineTo(
-        configs.startX - configs.lineLength,
-        configs.startY + configs.uniHeight / 2 + configs.uniHeight
-      );
-      context.moveTo(
-        configs.startX + text.length * 10,
-        configs.startY + configs.uniHeight / 2
-      );
-      context.lineTo(
-        configs.startX + configs.lineLength,
-        configs.startY + configs.uniHeight / 2
-      );
-      context.lineTo(
-        configs.startX + configs.lineLength,
-        configs.startY + configs.uniHeight / 2 + configs.uniHeight
-      );
-      /*context.lineTo(X - configs.lineLength,
-        Y + configs.uniHeight / 2 + configs.uniHeight
-      );*/
-      context.stroke();
-      configs.startX -= configs.lineLength;
+      ifLines(X, Y, text);
+      X -= 200;
     } else if (type === 'for') {
       idFor = id;
-      configs.startY += configs.classicHeight;
-      const arrowDown = new ArrowDown(configs.startX, configs.startY);
-      arrowDown.draw();
-      const hexsagon = new Hexsagon(configs.startX, configs.startY);
+      Y += H;
+      const hexsagon = new Hexsagon(X, Y);
       hexsagon.textSet = obj.text;
       hexsagon.heightSet = configs.uniHeight;
       hexsagon.widthSet = text.length * configs.toText2;
       hexsagon.draw();
       resFigures.push(hexsagon);
-      context.moveTo(configs.startX, configs.startY + configs.uniHeight);
-      context.lineTo(configs.startX, configs.startY + configs.classicHeight);
-      context.stroke();
+      drowLine(X, Y);
     } else if (type === 'else') {
-      figuresAfterIf.push(resFigures[id - 2]);
-      //так як id з 1 починається і попередній
+      idElse = id;
       flagIf = 'end';
-      configs.startX = cordinatX(prevId);
-      configs.startY = cordinatY(prevId);
-      configs.startX += 200;
-      const elseEllement = new ElseMove(configs.startX, configs.startY);
-      //console.log(elseEllement);
+      figuresAfterIf.push(resFigures[id - 2]); //так як id з 1 починається і попередній
+      //бере кординати в залежності від того що закрили
+      let mainIf = null;
+      prevId === ifPrevId ? (mainIf = idIf) : (mainIf = ifPrevId);
+      X = cordinatX(mainIf);
+      Y = cordinatY(mainIf);
+      X += 200;
+      const elseEllement = new ElseMove(X, Y);
       resFigures.push(elseEllement);
     } else if (type === 'while') {
-      configs.startY += configs.classicHeight;
-      const rhombus = new Rhombus(configs.startX, configs.startY);
+      Y += H;
+      const rhombus = new Rhombus(X, Y);
       rhombus.textSet = obj.text;
       rhombus.heightSet = configs.uniHeight;
       rhombus.widthSet = 2 * (text.length * configs.toText2);
       rhombus.draw();
       resFigures.push(rhombus);
+      //else if(array.length)
     }
   }
+  resFigures.length = null;
 }
-finder(res5);
+finder(res9, X, Y);
+console.log(resFigures);
+console.log(figuresAfterIf);
