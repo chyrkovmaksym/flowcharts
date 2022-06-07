@@ -1,4 +1,3 @@
-
 const dropbtnInst = selectElement('.dropbtn-inst');
 const dropbtnGit = selectElement('.dropbtn-git');
 const dropbtnTg = selectElement('.dropbtn-tg');

@@ -78,7 +78,6 @@ body {
 .fakeimg {
     width: 100%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -88,11 +87,11 @@ body {
 .text_about_us {
     width: 100%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     padding: 20px;
+    height: fit-content;
 }
 
 textarea {
@@ -100,7 +99,6 @@ textarea {
     resize: none;
     padding: 30px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -393,10 +391,6 @@ button {
     }
 }
 
-.modal {
-
-}
-
 .modal.active .modal-overlay,
 .modal.active .modal-window {
     opacity: 1;
@@ -476,4 +470,13 @@ button {
 
 .modal-body {
     padding: 15px;
+}
+
+#c1 {
+    display: none;
+    border: #121315 solid 2px;
+}
+
+#canvas {
+    width: 100%;
 }
