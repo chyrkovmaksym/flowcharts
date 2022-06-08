@@ -254,20 +254,39 @@ footer * {
     margin: 0;
 }
 
-input,
-button {
-    font-size: 1em;
-    padding: 1em;
+.buttons-code {
     width: 100%;
-    border-radius: 5px;
+    margin-top: 15px;
     margin-bottom: 5px;
 }
 
-/*button {
-    background-color: #c7940a;
+.button-send {
+    background-color: #1abc9c;
+    margin-bottom: 5px;
     color: #ffffff;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    font-family: 'Courier Prime', monospace;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 2px;
+    transition: .15s ease-in-out;
 }
-*/
+
+.button-clear {
+    background-color: #e45c2a;
+    margin-bottom: 5px;
+    color: #ffffff;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    font-family: 'Courier Prime', monospace;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 2px;
+    transition: .15s ease-in-out;
+}
 
 .copyright {
     height: auto;
