@@ -1,6 +1,6 @@
-import { BlockBuilder } from './parsecode.js';
-import { Cleaner } from './cleancode.js';
-import { finder, X, Y } from './test.js';
+import { BlockBuilder } from './parser/parsecode.js';
+import { Cleaner } from './parser/cleancode.js';
+import { finder, X, Y } from './drawing/drawingfunction.js';
 
 const code = document.getElementById('code');
 const buttonSend = document.getElementById('button-send');
