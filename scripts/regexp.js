@@ -1,16 +1,13 @@
-
 const highlightText = (text) => {
-  let result = ''
-  let regex = /.*/
-  if(text.includes('%')){
+  let result = '';
+  let regex = /.*/;
+  if (text.includes('%')) {
     regex = /(?:")(?<info>.*)(?:%.*",)(?<numbers>.*)(?:\))/;
-    const groups = text.match(regex).groups;
+    const { groups } = text.match(regex);
     result = groups.info + groups.numbers;
-  }
-  else{
+  } else {
     regex = /".*"/;
     result = text.match(regex)[0];
   }
   return result;
-}
-
+};
