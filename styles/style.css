@@ -8,11 +8,11 @@ body {
 }
 
 .header {
-    padding: 0px;
+    padding: 0;
     text-align: center;
     background: #1abc9c;
     color: white;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
 }
 
 .header h1 {
@@ -23,7 +23,7 @@ body {
     overflow: hidden;
     background-color: #333;
     position: sticky;
-    position: -webkit-sticky;
+    position: sticky;
     top: 0;
 }
 
@@ -34,7 +34,7 @@ body {
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
 }
 
 .navbar a:hover {
@@ -50,26 +50,26 @@ body {
 .navbar a.active::before {
     padding-right: 10px;
     content: "\f015";
-    font-family: 'icomoon';
+    font-family: icomoon;
 }
 
 .row {
-    display: -ms-flexbox;
+    display: flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     flex-wrap: wrap;
 
 }
 
 .side {
-    -ms-flex: 30%;
+    flex: 30%;
     flex: 30%;
     background-color: #f1f1f1;
     padding: 20px;
 }
 
 .main {
-    -ms-flex: 70%;
+    flex: 70%;
     flex: 70%;
     background-color: white;
     padding: 20px;
@@ -77,19 +77,19 @@ body {
 
 .fakeimg {
     width: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 0%));
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgb(255 255 255 / 18%);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
     padding: 20px;
 }
 
 .text_about_us {
     width: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 0%));
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgb(255 255 255 / 18%);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
     padding: 20px;
     height: fit-content;
 }
@@ -98,10 +98,10 @@ textarea {
     width: 100%;
     resize: none;
     padding: 30px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 0%));
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgb(255 255 255 / 18%);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
     height: 300px;
 }
 
@@ -128,21 +128,21 @@ textarea {
     font-size: 18px;
     padding-right: 15px;
     content: "\ea92";
-    font-family: 'icomoon';
+    font-family: icomoon;
 }
 
   .dropbtn-git::before {
     font-size: 18px;
     padding-right: 15px;
     content: "\eab0";
-    font-family: 'icomoon';
+    font-family: icomoon;
 }
 
   .dropbtn-tg::before {
     font-size: 18px;
     padding-right: 15px;
     content: "\ea95";
-    font-family: 'icomoon';
+    font-family: icomoon;
 }
 
   .dropbtn-inst:hover, .dropbtn-git:hover, .dropbtn-tg:hover {
@@ -161,7 +161,7 @@ textarea {
     text-align: center;
     margin-bottom: 15px;
     max-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
     z-index: 1;
 }
 
@@ -198,7 +198,7 @@ footer {
 }
 
 footer * {
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
     box-sizing: border-box;
     border: none;
     outline: none;
@@ -263,7 +263,7 @@ footer * {
 .button-send {
     background-color: #1abc9c;
     margin-bottom: 5px;
-    color: #ffffff;
+    color: #fff;
     width: 100px;
     height: 50px;
     border-radius: 10px;
@@ -277,7 +277,7 @@ footer * {
 .button-clear {
     background-color: #e45c2a;
     margin-bottom: 5px;
-    color: #ffffff;
+    color: #fff;
     width: 100px;
     height: 50px;
     border-radius: 10px;
@@ -352,13 +352,13 @@ footer * {
 .contacts::after {
     padding-left: 20px;
     content: "\ea82";
-    font-family: 'icomoon';
+    font-family: icomoon;
 }
 
 .about_us::after {
     padding-left: 20px;
     content: "\f0ad";
-    font-family: 'icomoon';
+    font-family: icomoon;
 }
 
 .img-footer {
@@ -395,6 +395,7 @@ footer * {
     .row {
         flex-direction: column;
     }
+
     .title {
         font-size: 55px;
     }
@@ -405,6 +406,7 @@ footer * {
         float: none;
         width: 100%;
     }
+
     .title {
         font-size: 30px;
     }
@@ -424,7 +426,7 @@ footer * {
 
 
 .modal.active .modal-overlay {
-    background: rgb(0, 0, 0, .5);
+    background: rgb(0 0 0 / 50%);
 }
 
 .modal.active .modal-window {
@@ -455,7 +457,7 @@ footer * {
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgb(0, 0, 0, 0);
+    background-color: rgb(0 0 0 / 0%);
     transition: background .2s ease-in;
 }
 
@@ -477,7 +479,7 @@ footer * {
 
 .modal-title {
     font-size: 35px;
-    padding: 10px 0px 0px 10px;
+    padding: 10px 0 0 10px;
 }
 
 .modal-close {
