@@ -9,12 +9,24 @@ const buttonClear = document.getElementById('button-clear');
 let resultOfProgramm = [];
 let resultOfCleaner = [];
 
+const resultingFunction = (arrayOfObjects) => {
+  let counter = 0;
+  arrayOfObjects.forEach((element) => {
+    if (element.type === 'customF') counter++;
+  });
+  if (counter === 1) {
+    finder(arrayOfObjects, X, Y);
+  } else {
+    modalWarning.open();
+  }
+};
+
 buttonSend.addEventListener('click', () => {
   const cleanedCode = new Cleaner(code.value);
   resultOfCleaner = cleanedCode.getResult();
   const parsedCode = new BlockBuilder(resultOfCleaner);
   resultOfProgramm = parsedCode.getResult();
-  finder(resultOfProgramm, X, Y);
+  resultingFunction(resultOfProgramm);
 });
 
 buttonClear.addEventListener('click', () => {
