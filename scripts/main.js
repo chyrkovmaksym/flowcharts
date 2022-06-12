@@ -1,6 +1,7 @@
 import { BlockBuilder } from './parser/parsecode.js';
 import { Cleaner } from './parser/cleancode.js';
-import { finder, X, Y } from './drawing/drawingfunction.js';
+import { finder } from './drawing/drawingfunction.js';
+import { configs } from './drawing/figures.js';
 
 const code = document.getElementById('code');
 const buttonSend = document.getElementById('button-send');
@@ -15,7 +16,7 @@ const resultingFunction = (arrayOfObjects) => {
     if (element.type === 'customF') counter++;
   });
   if (counter === 1) {
-    finder(arrayOfObjects, X, Y);
+    finder(arrayOfObjects, configs.coordinatX, configs.coordinatY);
   } else {
     modalWarning.open();
   }

@@ -9,24 +9,22 @@ const configs = {
   toText1: 15,
   toText2: 10,
   uniHeight: 50,
+  coordinatX: 500, 
+  coordinatY: 25,
+  spaceY: 75,
+  spaceX: 200
 };
 
 class EllipseRect {
-  constructor(x, y) {
+  constructor(x, y, value, text, radius) {
     this.x = x;
     this.y = y;
+    this.height = value;
+    this.text = text;
+    this.radius = radius;
   }
-
-  set radiusSet(value) {
-    this.radius = value;
-  }
-
-  set widthSet(value) {
-    this.width = value;
-  }
-
-  set textSet(value) {
-    this.text = value;
+  get width() {
+    return this.text.length * configs.toText1;
   }
 
   draw() {
@@ -72,23 +70,15 @@ class EllipseRect {
 }
 
 class Parallelogram45 {
-  constructor(x, y) {
+  constructor(x, y, value, text) {
     this.x = x;
     this.y = y;
-  }
-
-  set heightSet(value) {
     this.height = value;
+    this.text = text;
   }
-
-  set widthSet(value) {
-    this.width = value;
+  get width() {
+    return 2 * configs.uniHeight + this.text.length * configs.toText2;
   }
-
-  set textSet(value) {
-    this.text = value;
-  }
-
   draw() {
     context.beginPath();
     context.moveTo(this.x - this.width / 2 + this.height, this.y);
@@ -100,7 +90,7 @@ class Parallelogram45 {
     context.fillText(
       this.text,
       this.x - this.width / 2 + this.height,
-      this.y + configs.yTextMove,
+      this.y + configs.yTextMove
     );
     context.stroke();
   }
@@ -149,21 +139,14 @@ class Rectangle {
 }
 
 class Hexsagon {
-  constructor(x, y) {
+  constructor(x, y, value, text) {
     this.x = x;
     this.y = y;
-  }
-
-  set heightSet(value) {
     this.height = value;
+    this.text = text;
   }
-
-  set widthSet(value) {
-    this.width = value;
-  }
-
-  set textSet(value) {
-    this.text = value;
+  get width() {
+    return this.text.length * configs.toText2;
   }
 
   draw() {
@@ -173,11 +156,11 @@ class Hexsagon {
     context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
     context.lineTo(
       this.x + this.width / 2 - this.height / 2,
-      this.y + this.height,
+      this.y + this.height
     );
     context.lineTo(
       this.x - this.width / 2 + this.height / 2,
-      this.y + this.height,
+      this.y + this.height
     );
     context.lineTo(this.x - this.width / 2, this.y + this.height / 2);
     context.lineTo(this.x - this.width / 2 + this.height / 2, this.y);
@@ -185,7 +168,7 @@ class Hexsagon {
     context.fillText(
       this.text,
       this.x - this.width / 2 + this.height / 2,
-      this.y + configs.yTextMove,
+      this.y + configs.yTextMove
     );
     context.stroke();
   }
