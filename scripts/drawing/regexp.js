@@ -7,15 +7,14 @@ const highlightText = (text) => {
     let { info, number } = groups;
     if (number.includes('&')) {
       regex = /(?:\s*&)(?<variable>\w)/;
-      let { variable } = number.match(regex).groups;
+      const { variable } = number.match(regex).groups;
       number = variable;
     }
     result = info + number;
-  }
-  else {
+  } else {
     regex = /".*"/;
     result = text.match(regex)[0];
   }
   return result;
-}
+};
 export { highlightText };
