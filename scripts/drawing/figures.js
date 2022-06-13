@@ -12,7 +12,8 @@ const configs = {
   coordinatX: 500,
   coordinatY: 25,
   spaceY: 75,
-  spaceX: 200,
+  spaceX1: 200,
+  spaceX2: 400,
 };
 
 class EllipseRect {
@@ -107,21 +108,15 @@ class ElseMove {
 }
 
 class Rectangle {
-  constructor(x, y) {
+  constructor(x, y, value, text) {
     this.x = x;
     this.y = y;
-  }
-
-  set heightSet(value) {
     this.height = value;
+    this.text = text;
   }
 
-  set widthSet(value) {
-    this.width = value;
-  }
-
-  set textSet(value) {
-    this.text = value;
+  get width() {
+    return 2 * configs.xTextMove + this.text.length * configs.toText2;
   }
 
   draw() {
@@ -134,14 +129,43 @@ class Rectangle {
     context.font = configs.sizeAndFont;
     context.fillText(
       this.text,
-      this.x - this.width / 2,
+      this.x - this.width / 2 + configs.xTextMove,
       this.y + configs.yTextMove,
     );
     context.stroke();
   }
 }
 
-class Hexsagon {
+class Rhombus {
+  constructor(x, y, value, text) {
+    this.x = x;
+    this.y = y;
+    this.height = value;
+    this.text = text;
+  }
+
+  get width() {
+    return 2 * this.text.length * configs.toText2;
+  }
+
+  draw() {
+    context.beginPath();
+    context.moveTo(this.x, this.y);
+    context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
+    context.lineTo(this.x, this.y + this.height);
+    context.lineTo(this.x - this.width / 2, this.y + this.height / 2);
+    context.lineTo(this.x, this.y);
+    context.font = configs.sizeAndFont;
+    context.fillText(
+      this.text,
+      this.x - this.width / 4,
+      this.y + configs.yTextMove,
+    );
+    context.stroke();
+  }
+}
+
+class Hexagon {
   constructor(x, y, value, text) {
     this.x = x;
     this.y = y;
@@ -172,41 +196,6 @@ class Hexsagon {
     context.fillText(
       this.text,
       this.x - this.width / 2 + this.height / 2,
-      this.y + configs.yTextMove,
-    );
-    context.stroke();
-  }
-}
-
-class Rhombus {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-
-  set heightSet(value) {
-    this.hight = value;
-  }
-
-  set widthSet(value) {
-    this.width = value;
-  }
-
-  set textSet(value) {
-    this.text = value;
-  }
-
-  draw() {
-    context.beginPath();
-    context.moveTo(this.x, this.y);
-    context.lineTo(this.x + this.width / 2, this.y + this.hight / 2);
-    context.lineTo(this.x, this.y + this.hight);
-    context.lineTo(this.x - this.width / 2, this.y + this.hight / 2);
-    context.lineTo(this.x, this.y);
-    context.font = configs.sizeAndFont;
-    context.fillText(
-      this.text,
-      this.x - this.width / 4,
       this.y + configs.yTextMove,
     );
     context.stroke();
@@ -295,5 +284,5 @@ class ArrowLeft {
 }
 
 export {
-  canvas, context, configs, Rhombus, Hexsagon, Parallelogram45, ElseMove, EllipseRect,
+  canvas, context, configs, Rectangle, Rhombus, Hexagon, Parallelogram45, ElseMove, EllipseRect,
 };

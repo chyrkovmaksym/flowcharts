@@ -2,8 +2,9 @@ import {
   canvas,
   context,
   configs,
+  Rectangle,
   Rhombus,
-  Hexsagon,
+  Hexagon,
   Parallelogram45,
   ElseMove,
   EllipseRect,
@@ -22,25 +23,21 @@ const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf) => 
   // console.log(id);
   X = cordinatX(prevId);
   Y = cordinatY(prevId);
-  if (prevId != 1 && prevId != idFor) X -= configs.spaceX;
+  if (prevId !== 1 && prevId !== idFor) X -= configs.spaceX1;
   for (const figure of figuresAfterIf) {
-    console.log(figure);
     if (figure.y > Y) Y = figure.y;
   }
   for (let i = 0; i < figuresAfterIf.length; i++) {
     let currY = figuresAfterIf[i].y + configs.uniHeight; ///
     const currX = figuresAfterIf[i].x;
-    console.log(flagForIf);
     if (flagForIf != null) {
-      if (flagForIf == 'left' && i == 0) {
-        console.log(currY);
+      if (flagForIf === 'left' && i === 0) {
         currY += configs.spaceY;
         Y += configs.spaceY;
-        console.log(currY);
-      } else if (flagForIf == 'right') {
+      } else if (flagForIf === 'right') {
         // не для if в if і for одночасно
-        if (i == 0) Y += configs.spaceY;
-        if (i == 1) currY += configs.spaceY;
+        if (i === 0) Y += configs.spaceY;
+        if (i === 1) currY += configs.spaceY;
       }
     }
     context.moveTo(currX, currY);
@@ -54,11 +51,11 @@ const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf) => 
   Y += configs.spaceY;
   if (idElse == null && resFigures[id - 2].x < configs.coordinatX) {
     let currId = null;
-    ifPrevId !== 1 && ifPrevId != idFor ? (currId = ifPrevId) : (currId = idIf);
+    ifPrevId !== 1 && ifPrevId !== idFor ? (currId = ifPrevId) : (currId = idIf);
     const ifX = cordinatX(currId);
     const ifY = cordinatY(currId);
-    context.moveTo(ifX + configs.spaceX, ifY + configs.uniHeight);
-    context.lineTo(ifX + configs.spaceX, Y);
+    context.moveTo(ifX + configs.spaceX2, ifY + configs.uniHeight);
+    context.lineTo(ifX + configs.spaceX2, Y);
     context.lineTo(X, Y);
     context.stroke();
   }
@@ -69,26 +66,26 @@ const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf) => 
 function afterFor(X, Y, idFor, flagIfFor, flagForIf) {
   Y += configs.spaceY;
   context.moveTo(X, Y);
-  if (flagIfFor != false) X -= configs.spaceX / 4 * 3;
-  if (flagForIf != null) X += configs.spaceX / 4;
-  context.lineTo(X - configs.spaceX, Y);
+  if (flagIfFor !== false) X -= (configs.spaceX1 / 4) * 3;
+  if (flagForIf != null) X += configs.spaceX1 / 4;
+  context.lineTo(X - configs.spaceX1, Y);
   let forX = cordinatX(idFor);
   const forY = cordinatY(idFor);
-  context.lineTo(X - configs.spaceX, forY + configs.uniHeight / 2);
-  context.lineTo(forX - configs.spaceX / 2, forY + configs.uniHeight / 2);
-  context.moveTo(forX + configs.spaceX / 2, forY + configs.uniHeight / 2);
-  if (flagIfFor != false) forX += configs.spaceX / 4 * 3;
-  if (flagForIf != null) forX -= configs.spaceX / 4;
-  context.lineTo(forX + configs.spaceX, forY + configs.uniHeight / 2);
-  context.lineTo(forX + configs.spaceX, Y + configs.spaceY / 3);
-  if (flagIfFor != false) forX -= configs.spaceX / 4 * 3;
-  if (flagForIf != null) forX += configs.spaceX / 4;
+  context.lineTo(X - configs.spaceX1, forY + configs.uniHeight / 2);
+  context.lineTo(forX - configs.spaceX1 / 2, forY + configs.uniHeight / 2);
+  context.moveTo(forX + configs.spaceX1 / 2, forY + configs.uniHeight / 2);
+  if (flagIfFor !== false) forX += (configs.spaceX1 / 4) * 3;
+  if (flagForIf !== null) forX -= configs.spaceX1 / 4;
+  context.lineTo(forX + configs.spaceX1, forY + configs.uniHeight / 2);
+  context.lineTo(forX + configs.spaceX1, Y + configs.spaceY / 3);
+  if (flagIfFor !== false) forX -= (configs.spaceX1 / 4) * 3;
+  if (flagForIf !== null) forX += configs.spaceX1 / 4;
   context.lineTo(forX, Y + configs.spaceY / 3);
-  if (flagIfFor != false) Y -= configs.spaceY / 3;
+  if (flagIfFor !== false) Y -= configs.spaceY / 3;
   context.lineTo(forX, Y + configs.spaceY);
   context.stroke();
-  if (flagIfFor != false) X += configs.spaceX / 4 * 3;
-  if (flagForIf != null) X -= configs.spaceX / 4;
+  if (flagIfFor !== false) X += (configs.spaceX1 / 4) * 3;
+  if (flagForIf !== null) X -= configs.spaceX1 / 4;
   return { X, Y };
 }
 
@@ -100,25 +97,25 @@ function drowLine(X, Y) {
 
 function ifLines(X, Y, text) {
   context.moveTo(X - text.length * 10, Y + configs.uniHeight / 2);
-  context.lineTo(X - configs.spaceX, Y + configs.uniHeight / 2);
-  context.lineTo(X - configs.spaceX, Y + configs.uniHeight / 2 + configs.uniHeight);
+  context.lineTo(X - configs.spaceX2, Y + configs.uniHeight / 2);
+  context.lineTo(X - configs.spaceX2, Y + configs.uniHeight / 2 + configs.uniHeight);
   context.moveTo(X + text.length * 10, Y + configs.uniHeight / 2);
-  context.lineTo(X + configs.spaceX, Y + configs.uniHeight / 2);
-  context.lineTo(X + configs.spaceX, Y + configs.uniHeight / 2 + configs.uniHeight);
+  context.lineTo(X + configs.spaceX2, Y + configs.uniHeight / 2);
+  context.lineTo(X + configs.spaceX2, Y + configs.uniHeight / 2 + configs.uniHeight);
   context.stroke();
 }
 
 const textEditor = (text, type) => {
   let newText = text;
-  if (type == 'printf') {
+  if (type === 'printf') {
     const element = highlightText(text);
     newText = `output ${element}`;
   }
-  if (type == 'scanf') {
+  if (type === 'scanf') {
     const element = highlightText(text);
     newText = `input ${element}`;
   }
-  if (type == 'customF')newText = 'Begin';
+  if (type === 'customF')newText = 'Begin';
   return newText;
 };
 
@@ -167,10 +164,6 @@ function finder(array, x, y) {
       if (
         flagAfterIf === true && flagIf === false && idIf !== null && prevId !== idElse && type !== 'else'
       ) {
-        console.log('AfterIf');
-        console.log(idFor);
-        console.log(idIf);
-        console.log(resFigures);
         figuresAfterIf.push(resFigures[id - 2]);
         const currCordinats = afterIf(id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf);
         X = currCordinats.X;
@@ -200,10 +193,9 @@ function finder(array, x, y) {
       ellipseRect.draw();
       resFigures.push(ellipseRect);
     } else if (
-      type == 'printf'
-      || type == 'scanf'
-      || type == 'def'
-      || type == 'expression'
+      type === 'printf'
+      || type === 'scanf'
+      || type === 'def'
     ) {
       const editedText = textEditor(text, type);
       Y += configs.spaceY;
@@ -211,31 +203,36 @@ function finder(array, x, y) {
       parallelogram.draw();
       resFigures.push(parallelogram);
       drowLine(X, Y);
+    } else if (
+      type === 'expression'
+    ) {
+      const editedText = textEditor(text, type);
+      Y += configs.spaceY;
+      const rectangle = new Rectangle(X, Y, configs.uniHeight, editedText);
+      rectangle.draw();
+      resFigures.push(rectangle);
+      drowLine(X, Y);
     } else if (type === 'if') {
-      console.log('if work');
       if (idFor != null) flagIfFor = true;
       flagIf = true;
       idIf = id;
       ifPrevId = prevId;
       flagAfterIf = true;
       Y += configs.spaceY;
-      const rhombus = new Rhombus(X, Y);
-      rhombus.textSet = obj.text;
-      rhombus.heightSet = configs.uniHeight;
-      rhombus.widthSet = 2 * (text.length * configs.toText2);
+      const rhombus = new Rhombus(X, Y, configs.uniHeight, obj.text);
       rhombus.draw();
       resFigures.push(rhombus);
       ifLines(X, Y, text);
-      X -= configs.spaceX;
+      X -= configs.spaceX2;
     } else if (type === 'for' || type === 'while') {
       if (idIf !== null) {
         idElse !== null ? flagForIf = 'right' : flagForIf = 'left';
       }
       idFor = id;
       Y += configs.spaceY;
-      const hexsagon = new Hexsagon(X, Y, configs.uniHeight, text);
-      hexsagon.draw();
-      resFigures.push(hexsagon);
+      const hexagon = new Hexagon(X, Y, configs.uniHeight, text);
+      hexagon.draw();
+      resFigures.push(hexagon);
       drowLine(X, Y);
     } else if (type === 'else') {
       idElse = id;
@@ -244,7 +241,7 @@ function finder(array, x, y) {
       prevId === ifPrevId ? (mainIf = idIf) : (mainIf = ifPrevId);
       X = cordinatX(mainIf);
       Y = cordinatY(mainIf);
-      X += configs.spaceX;
+      X += configs.spaceX2;
       const elseEllement = new ElseMove(X, Y);
       resFigures.push(elseEllement);
     }
