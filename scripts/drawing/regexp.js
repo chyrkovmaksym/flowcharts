@@ -18,3 +18,4 @@ const highlightText = (text) => {
   }
   return result;
 }
+export { highlightText };
