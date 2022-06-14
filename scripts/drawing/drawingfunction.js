@@ -8,6 +8,7 @@ import {
   Parallelogram45,
   ElseMove,
   EllipseRect,
+  ArrowDown,
 } from './figures.js';
 
 import { highlightText } from './regexp.js';
@@ -192,6 +193,8 @@ function finder(array, x, y) {
       const ellipseRect = new EllipseRect(X, Y, configs.uniHeight, editedText, configs.uniHeight / 2);
       ellipseRect.draw();
       resFigures.push(ellipseRect);
+      const arrowDown = new ArrowDown(X, Y + configs.spaceY);
+      arrowDown.draw();
     } else if (
       type === 'printf'
       || type === 'scanf'
@@ -199,6 +202,8 @@ function finder(array, x, y) {
     ) {
       const editedText = textEditor(text, type);
       Y += configs.spaceY;
+      const arrowDown = new ArrowDown(X, Y);
+      arrowDown.draw();
       const parallelogram = new Parallelogram45(X, Y, configs.uniHeight, editedText);
       parallelogram.draw();
       resFigures.push(parallelogram);
@@ -208,6 +213,8 @@ function finder(array, x, y) {
     ) {
       const editedText = textEditor(text, type);
       Y += configs.spaceY;
+      const arrowDown = new ArrowDown(X, Y);
+      arrowDown.draw();
       const rectangle = new Rectangle(X, Y, configs.uniHeight, editedText);
       rectangle.draw();
       resFigures.push(rectangle);
@@ -219,6 +226,8 @@ function finder(array, x, y) {
       ifPrevId = prevId;
       flagAfterIf = true;
       Y += configs.spaceY;
+      const arrowDown = new ArrowDown(X, Y);
+      arrowDown.draw();
       const rhombus = new Rhombus(X, Y, configs.uniHeight, obj.text);
       rhombus.draw();
       resFigures.push(rhombus);
@@ -230,6 +239,8 @@ function finder(array, x, y) {
       }
       idFor = id;
       Y += configs.spaceY;
+      const arrowDown = new ArrowDown(X, Y);
+      arrowDown.draw();
       const hexagon = new Hexagon(X, Y, configs.uniHeight, text);
       hexagon.draw();
       resFigures.push(hexagon);
@@ -247,6 +258,8 @@ function finder(array, x, y) {
     }
   }
   Y += configs.spaceY;
+  const arrowDown = new ArrowDown(X, Y);
+  arrowDown.draw();
   const ellipseRect = new EllipseRect(X, Y, configs.uniHeight, ' End ', configs.uniHeight / 2);
   ellipseRect.draw();
   resFigures.push(ellipseRect);

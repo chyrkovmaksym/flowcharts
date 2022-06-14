@@ -284,5 +284,14 @@ class ArrowLeft {
 }
 
 export {
-  canvas, context, configs, Rectangle, Rhombus, Hexagon, Parallelogram45, ElseMove, EllipseRect,
+  canvas,
+  context,
+  configs,
+  Rectangle,
+  Rhombus,
+  Hexagon,
+  Parallelogram45,
+  ElseMove,
+  EllipseRect,
+  ArrowDown,
 };
