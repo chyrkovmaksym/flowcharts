@@ -21,21 +21,21 @@ const cordinatX = (prevId) => resFigures[prevId - 1].x;
 
 const cordinatY = (prevId) => resFigures[prevId - 1].y;
 
-const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf) => {
+const afterIf = (id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf) => {
   X = cordinatX(prevId);
   Y = cordinatY(prevId);
-  if (prevId !== 1 && prevId !== idFor) X -= configs.spaceX1;
+  if (prevId !== 1 && prevId !== idLoop) X -= configs.spaceX1;
   for (const figure of figuresAfterIf) {
     if (figure.y > Y) Y = figure.y;
   }
   for (let i = 0; i < figuresAfterIf.length; i++) {
     let currY = figuresAfterIf[i].y + configs.uniHeight; ///
     const currX = figuresAfterIf[i].x;
-    if (flagForIf != null) {
-      if (flagForIf === 'left' && i === 0) {
+    if (flagLoopIf != null) {
+      if (flagLoopIf === 'left' && i === 0) {
         currY += configs.spaceY;
         Y += configs.spaceY;
-      } else if (flagForIf === 'right') {
+      } else if (flagLoopIf === 'right') {
         // не для if в if і for одночасно
         if (i === 0) Y += configs.spaceY;
         if (i === 1) currY += configs.spaceY;
@@ -52,7 +52,7 @@ const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf) => 
   Y += configs.spaceY;
   if (idElse == null && resFigures[id - 2].x < configs.coordinatX) {
     let currId = null;
-    ifPrevId !== 1 && ifPrevId !== idFor ? (currId = ifPrevId) : (currId = idIf);
+    ifPrevId !== 1 && ifPrevId !== idLoop ? (currId = ifPrevId) : (currId = idIf);
     const ifX = cordinatX(currId);
     const ifY = cordinatY(currId);
     context.moveTo(ifX + configs.spaceX2, ifY + configs.uniHeight);
@@ -64,31 +64,31 @@ const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf) => 
   return { X, Y };
 };
 
-function afterFor(X, Y, idFor, flagIfFor, flagForIf, hexWidth) {
+function afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) {
   Y += configs.spaceY;
   context.moveTo(X, Y);
-  if (flagIfFor !== false) X -= configs.spaceX2;
-  if (flagForIf != null) X += configs.spaceX1 / 4;
+  if (flagIfLoop !== false) X -= configs.spaceX2;
+  if (flagLoopIf != null) X += configs.spaceX1 / 4;
   context.lineTo(X - configs.spaceX1, Y);
-  let forX = cordinatX(idFor);
-  const forY = cordinatY(idFor);
-  const forYLevel = forY + configs.uniHeight / 2;
-  context.lineTo(X - configs.spaceX1, forYLevel);
-  context.lineTo(forX - hexWidth / 2, forYLevel);
-  context.moveTo(forX + hexWidth / 2, forYLevel);
-  if (flagIfFor !== false) forX += configs.spaceX2;
-  if (flagForIf !== null) forX -= configs.spaceX1 / 4;
-  context.lineTo(forX + configs.spaceX1, forYLevel);
-  context.lineTo(forX + configs.spaceX1, Y + configs.spaceY / 3);
-  if (flagIfFor !== false) forX -= configs.spaceX2;
-  if (flagForIf !== null) forX += configs.spaceX1 / 4;
-  context.lineTo(forX, Y + configs.spaceY / 3);
-  if (flagIfFor !== false) Y -= configs.spaceY / 3;
-  context.lineTo(forX, Y + configs.spaceY);
+  let loopX = cordinatX(idLoop);
+  const loopY = cordinatY(idLoop);
+  const loopYLevel = loopY + configs.uniHeight / 2;
+  context.lineTo(X - configs.spaceX1, loopYLevel);
+  context.lineTo(loopX - hexWidth / 2, loopYLevel);
+  context.moveTo(loopX + hexWidth / 2, loopYLevel);
+  if (flagIfLoop !== false) loopX += configs.spaceX2;
+  if (flagLoopIf !== null) loopX -= configs.spaceX1 / 4;
+  context.lineTo(loopX + configs.spaceX1, loopYLevel);
+  context.lineTo(loopX + configs.spaceX1, Y + configs.spaceY / 3);
+  if (flagIfLoop !== false) loopX -= configs.spaceX2;
+  if (flagLoopIf !== null) loopX += configs.spaceX1 / 4;
+  context.lineTo(loopX, Y + configs.spaceY / 3);
+  if (flagIfLoop !== false) Y -= configs.spaceY / 3;
+  context.lineTo(loopX, Y + configs.spaceY);
   context.stroke();
-  if (flagIfFor !== false) X += configs.spaceX2;
-  if (flagForIf !== null) X -= configs.spaceX1 / 4;
-  const arrowRight = new ArrowRight(forX - hexWidth / 2, forYLevel);
+  if (flagIfLoop !== false) X += configs.spaceX2;
+  if (flagLoopIf !== null) X -= configs.spaceX1 / 4;
+  const arrowRight = new ArrowRight(loopX - hexWidth / 2, loopYLevel);
   arrowRight.draw();
   return { X, Y };
 }
@@ -128,9 +128,9 @@ function finder(array, x, y) {
   let X = x;
   let Y = y;
   let flagIf = false;
-  let flagIfFor = false;
-  let flagForIf = null;
-  let idFor = null;
+  let flagIfLoop = false;
+  let flagLoopIf = null;
+  let idLoop = null;
   let idIf = null;
   let ifPrevId = null;
   let idElse = null;
@@ -143,58 +143,55 @@ function finder(array, x, y) {
       type, text, id, prevId,
     } = obj;
 
-    if (idFor != null && idIf != null && idFor > idIf) {
-      if (idFor !== null && prevId !== idFor) { // && prevId !== idIf && prevId !== idElse
-        const currCordinats = afterFor(X, Y, idFor, flagIfFor, flagForIf, hexWidth);
+    if (idLoop != null && idIf != null && idLoop > idIf) {
+      if (idLoop !== null && prevId !== idLoop) { // && prevId !== idIf && prevId !== idElse
+        const currCordinats = afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth);
         X = currCordinats.X;
         Y = currCordinats.Y;
-        idFor = null;
-        flagIfFor = false;
+        idLoop = null;
+        flagIfLoop = false;
       }
-      if (prevId !== idIf && prevId !== idElse && prevId !== idFor && type !== 'else') flagIf = false;
+      if (prevId !== idIf && prevId !== idElse && prevId !== idLoop && type !== 'else') flagIf = false;
       if (
         flagAfterIf === true && flagIf === false && idIf !== null && prevId !== idElse && type !== 'else'
       ) {
         figuresAfterIf.push(resFigures[id - 2]);
-        const currCordinats = afterIf(id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf);
+        const currCordinats = afterIf(id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf);
         X = currCordinats.X;
         Y = currCordinats.Y;
         idElse = null;
         flagIf = false;
         flagAfterIf = false;
-        flagForIf = null;
+        flagLoopIf = null;
         idIf = null;
       }
     } else {
-      if (prevId !== idIf && prevId !== idElse && prevId !== idFor && type !== 'else') flagIf = false;
+      if (prevId !== idIf && prevId !== idElse && prevId !== idLoop && type !== 'else') flagIf = false;
       if (
         flagAfterIf === true && flagIf === false && idIf !== null && prevId !== idElse && type !== 'else'
       ) {
         figuresAfterIf.push(resFigures[id - 2]);
-        const currCordinats = afterIf(id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf);
+        const currCordinats = afterIf(id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf);
         X = currCordinats.X;
         Y = currCordinats.Y;
         idElse = null;
         flagIf = false;
         flagAfterIf = false;
-        flagForIf = null;
+        flagLoopIf = null;
         idIf = null;
       }
-      if (idFor !== null && prevId !== idFor && prevId !== idElse && prevId !== idIf) {
-        const currCordinats = afterFor(X, Y, idFor, flagIfFor, flagForIf, hexWidth);
+      if (idLoop !== null && prevId !== idLoop && prevId !== idElse && prevId !== idIf) {
+        const currCordinats = afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth);
         X = currCordinats.X;
         Y = currCordinats.Y;
-        idFor = null;
-        flagIfFor = false;
+        idLoop = null;
+        flagIfLoop = false;
       }
     }
-    if (type === 'customF' || type === 'end') {
+    if (type === 'customF') {
       let editedText = text;
-      if (type === 'end') Y += configs.spaceY;
-      if (type === 'customF') {
-        editedText = textEditor(text, type);
-        drowLine(X, Y);
-      }
+      editedText = textEditor(text, type);
+      drowLine(X, Y);
       const ellipseRect = new EllipseRect(X, Y, configs.uniHeight, editedText, configs.uniHeight / 2);
       ellipseRect.draw();
       resFigures.push(ellipseRect);
@@ -223,7 +220,7 @@ function finder(array, x, y) {
       resFigures.push(rectangle);
       drowLine(X, Y);
     } else if (type === 'if') {
-      if (idFor != null) flagIfFor = true;
+      if (idLoop != null) flagIfLoop = true;
       flagIf = true;
       idIf = id;
       ifPrevId = prevId;
@@ -238,9 +235,9 @@ function finder(array, x, y) {
       X -= configs.spaceX2;
     } else if (type === 'for' || type === 'while') {
       if (idIf !== null) {
-        idElse !== null ? flagForIf = 'right' : flagForIf = 'left';
+        idElse !== null ? flagLoopIf = 'right' : flagLoopIf = 'left';
       }
-      idFor = id;
+      idLoop = id;
       Y += configs.spaceY;
       const arrowDown = new ArrowDown(X, Y);
       arrowDown.draw();
