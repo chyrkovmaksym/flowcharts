@@ -13,7 +13,9 @@ const configs = {
   coordinatY: 25,
   spaceY: 75,
   spaceX1: 200,
-  spaceX2: 400,
+  spaceX2: 300,
+  xNumber: 10,
+  yNumber: 5,
 };
 
 class EllipseRect {
@@ -161,6 +163,16 @@ class Rhombus {
       this.x - this.width / 4,
       this.y + configs.yTextMove,
     );
+    context.fillText(
+      '1',
+      this.x - this.width / 2 - configs.xNumber,
+      this.y + configs.uniHeight / 2 - configs.yNumber,
+    );
+    context.fillText(
+      '0',
+      this.x + this.width / 2,
+      this.y + configs.uniHeight / 2 - configs.xNumber,
+    );
     context.stroke();
   }
 }
@@ -174,7 +186,7 @@ class Hexagon {
   }
 
   get width() {
-    return this.text.length * configs.toText2;
+    return this.text.length * configs.toText2 + configs.uniHeight;
   }
 
   draw() {
@@ -294,4 +306,5 @@ export {
   ElseMove,
   EllipseRect,
   ArrowDown,
+  ArrowRight,
 };

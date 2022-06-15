@@ -9,6 +9,7 @@ import {
   ElseMove,
   EllipseRect,
   ArrowDown,
+  ArrowRight,
 } from './figures.js';
 
 import { highlightText } from './regexp.js';
@@ -21,7 +22,6 @@ const cordinatX = (prevId) => resFigures[prevId - 1].x;
 const cordinatY = (prevId) => resFigures[prevId - 1].y;
 
 const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf) => {
-  // console.log(id);
   X = cordinatX(prevId);
   Y = cordinatY(prevId);
   if (prevId !== 1 && prevId !== idFor) X -= configs.spaceX1;
@@ -64,29 +64,32 @@ const afterIf = (id, prevId, X, Y, idFor, idIf, ifPrevId, idElse, flagForIf) => 
   return { X, Y };
 };
 
-function afterFor(X, Y, idFor, flagIfFor, flagForIf) {
+function afterFor(X, Y, idFor, flagIfFor, flagForIf, hexWidth) {
   Y += configs.spaceY;
   context.moveTo(X, Y);
-  if (flagIfFor !== false) X -= (configs.spaceX1 / 4) * 3;
+  if (flagIfFor !== false) X -= configs.spaceX2;
   if (flagForIf != null) X += configs.spaceX1 / 4;
   context.lineTo(X - configs.spaceX1, Y);
   let forX = cordinatX(idFor);
   const forY = cordinatY(idFor);
-  context.lineTo(X - configs.spaceX1, forY + configs.uniHeight / 2);
-  context.lineTo(forX - configs.spaceX1 / 2, forY + configs.uniHeight / 2);
-  context.moveTo(forX + configs.spaceX1 / 2, forY + configs.uniHeight / 2);
-  if (flagIfFor !== false) forX += (configs.spaceX1 / 4) * 3;
+  const forYLevel = forY + configs.uniHeight / 2;
+  context.lineTo(X - configs.spaceX1, forYLevel);
+  context.lineTo(forX - hexWidth / 2, forYLevel);
+  context.moveTo(forX + hexWidth / 2, forYLevel);
+  if (flagIfFor !== false) forX += configs.spaceX2;
   if (flagForIf !== null) forX -= configs.spaceX1 / 4;
-  context.lineTo(forX + configs.spaceX1, forY + configs.uniHeight / 2);
+  context.lineTo(forX + configs.spaceX1, forYLevel);
   context.lineTo(forX + configs.spaceX1, Y + configs.spaceY / 3);
-  if (flagIfFor !== false) forX -= (configs.spaceX1 / 4) * 3;
+  if (flagIfFor !== false) forX -= configs.spaceX2;
   if (flagForIf !== null) forX += configs.spaceX1 / 4;
   context.lineTo(forX, Y + configs.spaceY / 3);
   if (flagIfFor !== false) Y -= configs.spaceY / 3;
   context.lineTo(forX, Y + configs.spaceY);
   context.stroke();
-  if (flagIfFor !== false) X += (configs.spaceX1 / 4) * 3;
+  if (flagIfFor !== false) X += configs.spaceX2;
   if (flagForIf !== null) X -= configs.spaceX1 / 4;
+  const arrowRight = new ArrowRight(forX - hexWidth / 2, forYLevel);
+  arrowRight.draw();
   return { X, Y };
 }
 
@@ -97,12 +100,13 @@ function drowLine(X, Y) {
 }
 
 function ifLines(X, Y, text) {
-  context.moveTo(X - text.length * 10, Y + configs.uniHeight / 2);
-  context.lineTo(X - configs.spaceX2, Y + configs.uniHeight / 2);
-  context.lineTo(X - configs.spaceX2, Y + configs.uniHeight / 2 + configs.uniHeight);
-  context.moveTo(X + text.length * 10, Y + configs.uniHeight / 2);
-  context.lineTo(X + configs.spaceX2, Y + configs.uniHeight / 2);
-  context.lineTo(X + configs.spaceX2, Y + configs.uniHeight / 2 + configs.uniHeight);
+  const yLevel = Y + configs.uniHeight / 2;
+  context.moveTo(X - text.length * configs.toText2, yLevel);
+  context.lineTo(X - configs.spaceX2, yLevel);
+  context.lineTo(X - configs.spaceX2, yLevel + configs.uniHeight);
+  context.moveTo(X + text.length * configs.toText2, yLevel);
+  context.lineTo(X + configs.spaceX2, yLevel);
+  context.lineTo(X + configs.spaceX2, yLevel + configs.uniHeight);
   context.stroke();
 }
 
@@ -131,6 +135,7 @@ function finder(array, x, y) {
   let ifPrevId = null;
   let idElse = null;
   let flagAfterIf = false;
+  let hexWidth;
   const imgOfCanvas = document.getElementById('canvas');
 
   for (const obj of array) {
@@ -140,7 +145,7 @@ function finder(array, x, y) {
 
     if (idFor != null && idIf != null && idFor > idIf) {
       if (idFor !== null && prevId !== idFor) { // && prevId !== idIf && prevId !== idElse
-        const currCordinats = afterFor(X, Y, idFor, flagIfFor, flagForIf);
+        const currCordinats = afterFor(X, Y, idFor, flagIfFor, flagForIf, hexWidth);
         X = currCordinats.X;
         Y = currCordinats.Y;
         idFor = null;
@@ -176,7 +181,7 @@ function finder(array, x, y) {
         idIf = null;
       }
       if (idFor !== null && prevId !== idFor && prevId !== idElse && prevId !== idIf) {
-        const currCordinats = afterFor(X, Y, idFor, flagIfFor, flagForIf);
+        const currCordinats = afterFor(X, Y, idFor, flagIfFor, flagForIf, hexWidth);
         X = currCordinats.X;
         Y = currCordinats.Y;
         idFor = null;
@@ -193,8 +198,6 @@ function finder(array, x, y) {
       const ellipseRect = new EllipseRect(X, Y, configs.uniHeight, editedText, configs.uniHeight / 2);
       ellipseRect.draw();
       resFigures.push(ellipseRect);
-      const arrowDown = new ArrowDown(X, Y + configs.spaceY);
-      arrowDown.draw();
     } else if (
       type === 'printf'
       || type === 'scanf'
@@ -242,6 +245,7 @@ function finder(array, x, y) {
       const arrowDown = new ArrowDown(X, Y);
       arrowDown.draw();
       const hexagon = new Hexagon(X, Y, configs.uniHeight, text);
+      hexWidth = hexagon.width;
       hexagon.draw();
       resFigures.push(hexagon);
       drowLine(X, Y);
