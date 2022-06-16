@@ -1,5 +1,5 @@
 const canvas = document.getElementById('c1');
-const context = canvas.getContext('2d');
+const ctx = canvas.getContext('2d');
 
 const configs = {
   sizeAndFont: '20px helvetica',
@@ -28,52 +28,56 @@ class EllipseRect {
   }
 
   get width() {
-    return this.text.length * configs.toText1;
+    return this.text.length * configs.toText1 + 2*this.radius;
   }
 
   draw() {
     const diameter = 2 * this.radius;
     const halfWidthCordsPlus = this.x + this.width / 2;
     const halfWidthCordsMinus = this.x - this.width / 2;
-    context.beginPath();
-    context.moveTo(halfWidthCordsMinus + this.radius, this.y);
-    context.lineTo(halfWidthCordsPlus - this.radius, this.y);
-    context.quadraticCurveTo(
+    const right = halfWidthCordsMinus + this.radius
+    const left = halfWidthCordsPlus - this.radius;
+    const yLevel = this.y + this.radius;
+    const yDiameter = this.y + diameter
+    ctx.beginPath();
+    ctx.moveTo(right, this.y);
+    ctx.lineTo(left, this.y);
+    ctx.quadraticCurveTo(
       halfWidthCordsPlus,
       this.y,
       halfWidthCordsPlus,
-      this.y + this.radius,
+      yLevel,
     );
-    context.quadraticCurveTo(
+    ctx.quadraticCurveTo(
       halfWidthCordsPlus,
-      this.y + diameter,
-      halfWidthCordsPlus - this.radius,
-      this.y + diameter,
+      yDiameter,
+      left,
+      yDiameter,
     );
-    context.lineTo(halfWidthCordsMinus + this.radius, this.y + diameter);
-    context.quadraticCurveTo(
+    ctx.lineTo(right, yDiameter);
+    ctx.quadraticCurveTo(
       halfWidthCordsMinus,
-      this.y + diameter,
+      yDiameter,
       halfWidthCordsMinus,
-      this.y + this.radius,
+      yLevel,
     );
-    context.quadraticCurveTo(
+    ctx.quadraticCurveTo(
       halfWidthCordsMinus,
       this.y,
-      halfWidthCordsMinus + this.radius,
+      right,
       this.y,
     );
-    context.font = configs.sizeAndFont;
-    context.fillText(
+    ctx.font = configs.sizeAndFont;
+    ctx.fillText(
       this.text,
-      this.x - this.width / 2 + configs.xTextMove,
+      this.x - this.width / 2 + this.radius,
       this.y + configs.yTextMove,
     );
-    context.stroke();
+    ctx.stroke();
   }
 }
 
-class Parallelogram45 {
+class Parallelogram45 { // arallelogram with 45 degree angle
   constructor(x, y, value, text) {
     this.x = x;
     this.y = y;
@@ -86,26 +90,21 @@ class Parallelogram45 {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x - this.width / 2 + this.height, this.y);
-    context.lineTo(this.x + this.width / 2, this.y);
-    context.lineTo(this.x + this.width / 2 - this.height, this.y + this.height);
-    context.lineTo(this.x - this.width / 2, this.y + this.height);
-    context.lineTo(this.x - this.width / 2 + this.height, this.y);
-    context.font = configs.sizeAndFont;
-    context.fillText(
+    const halfWidthCordsPlus = this.x + this.width / 2;
+    const halfWidthCordsMinus = this.x - this.width / 2;
+    ctx.beginPath();
+    ctx.moveTo(halfWidthCordsMinus + this.height, this.y);
+    ctx.lineTo(halfWidthCordsPlus, this.y);
+    ctx.lineTo(halfWidthCordsPlus - this.height, this.y + this.height);
+    ctx.lineTo(halfWidthCordsMinus, this.y + this.height);
+    ctx.lineTo(halfWidthCordsMinus + this.height, this.y);
+    ctx.font = configs.sizeAndFont;
+    ctx.fillText(
       this.text,
-      this.x - this.width / 2 + this.height,
+      halfWidthCordsMinus + this.height,
       this.y + configs.yTextMove,
     );
-    context.stroke();
-  }
-}
-
-class ElseMove {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    ctx.stroke();
   }
 }
 
@@ -122,19 +121,21 @@ class Rectangle {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x - this.width / 2, this.y);
-    context.lineTo(this.x + this.width / 2, this.y);
-    context.lineTo(this.x + this.width / 2, this.y + this.height);
-    context.lineTo(this.x - this.width / 2, this.y + this.height);
-    context.lineTo(this.x - this.width / 2, this.y);
-    context.font = configs.sizeAndFont;
-    context.fillText(
+    const halfWidthCordsPlus = this.x + this.width / 2;
+    const halfWidthCordsMinus = this.x - this.width / 2;
+    ctx.beginPath();
+    ctx.moveTo(halfWidthCordsMinus, this.y);
+    ctx.lineTo(halfWidthCordsPlus, this.y);
+    ctx.lineTo(halfWidthCordsPlus, this.y + this.height);
+    ctx.lineTo(halfWidthCordsMinus, this.y + this.height);
+    ctx.lineTo(halfWidthCordsMinus, this.y);
+    ctx.font = configs.sizeAndFont;
+    ctx.fillText(
       this.text,
-      this.x - this.width / 2 + configs.xTextMove,
+      halfWidthCordsMinus + configs.xTextMove,
       this.y + configs.yTextMove,
     );
-    context.stroke();
+    ctx.stroke();
   }
 }
 
@@ -151,29 +152,29 @@ class Rhombus {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x, this.y);
-    context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
-    context.lineTo(this.x, this.y + this.height);
-    context.lineTo(this.x - this.width / 2, this.y + this.height / 2);
-    context.lineTo(this.x, this.y);
-    context.font = configs.sizeAndFont;
-    context.fillText(
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x + this.width / 2, this.y + this.height / 2);
+    ctx.lineTo(this.x, this.y + this.height);
+    ctx.lineTo(this.x - this.width / 2, this.y + this.height / 2);
+    ctx.lineTo(this.x, this.y);
+    ctx.font = configs.sizeAndFont;
+    ctx.fillText(
       this.text,
       this.x - this.width / 4,
       this.y + configs.yTextMove,
     );
-    context.fillText(
+    ctx.fillText(
       '1',
       this.x - this.width / 2 - configs.xNumber,
       this.y + configs.uniHeight / 2 - configs.yNumber,
     );
-    context.fillText(
+    ctx.fillText(
       '0',
       this.x + this.width / 2,
       this.y + configs.uniHeight / 2 - configs.xNumber,
     );
-    context.stroke();
+    ctx.stroke();
   }
 }
 
@@ -190,30 +191,40 @@ class Hexagon {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x - this.width / 2 + this.height / 2, this.y);
-    context.lineTo(this.x + this.width / 2 - this.height / 2, this.y);
-    context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
-    context.lineTo(
-      this.x + this.width / 2 - this.height / 2,
+    const halfWidthCordsPlus = this.x + this.width / 2;
+    const halfWidthCordsMinus = this.x - this.width / 2;
+    ctx.beginPath();
+    ctx.moveTo(halfWidthCordsMinus + this.height / 2, this.y);
+    ctx.lineTo(halfWidthCordsPlus - this.height / 2, this.y);
+    ctx.lineTo(halfWidthCordsPlus, this.y + this.height / 2);
+    ctx.lineTo(
+      halfWidthCordsPlus - this.height / 2,
       this.y + this.height,
     );
-    context.lineTo(
+    ctx.lineTo(
       this.x - this.width / 2 + this.height / 2,
       this.y + this.height,
     );
-    context.lineTo(this.x - this.width / 2, this.y + this.height / 2);
-    context.lineTo(this.x - this.width / 2 + this.height / 2, this.y);
-    context.font = configs.sizeAndFont;
-    context.fillText(
+    ctx.lineTo(halfWidthCordsMinus, this.y + this.height / 2);
+    ctx.lineTo(halfWidthCordsMinus + this.height / 2, this.y);
+    ctx.font = configs.sizeAndFont;
+    ctx.fillText(
       this.text,
-      this.x - this.width / 2 + this.height / 2,
+      halfWidthCordsMinus + this.height / 2,
       this.y + configs.yTextMove,
     );
-    context.stroke();
+    ctx.stroke();
   }
 }
 
+class ElseMove {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// Can be deleted in the future
 class VerticalLine {
   constructor(x, y) {
     this.x = x;
@@ -225,10 +236,10 @@ class VerticalLine {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x, this.y);
-    context.lineTo(this.x, this.y + this.length);
-    context.stroke();
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x, this.y + this.length);
+    ctx.stroke();
   }
 }
 
@@ -243,10 +254,10 @@ class HorizontalLine {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x, this.y);
-    context.lineTo(this.x + this.length, this.y);
-    context.stroke();
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x + this.length, this.y);
+    ctx.stroke();
   }
 }
 
@@ -257,11 +268,11 @@ class ArrowDown {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x - configs.arrowMove, this.y - configs.arrowMove);
-    context.lineTo(this.x, this.y);
-    context.lineTo(this.x + configs.arrowMove, this.y - configs.arrowMove);
-    context.stroke();
+    ctx.beginPath();
+    ctx.moveTo(this.x - configs.arrowMove, this.y - configs.arrowMove);
+    ctx.lineTo(this.x, this.y);
+    ctx.lineTo(this.x + configs.arrowMove, this.y - configs.arrowMove);
+    ctx.stroke();
   }
 }
 
@@ -272,11 +283,11 @@ class ArrowRight {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x - configs.arrowMove, this.y - configs.arrowMove);
-    context.lineTo(this.x, this.y);
-    context.lineTo(this.x - configs.arrowMove, this.y + configs.arrowMove);
-    context.stroke();
+    ctx.beginPath();
+    ctx.moveTo(this.x - configs.arrowMove, this.y - configs.arrowMove);
+    ctx.lineTo(this.x, this.y);
+    ctx.lineTo(this.x - configs.arrowMove, this.y + configs.arrowMove);
+    ctx.stroke();
   }
 }
 
@@ -287,17 +298,17 @@ class ArrowLeft {
   }
 
   draw() {
-    context.beginPath();
-    context.moveTo(this.x + configs.arrowMove, this.y - configs.arrowMove);
-    context.lineTo(this.x, this.y);
-    context.lineTo(this.x + configs.arrowMove, this.y + configs.arrowMove);
-    context.stroke();
+    ctx.beginPath();
+    ctx.moveTo(this.x + configs.arrowMove, this.y - configs.arrowMove);
+    ctx.lineTo(this.x, this.y);
+    ctx.lineTo(this.x + configs.arrowMove, this.y + configs.arrowMove);
+    ctx.stroke();
   }
 }
 
 export {
   canvas,
-  context,
+  ctx,
   configs,
   Rectangle,
   Rhombus,
