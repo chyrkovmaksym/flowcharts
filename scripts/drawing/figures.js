@@ -12,8 +12,8 @@ const configs = {
   coordinatX: 500,
   coordinatY: 25,
   spaceY: 75,
-  spaceX1: 200,
-  spaceX2: 300,
+  spaceX1: 100, //200
+  spaceX2: 250, //300
   xNumber: 10,
   yNumber: 5,
 };

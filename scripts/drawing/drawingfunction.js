@@ -22,6 +22,7 @@ const cordinatX = (prevId) => resFigures[prevId - 1].x;
 const cordinatY = (prevId) => resFigures[prevId - 1].y;
 
 const afterIf = (id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf) => {
+  console.log('afterIf');
   X = cordinatX(prevId);
   Y = cordinatY(prevId);
   if (prevId !== 1 && prevId !== idLoop) X -= configs.spaceX1;
@@ -64,6 +65,7 @@ const afterIf = (id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf) =
 };
 
 function afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) {
+  console.log('afterLoop');
   Y += configs.spaceY;
   ctx.moveTo(X, Y);
   if (flagIfLoop !== false) X -= configs.spaceX2;
@@ -99,6 +101,7 @@ function downLine(X, Y) {
 }
 
 function ifLines(X, Y, text) {
+  console.log('ifLines');
   const yLevel = Y + configs.uniHeight / 2;
   ctx.moveTo(X - text.length * configs.toText2, yLevel);
   ctx.lineTo(X - configs.spaceX2, yLevel);
@@ -141,7 +144,7 @@ function finder(array, x, y) {
     const {
       type, text, id, prevId,
     } = obj;
-
+    console.log(id);
     if (idLoop != null && idIf != null && idLoop > idIf) {
       if (idLoop !== null && prevId !== idLoop) { // && prevId !== idIf && prevId !== idElse
         const currCordinats = afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth);
@@ -245,6 +248,18 @@ function finder(array, x, y) {
       hexagon.draw();
       resFigures.push(hexagon);
       downLine(X, Y);
+    }else if (type === 'else' && text !=='' ) { //else if
+      figuresAfterIf.push(resFigures[id - 2]);
+      X = cordinatX(idIf);
+      Y = cordinatY(idIf);
+      Y += configs.spaceY;
+      X += configs.spaceX2;
+      const rhombus = new Rhombus(X, Y, configs.uniHeight, obj.text);
+      rhombus.draw();
+      resFigures.push(rhombus);
+      ifLines(X, Y, text);
+      X -= configs.spaceX2;
+      idIf=id;
     } else if (type === 'else') {
       idElse = id;
       figuresAfterIf.push(resFigures[id - 2]);
