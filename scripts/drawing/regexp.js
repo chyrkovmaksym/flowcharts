@@ -1,20 +1,38 @@
-const highlightText = (text) => {
-  let result = '';
+const highlightText = (text, type) => {
+  let result = text;
   let regex = /.*/;
-  if (text.includes('%')) {
-    regex = /(?:")(?<info>.*)(?:%.*",\s*)(?<number>.*)(?:\))/;
+  if (type == 'if'
+    || type == 'while'
+    || type == 'for') {
+    regex = /\((?<condition>.*)\)/;
     const { groups } = text.match(regex);
-    let { info, number } = groups;
-    if (number.includes('&')) {
-      regex = /(?:\s*&)(?<variable>\w)/;
-      const { variable } = number.match(regex).groups;
-      number = variable;
+    let { condition } = groups;
+    result = condition;
+  }
+  else if (type == 'printf') {
+    if (text.includes('%')) {
+      regex = /\"(?<info>.*)%.*\", (?<variable>\w)\)/;
+      const { groups } = text.match(regex);
+      const { info, variable } = groups;
+      result = 'Output' + ' ' + info + variable;
     }
-    result = info + number;
-  } else {
-    regex = /".*"/;
-    result = text.match(regex)[0];
+    else {
+      regex = /\"(?<content>.*)\"/;
+      const { groups } = text.match(regex);
+      const { content } = groups;
+      result = 'Output' + ' ' + content;
+    }
+  }
+  else if (type == 'scanf') {
+    regex = /\"(?<info>.*)%.*\", &(?<variable>\w)\)/
+    const { groups } = text.match(regex);
+    const { info, variable } = groups;
+    result = 'Input' + ' ' + info + variable;
+  }
+  else if (type === 'customF') {
+    result = 'Begin';
   }
   return result;
 };
+
 export { highlightText };

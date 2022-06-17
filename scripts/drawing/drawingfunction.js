@@ -112,20 +112,6 @@ function ifLines(X, Y, text) {
   ctx.stroke();
 }
 
-const textEditor = (text, type) => {
-  let newText = text;
-  if (type === 'printf') {
-    const element = highlightText(text);
-    newText = `output ${element}`;
-  }
-  if (type === 'scanf') {
-    const element = highlightText(text);
-    newText = `input ${element}`;
-  }
-  if (type === 'customF')newText = 'Begin';
-  return newText;
-};
-
 function finder(array, x, y) {
   let X = x;
   let Y = y;
@@ -145,6 +131,7 @@ function finder(array, x, y) {
       type, text, id, prevId,
     } = obj;
     console.log(id);
+    const editedText = highlightText(text, type);
     if (idLoop != null && idIf != null && idLoop > idIf) {
       if (idLoop !== null && prevId !== idLoop) { // && prevId !== idIf && prevId !== idElse
         const currCordinats = afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth);
@@ -191,8 +178,6 @@ function finder(array, x, y) {
       }
     }
     if (type === 'customF') {
-      let editedText = text;
-      editedText = textEditor(text, type);
       downLine(X, Y);
       const ellipseRect = new EllipseRect(X, Y, configs.uniHeight, editedText, configs.uniHeight / 2);
       ellipseRect.draw();
@@ -202,7 +187,6 @@ function finder(array, x, y) {
       || type === 'scanf'
       || type === 'def'
     ) {
-      const editedText = textEditor(text, type);
       Y += configs.spaceY;
       const arrowDown = new ArrowDown(X, Y);
       arrowDown.draw();
@@ -213,7 +197,6 @@ function finder(array, x, y) {
     } else if (
       type === 'expression'
     ) {
-      const editedText = textEditor(text, type);
       Y += configs.spaceY;
       const arrowDown = new ArrowDown(X, Y);
       arrowDown.draw();
@@ -230,10 +213,10 @@ function finder(array, x, y) {
       Y += configs.spaceY;
       const arrowDown = new ArrowDown(X, Y);
       arrowDown.draw();
-      const rhombus = new Rhombus(X, Y, configs.uniHeight, obj.text);
+      const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
       rhombus.draw();
       resFigures.push(rhombus);
-      ifLines(X, Y, text);
+      ifLines(X, Y, editedText);
       X -= configs.spaceX2;
     } else if (type === 'for' || type === 'while') {
       if (idIf !== null) {
@@ -243,21 +226,21 @@ function finder(array, x, y) {
       Y += configs.spaceY;
       const arrowDown = new ArrowDown(X, Y);
       arrowDown.draw();
-      const hexagon = new Hexagon(X, Y, configs.uniHeight, text);
+      const hexagon = new Hexagon(X, Y, configs.uniHeight, editedText);
       hexWidth = hexagon.width;
       hexagon.draw();
       resFigures.push(hexagon);
       downLine(X, Y);
-    }else if (type === 'else' && text !=='' ) { //else if
+    }else if (type === 'else' && editedText !=='' ) { //else if
       figuresAfterIf.push(resFigures[id - 2]);
       X = cordinatX(idIf);
       Y = cordinatY(idIf);
       Y += configs.spaceY;
       X += configs.spaceX2;
-      const rhombus = new Rhombus(X, Y, configs.uniHeight, obj.text);
+      const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
       rhombus.draw();
       resFigures.push(rhombus);
-      ifLines(X, Y, text);
+      ifLines(X, Y, editedText);
       X -= configs.spaceX2;
       idIf=id;
     } else if (type === 'else') {
