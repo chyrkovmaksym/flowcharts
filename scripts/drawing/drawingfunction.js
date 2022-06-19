@@ -78,7 +78,7 @@ const afterIf = (
   return { X, Y };
 };
 
-const afterLoop = (X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) => {
+function afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) {
   console.log('afterLoop');
   Y += configs.spaceY;
   ctx.moveTo(X, Y);
@@ -140,16 +140,16 @@ function Finder(array, x, y) {
       flagAfterIf,
       hexWidth,
     } = this;
-    if (idLoop != null && idIf != null && idLoop > idIf) {
-      if (idLoop !== null && prevId !== idLoop) {
+    if (this.idLoop != null && this.idIf != null && this.idLoop > this.idIf) {
+      if (this.idLoop !== null && prevId !== this.idLoop) {
         // && prevId !== this.idIf && prevId !== idElse
         const currCordinats = afterLoop(
-          Y,
-          X,
-          idLoop,
-          flagIfLoop,
-          flagLoopIf,
-          hexWidth
+          this.X,
+          this.Y,
+          this.idLoop,
+          this.flagIfLoop,
+          this.flagLoopIf,
+          this.hexWidth
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -157,30 +157,30 @@ function Finder(array, x, y) {
         this.flagIfLoop = false;
       }
       if (
-        prevId !== idIf &&
-        prevId !== idElse &&
-        prevId !== idLoop &&
+        prevId !== this.idIf &&
+        prevId !== this.idElse &&
+        prevId !== this.idLoop &&
         type !== 'else'
       )
         this.flagIf = false;
       if (
-        flagAfterIf === true &&
-        flagIf === false &&
-        idIf !== null &&
-        prevId !== idElse &&
+        this.flagAfterIf === true &&
+        this.flagIf === false &&
+        this.idIf !== null &&
+        prevId !== this.idElse &&
         type !== 'else'
       ) {
         figuresAfterIf.push(resFigures[id - 2]);
         const currCordinats = afterIf(
           id,
           prevId,
-          X,
-          Y,
-          idLoop,
-          idIf,
-          ifPrevId,
-          idElse,
-          flagLoopIf
+          this.X,
+          this.Y,
+          this.idLoop,
+          this.idIf,
+          this.ifPrevId,
+          this.idElse,
+          this.flagLoopIf
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -192,30 +192,30 @@ function Finder(array, x, y) {
       }
     } else {
       if (
-        prevId !== idIf &&
-        prevId !== idElse &&
-        prevId !== idLoop &&
+        prevId !== this.idIf &&
+        prevId !== this.idElse &&
+        prevId !== this.idLoop &&
         type !== 'else'
       )
         this.flagIf = false;
       if (
-        flagAfterIf === true &&
-        flagIf === false &&
-        idIf !== null &&
-        prevId !== idElse &&
+        this.flagAfterIf === true &&
+        this.flagIf === false &&
+        this.idIf !== null &&
+        prevId !== this.idElse &&
         type !== 'else'
       ) {
         figuresAfterIf.push(resFigures[id - 2]);
         const currCordinats = afterIf(
           id,
           prevId,
-          X,
-          Y,
-          idLoop,
-          idIf,
-          ifPrevId,
-          idElse,
-          flagLoopIf
+          this.X,
+          this.Y,
+          this.idLoop,
+          this.idIf,
+          this.ifPrevId,
+          this.idElse,
+          this.flagLoopIf
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -226,18 +226,18 @@ function Finder(array, x, y) {
         this.idIf = null;
       }
       if (
-        idLoop !== null &&
-        prevId !== idLoop &&
-        prevId !== idElse &&
-        prevId !== idIf
+        this.idLoop !== null &&
+        prevId !== this.idLoop &&
+        prevId !== this.idElse &&
+        prevId !== this.idIf
       ) {
         const currCordinats = afterLoop(
-          X,
-          Y,
-          idLoop,
-          flagIfLoop,
-          flagLoopIf,
-          hexWidth
+          this.X,
+          this.Y,
+          this.idLoop,
+          this.flagIfLoop,
+          this.flagLoopIf,
+          this.hexWidth
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
