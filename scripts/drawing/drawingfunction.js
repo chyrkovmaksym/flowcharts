@@ -78,7 +78,7 @@ const afterIf = (
   return { X, Y };
 };
 
-function afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) {
+const afterLoop = (X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) => {
   console.log('afterLoop');
   Y += configs.spaceY;
   ctx.moveTo(X, Y);
@@ -108,24 +108,6 @@ function afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) {
   return { X, Y };
 }
 
-function downLine(X, Y) {
-  ctx.moveTo(X, Y + configs.uniHeight);
-  ctx.lineTo(X, Y + configs.spaceY);
-  ctx.stroke();
-}
-
-function ifLines(X, Y, text) {
-  console.log('ifLines');
-  const yLevel = Y + configs.uniHeight / 2;
-  ctx.moveTo(X - text.length * configs.toText2, yLevel);
-  ctx.lineTo(X - configs.spaceX2, yLevel);
-  ctx.lineTo(X - configs.spaceX2, yLevel + configs.uniHeight);
-  ctx.moveTo(X + text.length * configs.toText2, yLevel);
-  ctx.lineTo(X + configs.spaceX2, yLevel);
-  ctx.lineTo(X + configs.spaceX2, yLevel + configs.uniHeight);
-  ctx.stroke();
-}
-
 function Finder(array, x, y) {
   this.X = x;
   this.Y = y;
@@ -145,16 +127,29 @@ function Finder(array, x, y) {
     const { type, text, id, prevId } = obj;
     console.log(id);
     this.editedText = highlightText(text, type);
-    if (this.idLoop != null && this.idIf != null && this.idLoop > this.idIf) {
-      if (this.idLoop !== null && prevId !== this.idLoop) {
+    const {
+      X,
+      Y,
+      flagIf,
+      flagIfLoop,
+      flagLoopIf,
+      idLoop,
+      idIf,
+      ifPrevId,
+      idElse,
+      flagAfterIf,
+      hexWidth,
+    } = this;
+    if (idLoop != null && idIf != null && idLoop > idIf) {
+      if (idLoop !== null && prevId !== idLoop) {
         // && prevId !== this.idIf && prevId !== idElse
         const currCordinats = afterLoop(
-          this.X,
-          this.Y,
-          this.idLoop,
-          this.flagIfLoop,
-          this.flagLoopIf,
-          this.hexWidth
+          Y,
+          X,
+          idLoop,
+          flagIfLoop,
+          flagLoopIf,
+          hexWidth
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -162,30 +157,30 @@ function Finder(array, x, y) {
         this.flagIfLoop = false;
       }
       if (
-        prevId !== this.idIf &&
-        prevId !== this.idElse &&
-        prevId !== this.idLoop &&
+        prevId !== idIf &&
+        prevId !== idElse &&
+        prevId !== idLoop &&
         type !== 'else'
       )
         this.flagIf = false;
       if (
-        this.flagAfterIf === true &&
-        this.flagIf === false &&
-        this.idIf !== null &&
-        prevId !== this.idElse &&
+        flagAfterIf === true &&
+        flagIf === false &&
+        idIf !== null &&
+        prevId !== idElse &&
         type !== 'else'
       ) {
         figuresAfterIf.push(resFigures[id - 2]);
         const currCordinats = afterIf(
           id,
           prevId,
-          this.X,
-          this.Y,
-          this.idLoop,
-          this.idIf,
-          this.ifPrevId,
-          this.idElse,
-          this.flagLoopIf
+          X,
+          Y,
+          idLoop,
+          idIf,
+          ifPrevId,
+          idElse,
+          flagLoopIf
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -197,30 +192,30 @@ function Finder(array, x, y) {
       }
     } else {
       if (
-        prevId !== this.idIf &&
-        prevId !== this.idElse &&
-        prevId !== this.idLoop &&
+        prevId !== idIf &&
+        prevId !== idElse &&
+        prevId !== idLoop &&
         type !== 'else'
       )
         this.flagIf = false;
       if (
-        this.flagAfterIf === true &&
-        this.flagIf === false &&
-        this.idIf !== null &&
-        prevId !== this.idElse &&
+        flagAfterIf === true &&
+        flagIf === false &&
+        idIf !== null &&
+        prevId !== idElse &&
         type !== 'else'
       ) {
         figuresAfterIf.push(resFigures[id - 2]);
         const currCordinats = afterIf(
           id,
           prevId,
-          this.X,
-          this.Y,
-          this.idLoop,
-          this.idIf,
-          this.ifPrevId,
-          this.idElse,
-          this.flagLoopIf
+          X,
+          Y,
+          idLoop,
+          idIf,
+          ifPrevId,
+          idElse,
+          flagLoopIf
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -231,18 +226,18 @@ function Finder(array, x, y) {
         this.idIf = null;
       }
       if (
-        this.idLoop !== null &&
-        prevId !== this.idLoop &&
-        prevId !== this.idElse &&
-        prevId !== this.idIf
+        idLoop !== null &&
+        prevId !== idLoop &&
+        prevId !== idElse &&
+        prevId !== idIf
       ) {
         const currCordinats = afterLoop(
-          this.X,
-          this.Y,
-          this.idLoop,
-          this.flagIfLoop,
-          this.flagLoopIf,
-          this.hexWidth
+          X,
+          Y,
+          idLoop,
+          flagIfLoop,
+          flagLoopIf,
+          hexWidth
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
