@@ -13,6 +13,7 @@ import {
 } from './figures.js';
 
 import { highlightText } from './regexp.js';
+import { getType, types } from './config.js';
 
 const resFigures = new Array();
 const figuresAfterIf = new Array();
@@ -21,7 +22,17 @@ const cordinatX = (prevId) => resFigures[prevId - 1].x;
 
 const cordinatY = (prevId) => resFigures[prevId - 1].y;
 
-const afterIf = (id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf) => {
+const afterIf = (
+  id,
+  prevId,
+  X,
+  Y,
+  idLoop,
+  idIf,
+  ifPrevId,
+  idElse,
+  flagLoopIf
+) => {
   console.log('afterIf');
   X = cordinatX(prevId);
   Y = cordinatY(prevId);
@@ -36,7 +47,8 @@ const afterIf = (id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf) =
       if (flagLoopIf === 'left' && i === 0) {
         currY += configs.spaceY;
         Y += configs.spaceY;
-      } else if (flagLoopIf === 'right') { // not for if in if or loop at the same time
+      } else if (flagLoopIf === 'right') {
+        // not for if in if or loop at the same time
         if (i === 0) Y += configs.spaceY;
         if (i === 1) currY += configs.spaceY;
       }
@@ -52,7 +64,9 @@ const afterIf = (id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf) =
   Y += configs.spaceY;
   if (idElse == null && resFigures[id - 2].x < configs.coordinatX) {
     let currId = null;
-    ifPrevId !== 1 && ifPrevId !== idLoop ? (currId = ifPrevId) : (currId = idIf);
+    ifPrevId !== 1 && ifPrevId !== idLoop
+      ? (currId = ifPrevId)
+      : (currId = idIf);
     const ifX = cordinatX(currId);
     const ifY = cordinatY(currId);
     ctx.moveTo(ifX + configs.spaceX2, ifY + configs.uniHeight);
@@ -112,157 +126,149 @@ function ifLines(X, Y, text) {
   ctx.stroke();
 }
 
-function finder(array, x, y) {
-  let X = x;
-  let Y = y;
-  let flagIf = false;
-  let flagIfLoop = false;
-  let flagLoopIf = null;
-  let idLoop = null;
-  let idIf = null;
-  let ifPrevId = null;
-  let idElse = null;
-  let flagAfterIf = false;
-  let hexWidth;
+function Finder(array, x, y) {
+  this.X = x;
+  this.Y = y;
+  this.flagIf = false;
+  this.flagIfLoop = false;
+  this.flagLoopIf = null;
+  this.idLoop = null;
+  this.idIf = null;
+  this.ifPrevId = null;
+  this.idElse = null;
+  this.flagAfterIf = false;
+  this.hexWidth;
+
   const imgOfCanvas = document.getElementById('canvas');
 
   for (const obj of array) {
-    const {
-      type, text, id, prevId,
-    } = obj;
+    const { type, text, id, prevId } = obj;
     console.log(id);
-    const editedText = highlightText(text, type);
-    if (idLoop != null && idIf != null && idLoop > idIf) {
-      if (idLoop !== null && prevId !== idLoop) { // && prevId !== idIf && prevId !== idElse
-        const currCordinats = afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth);
-        X = currCordinats.X;
-        Y = currCordinats.Y;
-        idLoop = null;
-        flagIfLoop = false;
+    this.editedText = highlightText(text, type);
+    if (this.idLoop != null && this.idIf != null && this.idLoop > this.idIf) {
+      if (this.idLoop !== null && prevId !== this.idLoop) {
+        // && prevId !== this.idIf && prevId !== idElse
+        const currCordinats = afterLoop(
+          this.X,
+          this.Y,
+          this.idLoop,
+          this.flagIfLoop,
+          this.flagLoopIf,
+          this.hexWidth
+        );
+        this.X = currCordinats.X;
+        this.Y = currCordinats.Y;
+        this.idLoop = null;
+        this.flagIfLoop = false;
       }
-      if (prevId !== idIf && prevId !== idElse && prevId !== idLoop && type !== 'else') flagIf = false;
       if (
-        flagAfterIf === true && flagIf === false && idIf !== null && prevId !== idElse && type !== 'else'
+        prevId !== this.idIf &&
+        prevId !== this.idElse &&
+        prevId !== this.idLoop &&
+        type !== 'else'
+      )
+        this.flagIf = false;
+      if (
+        this.flagAfterIf === true &&
+        this.flagIf === false &&
+        this.idIf !== null &&
+        prevId !== this.idElse &&
+        type !== 'else'
       ) {
         figuresAfterIf.push(resFigures[id - 2]);
-        const currCordinats = afterIf(id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf);
-        X = currCordinats.X;
-        Y = currCordinats.Y;
-        idElse = null;
-        flagIf = false;
-        flagAfterIf = false;
-        flagLoopIf = null;
-        idIf = null;
+        const currCordinats = afterIf(
+          id,
+          prevId,
+          this.X,
+          this.Y,
+          this.idLoop,
+          this.idIf,
+          this.ifPrevId,
+          this.idElse,
+          this.flagLoopIf
+        );
+        this.X = currCordinats.X;
+        this.Y = currCordinats.Y;
+        this.idElse = null;
+        this.flagIf = false;
+        this.flagAfterIf = false;
+        this.flagLoopIf = null;
+        this.idIf = null;
       }
     } else {
-      if (prevId !== idIf && prevId !== idElse && prevId !== idLoop && type !== 'else') flagIf = false;
       if (
-        flagAfterIf === true && flagIf === false && idIf !== null && prevId !== idElse && type !== 'else'
+        prevId !== this.idIf &&
+        prevId !== this.idElse &&
+        prevId !== this.idLoop &&
+        type !== 'else'
+      )
+        this.flagIf = false;
+      if (
+        this.flagAfterIf === true &&
+        this.flagIf === false &&
+        this.idIf !== null &&
+        prevId !== this.idElse &&
+        type !== 'else'
       ) {
         figuresAfterIf.push(resFigures[id - 2]);
-        const currCordinats = afterIf(id, prevId, X, Y, idLoop, idIf, ifPrevId, idElse, flagLoopIf);
-        X = currCordinats.X;
-        Y = currCordinats.Y;
-        idElse = null;
-        flagIf = false;
-        flagAfterIf = false;
-        flagLoopIf = null;
-        idIf = null;
+        const currCordinats = afterIf(
+          id,
+          prevId,
+          this.X,
+          this.Y,
+          this.idLoop,
+          this.idIf,
+          this.ifPrevId,
+          this.idElse,
+          this.flagLoopIf
+        );
+        this.X = currCordinats.X;
+        this.Y = currCordinats.Y;
+        this.idElse = null;
+        this.flagIf = false;
+        this.flagAfterIf = false;
+        this.flagLoopIf = null;
+        this.idIf = null;
       }
-      if (idLoop !== null && prevId !== idLoop && prevId !== idElse && prevId !== idIf) {
-        const currCordinats = afterLoop(X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth);
-        X = currCordinats.X;
-        Y = currCordinats.Y;
-        idLoop = null;
-        flagIfLoop = false;
+      if (
+        this.idLoop !== null &&
+        prevId !== this.idLoop &&
+        prevId !== this.idElse &&
+        prevId !== this.idIf
+      ) {
+        const currCordinats = afterLoop(
+          this.X,
+          this.Y,
+          this.idLoop,
+          this.flagIfLoop,
+          this.flagLoopIf,
+          this.hexWidth
+        );
+        this.X = currCordinats.X;
+        this.Y = currCordinats.Y;
+        this.idLoop = null;
+        this.flagIfLoop = false;
       }
     }
-    if (type === 'customF') {
-      downLine(X, Y);
-      const ellipseRect = new EllipseRect(X, Y, configs.uniHeight, editedText, configs.uniHeight / 2);
-      ellipseRect.draw();
-      resFigures.push(ellipseRect);
-    } else if (
-      type === 'printf'
-      || type === 'scanf'
-      || type === 'def'
-    ) {
-      Y += configs.spaceY;
-      const arrowDown = new ArrowDown(X, Y);
-      arrowDown.draw();
-      const parallelogram = new Parallelogram45(X, Y, configs.uniHeight, editedText);
-      parallelogram.draw();
-      resFigures.push(parallelogram);
-      downLine(X, Y);
-    } else if (
-      type === 'expression'
-    ) {
-      Y += configs.spaceY;
-      const arrowDown = new ArrowDown(X, Y);
-      arrowDown.draw();
-      const rectangle = new Rectangle(X, Y, configs.uniHeight, editedText);
-      rectangle.draw();
-      resFigures.push(rectangle);
-      downLine(X, Y);
-    } else if (type === 'if') {
-      if (idLoop != null) flagIfLoop = true;
-      flagIf = true;
-      idIf = id;
-      ifPrevId = prevId;
-      flagAfterIf = true;
-      Y += configs.spaceY;
-      const arrowDown = new ArrowDown(X, Y);
-      arrowDown.draw();
-      const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
-      rhombus.draw();
-      resFigures.push(rhombus);
-      ifLines(X, Y, editedText);
-      X -= configs.spaceX2;
-    } else if (type === 'for' || type === 'while') {
-      if (idIf !== null) {
-        idElse !== null ? flagLoopIf = 'right' : flagLoopIf = 'left';
-      }
-      idLoop = id;
-      Y += configs.spaceY;
-      const arrowDown = new ArrowDown(X, Y);
-      arrowDown.draw();
-      const hexagon = new Hexagon(X, Y, configs.uniHeight, editedText);
-      hexWidth = hexagon.width;
-      hexagon.draw();
-      resFigures.push(hexagon);
-      downLine(X, Y);
-    }else if (type === 'else' && editedText !=='' ) { //else if
-      figuresAfterIf.push(resFigures[id - 2]);
-      X = cordinatX(idIf);
-      Y = cordinatY(idIf);
-      Y += configs.spaceY;
-      X += configs.spaceX2;
-      const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
-      rhombus.draw();
-      resFigures.push(rhombus);
-      ifLines(X, Y, editedText);
-      X -= configs.spaceX2;
-      idIf=id;
-    } else if (type === 'else') {
-      idElse = id;
-      figuresAfterIf.push(resFigures[id - 2]);
-      let mainIf = null;
-      prevId === ifPrevId ? (mainIf = idIf) : (mainIf = ifPrevId);
-      X = cordinatX(mainIf);
-      Y = cordinatY(mainIf);
-      X += configs.spaceX2;
-      const elseEllement = new ElseMove(X, Y);
-      resFigures.push(elseEllement);
-    }
+    const res = types[getType(type)].apply(this, [
+      { ...obj, figuresAfterIf, resFigures },
+    ]);
+    resFigures.push(res);
   }
-  Y += configs.spaceY;
-  const arrowDown = new ArrowDown(X, Y);
+  this.Y += configs.spaceY;
+  const arrowDown = new ArrowDown(this.X, this.Y);
   arrowDown.draw();
-  const ellipseRect = new EllipseRect(X, Y, configs.uniHeight, 'End', configs.uniHeight / 2);
+  const ellipseRect = new EllipseRect(
+    this.X,
+    this.Y,
+    configs.uniHeight,
+    'End',
+    configs.uniHeight / 2
+  );
   ellipseRect.draw();
   resFigures.push(ellipseRect);
   resFigures.length = null;
   imgOfCanvas.src = canvas.toDataURL();
 }
 
-export { finder };
+export { Finder };

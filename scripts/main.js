@@ -1,6 +1,6 @@
 import { BlockBuilder } from './parser/parsecode.js';
 import { Cleaner } from './parser/cleancode.js';
-import { finder } from './drawing/drawingfunction.js';
+import { Finder } from './drawing/drawingfunction.js';
 import { configs } from './drawing/figures.js';
 
 const code = document.getElementById('code');
@@ -16,7 +16,7 @@ const resultingFunction = (arrayOfObjects) => {
     if (element.type === 'customF') counter++;
   });
   if (counter === 1) {
-    finder(arrayOfObjects, configs.coordinatX, configs.coordinatY);
+    new Finder(arrayOfObjects, configs.coordinatX, configs.coordinatY);
   } else {
     modalWarning.open();
   }
