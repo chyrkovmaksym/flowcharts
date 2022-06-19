@@ -23,9 +23,11 @@ const downConections = (flagLoopIf, X, Y) => {
     let currY = figuresAfterIf[i].y + configs.uniHeight;
     const currX = figuresAfterIf[i].x;
     if (flagLoopIf != null) {
-      if (flagLoopIf === 'left' && i === 0) {
-        currY += configs.spaceY;
-        Y += configs.spaceY;
+      if (flagLoopIf === 'left') {
+        if (i === 0) {
+          currY += configs.spaceY;
+          Y += configs.spaceY;
+        }
       } else {
         if (i === 0) Y += configs.spaceY;
         if (i === 1) currY += configs.spaceY;

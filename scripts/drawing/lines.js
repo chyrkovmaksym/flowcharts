@@ -6,13 +6,13 @@ const downLine = (X, Y, space = null) => {
   ctx.stroke();
 };
 
-const ifLines = (X, Y, text) => {
+const ifLines = (X, Y, rhoWidth) => {
   console.log('ifLines');
   const yLevel = Y + configs.uniHeight / 2;
-  ctx.moveTo(X - text.length * configs.toText2, yLevel);
+  ctx.moveTo(X - rhoWidth / 2, yLevel);
   ctx.lineTo(X - configs.spaceX2, yLevel);
   ctx.lineTo(X - configs.spaceX2, yLevel + configs.uniHeight);
-  ctx.moveTo(X + text.length * configs.toText2, yLevel);
+  ctx.moveTo(X + rhoWidth / 2, yLevel);
   ctx.lineTo(X + configs.spaceX2, yLevel);
   ctx.lineTo(X + configs.spaceX2, yLevel + configs.uniHeight);
   ctx.stroke();

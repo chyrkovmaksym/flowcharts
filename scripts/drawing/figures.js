@@ -9,11 +9,11 @@ const configs = {
   toText1: 15,
   toText2: 10,
   uniHeight: 50,
-  coordinatX: 500,
+  coordinatX: 1100,
   coordinatY: 25,
   spaceY: 75,
   spaceX1: 200,
-  spaceX2: 300,
+  spaceX2: 400,
   xNumber: 10,
   yNumber: 5,
 };

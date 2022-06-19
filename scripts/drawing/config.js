@@ -70,8 +70,9 @@ const types = {
     const arrowDown = new ArrowDown(X, Y);
     arrowDown.draw();
     const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
+    this.rhoWidth = rhombus.width;
     rhombus.draw();
-    ifLines(X, Y, editedText);
+    ifLines(X, Y, this.rhoWidth);
     this.X -= configs.spaceX2;
     return rhombus;
   },
@@ -112,8 +113,9 @@ const types = {
       this.X += configs.spaceX2;
       const { X, Y, editedText } = this;
       res = new Rhombus(X, Y, configs.uniHeight, editedText);
+      this.rhoWidth = res.width;
       res.draw();
-      ifLines(X, Y, editedText);
+      ifLines(X, Y, this.rhoWidth);
       this.X -= configs.spaceX2;
       this.idIf = id;
     }
