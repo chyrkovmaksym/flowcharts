@@ -33,7 +33,7 @@ const getType = (keyWord) => {
 };
 
 const types = {
-  customF: function () {
+  customF() {
     const { X, Y, editedText } = this;
     downLine(X, Y);
     const ellipseRect = new EllipseRect(
@@ -46,7 +46,7 @@ const types = {
     ellipseRect.draw();
     return ellipseRect;
   },
-  expression: function ({ type }) {
+  expression({ type }) {
     this.Y += configs.spaceY;
     const { X, Y, editedText } = this;
     const arrowDown = new ArrowDown(X, Y);
@@ -59,7 +59,7 @@ const types = {
     downLine(X, Y);
     return figure;
   },
-  if: function ({ id, prevId }) {
+  if({ id, prevId }) {
     if (this.idLoop != null) this.flagIfLoop = true;
     this.flagIf = true;
     this.idIf = id;
@@ -76,7 +76,7 @@ const types = {
     this.X -= configs.spaceX2;
     return rhombus;
   },
-  cycle: function ({ id }) {
+  cycle({ id }) {
     if (this.idIf !== null) {
       this.idElse !== null
         ? (this.flagLoopIf = 'right')
@@ -93,7 +93,7 @@ const types = {
     downLine(X, Y);
     return hexagon;
   },
-  else: function ({ figuresAfterIf, resFigures, id, prevId }) {
+  else({ figuresAfterIf, resFigures, id, prevId }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
     if (this.editedText === '') {

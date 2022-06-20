@@ -106,32 +106,30 @@ function Finder(array, x, y) {
     console.log(id);
     this.editedText = highlightText(text, type);
 
-    const ExitFromIf = () =>
+    const exitFromIf = () =>
       this.flagAfterIf === true &&
       this.flagIf === false &&
       this.idIf !== null &&
       prevId !== this.idElse &&
       type !== 'else';
 
-    const IfBeforeLoop = () =>
+    const ifBeforeLoop = () =>
       this.idLoop != null && this.idIf != null && this.idLoop > this.idIf;
 
-    const EndLoop = () =>
+    const endLoop = () =>
       this.idLoop !== null &&
       prevId !== this.idLoop &&
       prevId !== this.idElse &&
       prevId !== this.idIf;
 
-    const EndIfWithoutElse = () =>
+    const endIfWithoutElse = () =>
       prevId !== this.idIf &&
       prevId !== this.idElse &&
       prevId !== this.idLoop &&
       type !== 'else';
 
-    const editedText = highlightText(text, type);
-
-    if (IfBeforeLoop()) {
-      if (EndLoop()) {
+    if (ifBeforeLoop()) {
+      if (endLoop()) {
         const currCordinats = afterLoop(
           this.X,
           this.Y,
@@ -145,8 +143,8 @@ function Finder(array, x, y) {
         this.idLoop = null;
         this.flagIfLoop = false;
       }
-      if (EndIfWithoutElse()) this.flagIf = false;
-      if (ExitFromIf()) {
+      if (endIfWithoutElse()) this.flagIf = false;
+      if (exitFromIf()) {
         figuresAfterIf.push(resFigures[id - 2]);
         const currCordinats = afterIf(
           prevId,
@@ -164,8 +162,8 @@ function Finder(array, x, y) {
         this.flagIf, (this.flagAfterIf = false);
       }
     } else {
-      if (EndIfWithoutElse()) this.flagIf = false;
-      if (ExitFromIf()) {
+      if (endIfWithoutElse()) this.flagIf = false;
+      if (exitFromIf()) {
         figuresAfterIf.push(resFigures[id - 2]);
         const currCordinats = afterIf(
           prevId,
@@ -182,7 +180,7 @@ function Finder(array, x, y) {
         this.idElse, this.flagIfLoop, (this.idIf = null);
         this.flagIf, (this.flagAfterIf = false);
       }
-      if (EndLoop()) {
+      if (endLoop()) {
         const currCordinats = afterLoop(
           this.X,
           this.Y,
