@@ -18,28 +18,22 @@ const configOfTermsOfService = {
   title: 'Terms Of Service',
   closable: true,
   content: `
-    <p class="inf_pro">As part of the project life cycle, a significant amount of data and information in
-                    various formats is collected, analyzed, transformed and disseminated to project team members and
-                    other stakeholders. Project data is collected as a result of various execution processes, after
-                    which it is provided to project team members. The collected data is analyzed in context, combined
-                    and transformed into project information during various control processes. The information can then
-                    be transmitted orally or stored and distributed in the form of reports presented in a variety of
-                    formats.</p>`,
-  width: '400px',
+    <p class="inf_pro">Our project is open, since all data and algorithms are on the public GitHub platform.
+    Everyone can make changes, which, after review by our team, can be accepted!</p>`,
+  width: '350px',
 };
 
 const configOfFAQ = {
   title: 'F.A.Q',
   closable: true,
   content: `
-          <p class="inf_pro">As part of the project life cycle, a significant amount of data and information in
-                          various formats is collected, analyzed, transformed and disseminated to project team members and
-                          other stakeholders. Project data is collected as a result of various execution processes, after
-                          which it is provided to project team members. The collected data is analyzed in context, combined
-                          and transformed into project information during various control processes. The information can then
-                          be transmitted orally or stored and distributed in the form of reports presented in a variety of
-                          formats.</p>`,
-  width: '400px',
+  <ul class="FAQ-list">
+  <li>Why might my code not work well?</li>
+  <li>- Our project is under development! Be patient.</li>
+  <li>How do I remove the flowchart from the output window?</li>
+  <li>- Click the "Clear" button</li>
+</ul>`,
+  width: '350px',
 
 };
 
@@ -47,10 +41,15 @@ const configOfWarning = {
   title: 'Warning',
   closable: true,
   content: `
-          <p class="inf_pro">Please add clean and working code. Also don't use external functions!  Your code should contain only one function (main).
-
-          Also press the clear button before uploading new code or editing.</p>`,
-  width: '400px',
+  <ol class="square">
+  <li>Paste your code.</li>
+  <li>Our service is only capable of processing the C programming language!</li>
+  <li>Please add clean and working code.</li>
+  <li>Please follow the syntax rules.</li>
+  <li>Your code should contain only one function (main). Don't use external functions!</li>
+  <li>Also press the clear button before uploading new code or editing.</li>
+  </ol>`,
+  width: '350px',
 };
 
 const modalFAQ = $.modal(configOfFAQ);
