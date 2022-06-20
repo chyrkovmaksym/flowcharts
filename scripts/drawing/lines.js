@@ -8,18 +8,18 @@ const downLine = (X, Y, space = null) => {
 
 const ifLines = (X, Y, rhoWidth) => {
   console.log('ifLines');
-  const yLevel = Y + configs.uniHeight / 2;
-  ctx.moveTo(X - rhoWidth / 2, yLevel);
+  const yLevel = Y + configs.uniHeight / configs.half;
+  ctx.moveTo(X - rhoWidth / configs.half, yLevel);
   ctx.lineTo(X - configs.spaceX2, yLevel);
   ctx.lineTo(X - configs.spaceX2, yLevel + configs.uniHeight);
-  ctx.moveTo(X + rhoWidth / 2, yLevel);
+  ctx.moveTo(X + rhoWidth / configs.half, yLevel);
   ctx.lineTo(X + configs.spaceX2, yLevel);
   ctx.lineTo(X + configs.spaceX2, yLevel + configs.uniHeight);
   ctx.stroke();
 };
 
 const lineWithoutElse = (ifPrevId, idLoop, idIf) => {
-  let currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
+  const currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
   const ifX = cordinatX(currId);
   const ifY = cordinatY(currId);
   ctx.moveTo(ifX + configs.spaceX2, ifY + configs.uniHeight);

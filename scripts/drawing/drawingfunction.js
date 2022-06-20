@@ -8,11 +8,13 @@ import {
 } from './figures.js';
 
 import { highlightText } from './regexp.js';
-import { getType, types, cordinatX, cordinatY } from './config.js';
+import {
+  getType, types, cordinatX, cordinatY,
+} from './config.js';
 import { downLine, lineWithoutElse } from './lines.js';
 
-const resFigures = new Array();
-const figuresAfterIf = new Array();
+const resFigures = [];
+const figuresAfterIf = [];
 
 // const cordinatX = (prevId) => resFigures[prevId - 1].x;
 
@@ -50,7 +52,7 @@ const afterIf = (prevId, X, Y, idLoop, flagLoopIf) => {
     if (figure.y > Y) Y = figure.y;
   }
   Y = downConections(flagLoopIf, X, Y);
-  downLine(X, Y + configs.spaceY / 3, (configs.spaceY / 3) * 2);
+  downLine(X, Y + configs.spaceY / configs.third, (configs.spaceY / configs.third) * configs.half);
   Y += configs.spaceY;
   figuresAfterIf.length = null;
   return { X, Y };
@@ -61,27 +63,27 @@ const afterLoop = (X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) => {
   Y += configs.spaceY;
   ctx.moveTo(X, Y);
   if (flagIfLoop !== false) X -= configs.spaceX2;
-  if (flagLoopIf != null) X += configs.spaceX1 / 4;
+  if (flagLoopIf != null) X += configs.spaceX1 / configs.quarter;
   ctx.lineTo(X - configs.spaceX1, Y);
   let loopX = cordinatX(idLoop, resFigures);
   const loopY = cordinatY(idLoop, resFigures);
-  const loopYLevel = loopY + configs.uniHeight / 2;
+  const loopYLevel = loopY + configs.uniHeight / configs.half;
   ctx.lineTo(X - configs.spaceX1, loopYLevel);
-  ctx.lineTo(loopX - hexWidth / 2, loopYLevel);
-  ctx.moveTo(loopX + hexWidth / 2, loopYLevel);
+  ctx.lineTo(loopX - hexWidth / configs.half, loopYLevel);
+  ctx.moveTo(loopX + hexWidth / configs.half, loopYLevel);
   if (flagIfLoop !== false) loopX += configs.spaceX2;
-  if (flagLoopIf !== null) loopX -= configs.spaceX1 / 4;
+  if (flagLoopIf !== null) loopX -= configs.spaceX1 / configs.quarter;
   ctx.lineTo(loopX + configs.spaceX1, loopYLevel);
-  ctx.lineTo(loopX + configs.spaceX1, Y + configs.spaceY / 3);
+  ctx.lineTo(loopX + configs.spaceX1, Y + configs.spaceY / configs.third);
   if (flagIfLoop !== false) loopX -= configs.spaceX2;
-  if (flagLoopIf !== null) loopX += configs.spaceX1 / 4;
-  ctx.lineTo(loopX, Y + configs.spaceY / 3);
-  if (flagIfLoop !== false) Y -= configs.spaceY / 3;
+  if (flagLoopIf !== null) loopX += configs.spaceX1 / configs.quarter;
+  ctx.lineTo(loopX, Y + configs.spaceY / configs.third);
+  if (flagIfLoop !== false) Y -= configs.spaceY / configs.third;
   ctx.lineTo(loopX, Y + configs.spaceY);
   ctx.stroke();
   if (flagIfLoop !== false) X += configs.spaceX2;
-  if (flagLoopIf !== null) X -= configs.spaceX1 / 4;
-  const arrowRight = new ArrowRight(loopX - hexWidth / 2, loopYLevel);
+  if (flagLoopIf !== null) X -= configs.spaceX1 / configs.quarter;
+  const arrowRight = new ArrowRight(loopX - hexWidth / configs.half, loopYLevel);
   arrowRight.draw();
   return { X, Y };
 };
@@ -102,31 +104,29 @@ function Finder(array, x, y) {
   const imgOfCanvas = document.getElementById('canvas');
 
   for (const obj of array) {
-    const { type, text, id, prevId } = obj;
+    const {
+      type, text, id, prevId,
+    } = obj;
     console.log(id);
     this.editedText = highlightText(text, type);
 
-    const exitFromIf = () =>
-      this.flagAfterIf === true &&
-      this.flagIf === false &&
-      this.idIf !== null &&
-      prevId !== this.idElse &&
-      type !== 'else';
+    const exitFromIf = () => this.flagAfterIf === true
+      && this.flagIf === false
+      && this.idIf !== null
+      && prevId !== this.idElse
+      && type !== 'else';
 
-    const ifBeforeLoop = () =>
-      this.idLoop != null && this.idIf != null && this.idLoop > this.idIf;
+    const ifBeforeLoop = () => this.idLoop != null && this.idIf != null && this.idLoop > this.idIf;
 
-    const endLoop = () =>
-      this.idLoop !== null &&
-      prevId !== this.idLoop &&
-      prevId !== this.idElse &&
-      prevId !== this.idIf;
+    const endLoop = () => this.idLoop !== null
+      && prevId !== this.idLoop
+      && prevId !== this.idElse
+      && prevId !== this.idIf;
 
-    const endIfWithoutElse = () =>
-      prevId !== this.idIf &&
-      prevId !== this.idElse &&
-      prevId !== this.idLoop &&
-      type !== 'else';
+    const endIfWithoutElse = () => prevId !== this.idIf
+      && prevId !== this.idElse
+      && prevId !== this.idLoop
+      && type !== 'else';
 
     if (ifBeforeLoop()) {
       if (endLoop()) {
@@ -136,7 +136,7 @@ function Finder(array, x, y) {
           this.idLoop,
           this.flagIfLoop,
           this.flagLoopIf,
-          this.hexWidth
+          this.hexWidth,
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -151,7 +151,7 @@ function Finder(array, x, y) {
           this.X,
           this.Y,
           this.idLoop,
-          this.flagLoopIf
+          this.flagLoopIf,
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -170,7 +170,7 @@ function Finder(array, x, y) {
           this.X,
           this.Y,
           this.idLoop,
-          this.flagLoopIf
+          this.flagLoopIf,
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -187,7 +187,7 @@ function Finder(array, x, y) {
           this.idLoop,
           this.flagIfLoop,
           this.flagLoopIf,
-          this.hexWidth
+          this.hexWidth,
         );
         this.X = currCordinats.X;
         this.Y = currCordinats.Y;
@@ -208,7 +208,7 @@ function Finder(array, x, y) {
     this.Y,
     configs.uniHeight,
     'End',
-    configs.uniHeight / 2
+    configs.uniHeight / configs.half,
   );
   ellipseRect.draw();
   resFigures.push(ellipseRect);

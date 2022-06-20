@@ -7,8 +7,8 @@ import {
   Rhombus,
   Hexagon,
   ElseMove,
+  configs,
 } from './figures.js';
-import { configs } from './figures.js';
 
 const cordinatX = (prevId, resFigures) => resFigures[prevId - 1].x;
 
@@ -41,7 +41,7 @@ const types = {
       Y,
       configs.uniHeight,
       editedText,
-      configs.uniHeight / 2
+      configs.uniHeight / configs.half,
     );
     ellipseRect.draw();
     return ellipseRect;
@@ -51,10 +51,9 @@ const types = {
     const { X, Y, editedText } = this;
     const arrowDown = new ArrowDown(X, Y);
     arrowDown.draw();
-    const figure =
-      type === 'expression'
-        ? new Rectangle(X, Y, configs.uniHeight, editedText)
-        : new Parallelogram45(X, Y, configs.uniHeight, editedText);
+    const figure = type === 'expression'
+      ? new Rectangle(X, Y, configs.uniHeight, editedText)
+      : new Parallelogram45(X, Y, configs.uniHeight, editedText);
     figure.draw();
     downLine(X, Y);
     return figure;
@@ -93,7 +92,9 @@ const types = {
     downLine(X, Y);
     return hexagon;
   },
-  else({ figuresAfterIf, resFigures, id, prevId }) {
+  else({
+    figuresAfterIf, resFigures, id, prevId,
+  }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
     if (this.editedText === '') {
@@ -122,4 +123,6 @@ const types = {
     return res;
   },
 };
-export { types, getType, cordinatX, cordinatY };
+export {
+  types, getType, cordinatX, cordinatY,
+};

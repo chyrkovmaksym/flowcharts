@@ -16,6 +16,9 @@ const configs = {
   spaceX2: 400,
   xNumber: 10,
   yNumber: 5,
+  half: 2,
+  third: 3,
+  quarter: 4,
 };
 
 class EllipseRect {
@@ -28,17 +31,17 @@ class EllipseRect {
   }
 
   get width() {
-    return this.text.length * configs.toText1 + 2*this.radius;
+    return this.text.length * configs.toText1 + configs.half * this.radius;
   }
 
   draw() {
-    const diameter = 2 * this.radius;
-    const halfWidthCordsPlus = this.x + this.width / 2;
-    const halfWidthCordsMinus = this.x - this.width / 2;
-    const right = halfWidthCordsMinus + this.radius
+    const diameter = configs.half * this.radius;
+    const halfWidthCordsPlus = this.x + this.width / configs.half;
+    const halfWidthCordsMinus = this.x - this.width / configs.half;
+    const right = halfWidthCordsMinus + this.radius;
     const left = halfWidthCordsPlus - this.radius;
     const yLevel = this.y + this.radius;
-    const yDiameter = this.y + diameter
+    const yDiameter = this.y + diameter;
     ctx.beginPath();
     ctx.moveTo(right, this.y);
     ctx.lineTo(left, this.y);
@@ -70,7 +73,7 @@ class EllipseRect {
     ctx.font = configs.sizeAndFont;
     ctx.fillText(
       this.text,
-      this.x - this.width / 2 + this.radius,
+      this.x - this.width / configs.half + this.radius,
       this.y + configs.yTextMove,
     );
     ctx.stroke();
@@ -86,12 +89,12 @@ class Parallelogram45 { // arallelogram with 45 degree angle
   }
 
   get width() {
-    return 2 * configs.uniHeight + this.text.length * configs.toText2;
+    return configs.half * configs.uniHeight + this.text.length * configs.toText2;
   }
 
   draw() {
-    const halfWidthCordsPlus = this.x + this.width / 2;
-    const halfWidthCordsMinus = this.x - this.width / 2;
+    const halfWidthCordsPlus = this.x + this.width / configs.half;
+    const halfWidthCordsMinus = this.x - this.width / configs.half;
     ctx.beginPath();
     ctx.moveTo(halfWidthCordsMinus + this.height, this.y);
     ctx.lineTo(halfWidthCordsPlus, this.y);
@@ -121,8 +124,8 @@ class Rectangle {
   }
 
   draw() {
-    const halfWidthCordsPlus = this.x + this.width / 2;
-    const halfWidthCordsMinus = this.x - this.width / 2;
+    const halfWidthCordsPlus = this.x + this.width / configs.half;
+    const halfWidthCordsMinus = this.x - this.width / configs.half;
     ctx.beginPath();
     ctx.moveTo(halfWidthCordsMinus, this.y);
     ctx.lineTo(halfWidthCordsPlus, this.y);
@@ -148,31 +151,31 @@ class Rhombus {
   }
 
   get width() {
-    return 2 * this.text.length * configs.toText2;
+    return configs.half * this.text.length * configs.toText2;
   }
 
   draw() {
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x + this.width / 2, this.y + this.height / 2);
+    ctx.lineTo(this.x + this.width / configs.half, this.y + this.height / configs.half);
     ctx.lineTo(this.x, this.y + this.height);
-    ctx.lineTo(this.x - this.width / 2, this.y + this.height / 2);
+    ctx.lineTo(this.x - this.width / configs.half, this.y + this.height / configs.half);
     ctx.lineTo(this.x, this.y);
     ctx.font = configs.sizeAndFont;
     ctx.fillText(
       this.text,
-      this.x - this.width / 4,
+      this.x - this.width / configs.quarter,
       this.y + configs.yTextMove,
     );
     ctx.fillText(
       '1',
-      this.x - this.width / 2 - configs.xNumber,
-      this.y + configs.uniHeight / 2 - configs.yNumber,
+      this.x - this.width / configs.half - configs.xNumber,
+      this.y + configs.uniHeight / configs.half - configs.yNumber,
     );
     ctx.fillText(
       '0',
-      this.x + this.width / 2,
-      this.y + configs.uniHeight / 2 - configs.xNumber,
+      this.x + this.width / configs.half,
+      this.y + configs.uniHeight / configs.half - configs.xNumber,
     );
     ctx.stroke();
   }
@@ -191,26 +194,26 @@ class Hexagon {
   }
 
   draw() {
-    const halfWidthCordsPlus = this.x + this.width / 2;
-    const halfWidthCordsMinus = this.x - this.width / 2;
+    const halfWidthCordsPlus = this.x + this.width / configs.half;
+    const halfWidthCordsMinus = this.x - this.width / configs.half;
     ctx.beginPath();
-    ctx.moveTo(halfWidthCordsMinus + this.height / 2, this.y);
-    ctx.lineTo(halfWidthCordsPlus - this.height / 2, this.y);
-    ctx.lineTo(halfWidthCordsPlus, this.y + this.height / 2);
+    ctx.moveTo(halfWidthCordsMinus + this.height / configs.half, this.y);
+    ctx.lineTo(halfWidthCordsPlus - this.height / configs.half, this.y);
+    ctx.lineTo(halfWidthCordsPlus, this.y + this.height / configs.half);
     ctx.lineTo(
-      halfWidthCordsPlus - this.height / 2,
+      halfWidthCordsPlus - this.height / configs.half,
       this.y + this.height,
     );
     ctx.lineTo(
-      this.x - this.width / 2 + this.height / 2,
+      this.x - this.width / configs.half + this.height / configs.half,
       this.y + this.height,
     );
-    ctx.lineTo(halfWidthCordsMinus, this.y + this.height / 2);
-    ctx.lineTo(halfWidthCordsMinus + this.height / 2, this.y);
+    ctx.lineTo(halfWidthCordsMinus, this.y + this.height / configs.half);
+    ctx.lineTo(halfWidthCordsMinus + this.height / configs.half, this.y);
     ctx.font = configs.sizeAndFont;
     ctx.fillText(
       this.text,
-      halfWidthCordsMinus + this.height / 2,
+      halfWidthCordsMinus + this.height / configs.half,
       this.y + configs.yTextMove,
     );
     ctx.stroke();
