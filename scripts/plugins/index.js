@@ -47,13 +47,9 @@ const configOfWarning = {
   title: 'Warning',
   closable: true,
   content: `
-          <p class="inf_pro">As part of the project life cycle, a significant amount of data and information in
-                          various formats is collected, analyzed, transformed and disseminated to project team members and
-                          other stakeholders. Project data is collected as a result of various execution processes, after
-                          which it is provided to project team members. The collected data is analyzed in context, combined
-                          and transformed into project information during various control processes. The information can then
-                          be transmitted orally or stored and distributed in the form of reports presented in a variety of
-                          formats.</p>`,
+          <p class="inf_pro">Please add clean and working code. Also don't use external functions!  Your code should contain only one function (main).
+
+          Also press the clear button before uploading new code or editing.</p>`,
   width: '400px',
 };
 

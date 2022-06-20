@@ -82,6 +82,7 @@ body {
     border: 1px solid rgb(255 255 255 / 18%);
     box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
     padding: 20px;
+    
 }
 
 .text_about_us {
@@ -272,6 +273,7 @@ footer * {
     font-size: 16px;
     letter-spacing: 2px;
     transition: .15s ease-in-out;
+    cursor: pointer;
 }
 
 .button-clear {
@@ -286,6 +288,7 @@ footer * {
     font-size: 16px;
     letter-spacing: 2px;
     transition: .15s ease-in-out;
+    cursor: pointer;
 }
 
 .copyright {
@@ -500,4 +503,24 @@ footer * {
 
 #canvas {
     width: 100%;
+}
+
+.dowload-buttons {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.button-download {
+    background-color: #1abc9c;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 10px;
+    border-radius: 10px;
+    border: gray 2px solid;
+    font-family: 'Courier Prime', monospace;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 2px;
+    transition: .15s ease-in-out;
+    cursor: pointer;
 }
