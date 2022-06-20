@@ -74,6 +74,10 @@ class BlockBuilder {
 
   static currArr = [];
 
+  hasNested = (lastSymbolOfStr, nextRow) => {
+    return lastSymbolOfStr === '{' || nextRow.split('')[0] === '{';
+  };
+
   nestedBlocks(keyWord, arr, str, i, previousId) {
     this.id++;
     const [leftBorderStr, rightBorderStr] = this.insideRoundBrackets(str);
@@ -85,21 +89,18 @@ class BlockBuilder {
       keyWord,
       strArray.slice(leftBorderStr, rightBorderStr + 1).join(''),
       this.id,
-      previousId,
+      previousId
     );
 
-    if (
-      lastSymbolOfStr === '{'
-      || nextRow.split('')[0] === '{'
-    ) {
+    if (this.hasNested(lastSymbolOfStr, nextRow)) {
       BlockBuilder.currArr = arr.slice(i, arr.length);
       const [leftBorderRow, rightBorderRow] = this.insideCurlyBrackets(
-        BlockBuilder.currArr,
+        BlockBuilder.currArr
       );
       this.prevId = this.id;
       this.findKeyWords(
         BlockBuilder.currArr.slice(leftBorderRow + 1, rightBorderRow),
-        this.prevId,
+        this.prevId
       );
       return i + rightBorderRow;
     }
@@ -107,7 +108,7 @@ class BlockBuilder {
       this.prevId = this.id;
       this.findKeyWords(
         [strArray.slice(rightBorderStr + 1, strArray.length).join('')],
-        this.prevId,
+        this.prevId
       );
     } else {
       this.prevId = this.id;

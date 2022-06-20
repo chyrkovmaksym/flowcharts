@@ -8,15 +8,15 @@ import {
 } from './figures.js';
 
 import { highlightText } from './regexp.js';
-import { getType, types } from './config.js';
+import { getType, types, cordinatX, cordinatY } from './config.js';
 import { downLine, lineWithoutElse } from './lines.js';
 
 const resFigures = new Array();
 const figuresAfterIf = new Array();
 
-const cordinatX = (prevId) => resFigures[prevId - 1].x;
+// const cordinatX = (prevId) => resFigures[prevId - 1].x;
 
-const cordinatY = (prevId) => resFigures[prevId - 1].y;
+// const cordinatY = (prevId) => resFigures[prevId - 1].y;
 
 const downConections = (flagLoopIf, X, Y) => {
   for (let i = 0; i < figuresAfterIf.length; i++) {
@@ -43,8 +43,8 @@ const downConections = (flagLoopIf, X, Y) => {
 
 const afterIf = (prevId, X, Y, idLoop, flagLoopIf) => {
   console.log('afterIf');
-  X = cordinatX(prevId);
-  Y = cordinatY(prevId);
+  X = cordinatX(prevId, resFigures);
+  Y = cordinatY(prevId, resFigures);
   if (prevId !== 1 && prevId !== idLoop) X -= configs.spaceX1;
   for (const figure of figuresAfterIf) {
     if (figure.y > Y) Y = figure.y;
@@ -63,8 +63,8 @@ const afterLoop = (X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) => {
   if (flagIfLoop !== false) X -= configs.spaceX2;
   if (flagLoopIf != null) X += configs.spaceX1 / 4;
   ctx.lineTo(X - configs.spaceX1, Y);
-  let loopX = cordinatX(idLoop);
-  const loopY = cordinatY(idLoop);
+  let loopX = cordinatX(idLoop, resFigures);
+  const loopY = cordinatY(idLoop, resFigures);
   const loopYLevel = loopY + configs.uniHeight / 2;
   ctx.lineTo(X - configs.spaceX1, loopYLevel);
   ctx.lineTo(loopX - hexWidth / 2, loopYLevel);

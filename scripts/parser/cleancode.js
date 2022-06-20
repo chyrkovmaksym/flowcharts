@@ -12,12 +12,12 @@ class Cleaner {
   }
 
   sortingText(string) {
-    let sorted = string
+    const sorted = string
       .replaceAll('}', '}\n')
       .replaceAll('{', '\n{')
       .split(/\r\n|\r|\n/g);
-    sorted = this.cleanCode(sorted);
-    return sorted;
+    const res = this.cleanCode(sorted);
+    return res;
   }
 
   getResult() {

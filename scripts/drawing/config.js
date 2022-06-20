@@ -122,4 +122,4 @@ const types = {
     return res;
   },
 };
-export { types, getType };
+export { types, getType, cordinatX, cordinatY };

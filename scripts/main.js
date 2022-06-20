@@ -2,13 +2,15 @@ import { BlockBuilder } from './parser/parsecode.js';
 import { Cleaner } from './parser/cleancode.js';
 import { Finder } from './drawing/drawingfunction.js';
 import { configs } from './drawing/figures.js';
+import { canvas, ctx } from './drawing/figures.js';
 
 const code = document.getElementById('code');
 const buttonSend = document.getElementById('button-send');
 const buttonClear = document.getElementById('button-clear');
 
-let resultOfProgramm = [];
-let resultOfCleaner = [];
+const clearCanvas = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+};
 
 const resultingFunction = (arrayOfObjects) => {
   let counter = 0;
@@ -23,10 +25,11 @@ const resultingFunction = (arrayOfObjects) => {
 };
 
 buttonSend.addEventListener('click', () => {
+  clearCanvas();
   const cleanedCode = new Cleaner(code.value);
-  resultOfCleaner = cleanedCode.getResult();
+  const resultOfCleaner = cleanedCode.getResult();
   const parsedCode = new BlockBuilder(resultOfCleaner);
-  resultOfProgramm = parsedCode.getResult();
+  const resultOfProgramm = parsedCode.getResult();
   resultingFunction(resultOfProgramm);
 });
 
