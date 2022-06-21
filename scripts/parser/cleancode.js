@@ -4,11 +4,9 @@ class Cleaner {
   }
 
   cleanCode(arr) {
-    for (let i = 0; i < arr.length; i++) {
-      arr[i] = arr[i].trimStart().trimEnd();
-    }
-    arr = arr.filter((str) => str !== '');
-    return arr;
+    return arr
+      .map((item) => item.trimStart().trimEnd())
+      .filter((item) => item !== '');
   }
 
   sortingText(string) {

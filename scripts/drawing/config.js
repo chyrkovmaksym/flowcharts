@@ -15,21 +15,18 @@ const cordinatX = (prevId, resFigures) => resFigures[prevId - 1].x;
 const cordinatY = (prevId, resFigures) => resFigures[prevId - 1].y;
 
 const keyWords = {
-  customF: 'customF',
+  customF: ['customF'],
   expression: ['printf', 'scanf', 'def', 'expression'],
-  if: 'if',
+  if: ['if'],
   cycle: ['for', 'while'],
-  else: 'else',
+  else: ['else'],
 };
 
 const getType = (keyWord) => {
   for (const key of Object.keys(keyWords)) {
-    if (Array.isArray(keyWords[key])) {
-      if (keyWords[key].includes(keyWord)) return key;
-      continue;
-    }
-    if (keyWords[key] === keyWord) return key;
+    if (keyWords[key].includes(keyWord)) return key;
   }
+  return null;
 };
 
 const types = {
@@ -41,7 +38,7 @@ const types = {
       Y,
       configs.uniHeight,
       editedText,
-      configs.uniHeight / configs.half,
+      configs.uniHeight / configs.half
     );
     ellipseRect.draw();
     return ellipseRect;
@@ -51,9 +48,10 @@ const types = {
     const { X, Y, editedText } = this;
     const arrowDown = new ArrowDown(X, Y);
     arrowDown.draw();
-    const figure = type === 'expression'
-      ? new Rectangle(X, Y, configs.uniHeight, editedText)
-      : new Parallelogram45(X, Y, configs.uniHeight, editedText);
+    const figure =
+      type === 'expression'
+        ? new Rectangle(X, Y, configs.uniHeight, editedText)
+        : new Parallelogram45(X, Y, configs.uniHeight, editedText);
     figure.draw();
     downLine(X, Y);
     return figure;
@@ -92,9 +90,7 @@ const types = {
     downLine(X, Y);
     return hexagon;
   },
-  else({
-    figuresAfterIf, resFigures, id, prevId,
-  }) {
+  else({ figuresAfterIf, resFigures, id, prevId }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
     if (this.editedText === '') {
@@ -123,6 +119,4 @@ const types = {
     return res;
   },
 };
-export {
-  types, getType, cordinatX, cordinatY,
-};
+export { types, getType, cordinatX, cordinatY };

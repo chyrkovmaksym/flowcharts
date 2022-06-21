@@ -8,17 +8,14 @@ const buttonSend = document.getElementById('button-send');
 const buttonClear = document.getElementById('button-clear');
 const download = document.getElementById('download');
 
-const clearCanvas = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-};
-
-const resultingFunction = (arrayOfObjects) => {
+const getResult = (codeBlocks) => {
   let counter = 0;
-  arrayOfObjects.forEach((element) => {
-    if (element.type === 'customF') counter++;
-  });
+  for (const block of codeBlocks) {
+    if (block.type === 'customF') counter++;
+  }
   if (counter === 1) {
-    new Finder(arrayOfObjects, configs.coordinatX, configs.coordinatY);
+    const scheme = new Finder(codeBlocks, configs.coordinatX, configs.coordinatY);
+    scheme.draw();
     download.setAttribute('download', 'download');
     download.href = canvas.toDataURL();
   } else {
@@ -27,12 +24,12 @@ const resultingFunction = (arrayOfObjects) => {
 };
 
 buttonSend.addEventListener('click', () => {
-  clearCanvas();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   const cleanedCode = new Cleaner(code.value);
   const resultOfCleaner = cleanedCode.getResult();
   const parsedCode = new BlockBuilder(resultOfCleaner);
   const resultOfProgramm = parsedCode.getResult();
-  resultingFunction(resultOfProgramm);
+  getResult(resultOfProgramm);
 });
 
 buttonClear.addEventListener('click', () => {
