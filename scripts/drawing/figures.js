@@ -168,12 +168,12 @@ class Rhombus {
       this.y + configs.yTextMove,
     );
     ctx.fillText(
-      '1',
+      '0',
       this.x - this.width / configs.half - configs.xNumber,
       this.y + configs.uniHeight / configs.half - configs.yNumber,
     );
     ctx.fillText(
-      '0',
+      '1',
       this.x + this.width / configs.half,
       this.y + configs.uniHeight / configs.half - configs.xNumber,
     );

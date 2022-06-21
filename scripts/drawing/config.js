@@ -38,7 +38,7 @@ const types = {
       Y,
       configs.uniHeight,
       editedText,
-      configs.uniHeight / configs.half
+      configs.uniHeight / configs.half,
     );
     ellipseRect.draw();
     return ellipseRect;
@@ -48,10 +48,9 @@ const types = {
     const { X, Y, editedText } = this;
     const arrowDown = new ArrowDown(X, Y);
     arrowDown.draw();
-    const figure =
-      type === 'expression'
-        ? new Rectangle(X, Y, configs.uniHeight, editedText)
-        : new Parallelogram45(X, Y, configs.uniHeight, editedText);
+    const figure = type === 'expression'
+      ? new Rectangle(X, Y, configs.uniHeight, editedText)
+      : new Parallelogram45(X, Y, configs.uniHeight, editedText);
     figure.draw();
     downLine(X, Y);
     return figure;
@@ -70,7 +69,9 @@ const types = {
     this.rhoWidth = rhombus.width;
     rhombus.draw();
     ifLines(X, Y, this.rhoWidth);
-    this.X -= configs.spaceX2;
+    if (this.rhoWidth > 600) this.X += this.rhoWidth / 2;
+    else if (this.rhoWidth < 200) this.X += 300;
+    else this.X += this.rhoWidth / 2;
     return rhombus;
   },
   cycle({ id }) {
@@ -90,7 +91,9 @@ const types = {
     downLine(X, Y);
     return hexagon;
   },
-  else({ figuresAfterIf, resFigures, id, prevId }) {
+  else({
+    figuresAfterIf, resFigures, id, prevId,
+  }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
     if (this.editedText === '') {
@@ -101,22 +104,30 @@ const types = {
         : (mainIf = this.ifPrevId);
       this.X = cordinatX(mainIf, resFigures);
       this.Y = cordinatY(mainIf, resFigures);
-      this.X += configs.spaceX2;
+      if (this.rhoWidth > 600) this.X -= this.rhoWidth / 2;
+      else if (this.rhoWidth < 200) this.X -= 300;
+      else this.X -= this.rhoWidth / 2;
       res = new ElseMove(this.X, this.Y);
     } else {
       this.X = cordinatX(this.idIf, resFigures);
       this.Y = cordinatY(this.idIf, resFigures);
       this.Y += configs.spaceY;
-      this.X += configs.spaceX2;
+      if (this.rhoWidth > 600) this.X -= this.rhoWidth / 2;
+      else if (this.rhoWidth < 200) this.X -= 300;
+      else this.X -= this.rhoWidth / 2;
       const { X, Y, editedText } = this;
       res = new Rhombus(X, Y, configs.uniHeight, editedText);
       this.rhoWidth = res.width;
       res.draw();
       ifLines(X, Y, this.rhoWidth);
-      this.X -= configs.spaceX2;
+      if (this.rhoWidth > 600) this.X += this.rhoWidth / 2;
+      else if (this.rhoWidth < 200) this.X += 300;
+      else this.X += this.rhoWidth / 2;
       this.idIf = id;
     }
     return res;
   },
 };
-export { types, getType, cordinatX, cordinatY };
+export {
+  types, getType, cordinatX, cordinatY,
+};
