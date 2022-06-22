@@ -2,7 +2,6 @@ import { downLine, ifLines, horizontalLine } from './lines.js';
 import {
   EllipseRect,
   ArrowDown,
-  ArrowLeft,
   Parallelogram45,
   Rectangle,
   Rhombus,
