@@ -165,9 +165,13 @@ function Finder(array, x, y) {
           this.Y = currCordinats.Y;
           if (
             this.idElse == null &&
-            resFigures[id - 2].x < configs.coordinatX
+            resFigures[id - 2].x > configs.coordinatX
           ) {
-            lineWithoutElse(this.ifPrevId, this.idLoop, this.idIf);
+            console.log('id');
+            console.log(this.ifPrevId);
+            console.log(this.idElse);
+            console.log(this.idIf);
+            lineWithoutElse(this.X, this.Y, this.ifPrevId, this.idLoop, this.idIf);
           }
           this.idElse, this.flagIfLoop, (this.idIf = null);
           this.flagIf, (this.flagAfterIf = false);
@@ -187,9 +191,13 @@ function Finder(array, x, y) {
           this.Y = currCordinats.Y;
           if (
             this.idElse == null &&
-            resFigures[id - 2].x < configs.coordinatX
+            resFigures[id - 2].x > configs.coordinatX
           ) {
-            lineWithoutElse(this.ifPrevId, this.idLoop, this.idIf);
+            console.log('id');
+            console.log(this.ifPrevId);
+            console.log(this.idElse);
+            console.log(this.idIf);
+            lineWithoutElse(this.X, this.Y, this.ifPrevId, this.idLoop, this.idIf);
           }
           this.idElse, this.flagIfLoop, (this.idIf = null);
           this.flagIf, (this.flagAfterIf = false);
@@ -231,4 +239,4 @@ function Finder(array, x, y) {
   };
 }
 
-export { Finder };
+export { Finder, resFigures };

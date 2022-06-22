@@ -1,4 +1,6 @@
 import { ctx, configs } from './figures.js';
+import { cordinatX, cordinatY } from './config.js';
+import { resFigures } from './drawingfunction.js';
 
 const downLine = (X, Y, space = null) => {
   ctx.moveTo(X, Y + configs.uniHeight);
@@ -24,12 +26,14 @@ const ifLines = (X, Y, rhoWidth) => {
   ctx.stroke();
 };
 
-const lineWithoutElse = (ifPrevId, idLoop, idIf) => {
+const lineWithoutElse = (X, Y, ifPrevId, idLoop, idIf) => {
   const currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
-  const ifX = cordinatX(currId);
-  const ifY = cordinatY(currId);
-  ctx.moveTo(ifX + configs.spaceX2, ifY + configs.uniHeight);
-  ctx.lineTo(ifX + configs.spaceX2, Y);
+  console.log(currId);
+  console.log(resFigures);
+  const ifX = cordinatX(currId, resFigures);
+  const ifY = cordinatY(currId, resFigures);
+  ctx.moveTo(ifX - configs.spaceX2, ifY + configs.uniHeight);
+  ctx.lineTo(ifX - configs.spaceX2, Y);
   ctx.lineTo(X, Y);
   ctx.stroke();
 };
