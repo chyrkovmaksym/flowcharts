@@ -1,7 +1,8 @@
-import { downLine, ifLines } from './lines.js';
+import { downLine, ifLines, horizontalLine } from './lines.js';
 import {
   EllipseRect,
   ArrowDown,
+  ArrowLeft,
   Parallelogram45,
   Rectangle,
   Rhombus,
@@ -51,14 +52,25 @@ const types = {
     if (editedText != 'break;') {
       this.Y += configs.spaceY;
       const { X, Y } = this;
-      const arrowDown = new ArrowDown(X, Y);
-      arrowDown.draw();
       const figure =
         type === 'expression'
           ? new Rectangle(X, Y, configs.uniHeight, editedText)
           : new Parallelogram45(X, Y, configs.uniHeight, editedText);
       figure.draw();
-      downLine(X, Y);
+      if (this.idCase == null) {
+        downLine(X, Y);
+        const arrowDown = new ArrowDown(X, Y);
+        arrowDown.draw();
+      }
+      if (this.idCase != null) {
+        horizontalLine(X + configs.spaceX1 / 4, Y);
+        downLine(
+          X + configs.spaceX1 + configs.spaceX1 / 5,
+          Y - configs.spaceY / 4,
+          configs.spaceY / 2
+        );
+      }
+
       return figure;
     }
   },
@@ -146,12 +158,12 @@ const types = {
     const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
     this.rhoWidth = rhombus.width;
     rhombus.draw();
+    downLine(X, Y);
   },
   case({ id }) {
     if (this.idCase != null) this.X -= configs.spaceX3;
     if (this.idCase == null) this.idCase = id;
     console.log('case');
-    //console.log(idCase);
     console.log(this.Y);
     this.Y += configs.spaceY;
     console.log(this.Y);
@@ -163,14 +175,18 @@ const types = {
     this.Y -= configs.spaceY;
     this.X += configs.spaceX3;
     downLine(X, Y);
+    horizontalLine(X, Y);
     return rhombus;
   },
   default({}) {
+    this.idCase = null;
     this.Y += configs.spaceY;
+    this.X -= configs.spaceX3;
     const { X, Y, editedText } = this;
     const rectangle = new Rectangle(X, Y, configs.uniHeight, editedText);
     rectangle.draw();
-    this.X -= configs.spaceX3;
+    downLine(X, Y);
+    horizontalLine(X, Y, configs.spaceX3 + 50);
     return rectangle;
   },
 };

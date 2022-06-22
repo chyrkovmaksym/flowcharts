@@ -1,6 +1,12 @@
-import { ctx, configs } from "./figures.js";
-import { cordinatX, cordinatY } from "./config.js";
-import { resFigures } from "./drawingfunction.js";
+import { ctx, configs } from './figures.js';
+import { cordinatX, cordinatY } from './config.js';
+import { resFigures } from './drawingfunction.js';
+
+const horizontalLine = (X, Y, space = null) => {
+  ctx.moveTo(X + configs.spaceX1 / 3, Y + configs.uniHeight / 2);
+  ctx.lineTo(X + configs.spaceX1 - 10 + space, Y + configs.uniHeight / 2);
+  ctx.stroke();
+};
 
 const downLine = (X, Y, space = null) => {
   ctx.moveTo(X, Y + configs.uniHeight);
@@ -9,7 +15,7 @@ const downLine = (X, Y, space = null) => {
 };
 
 const ifLines = (X, Y, rhoWidth) => {
-  console.log("ifLines");
+  console.log('ifLines');
   const yLevel = Y + configs.uniHeight / configs.half;
   ctx.moveTo(X - rhoWidth / configs.half, yLevel);
   if (rhoWidth > configs.spaceX4)
@@ -51,4 +57,4 @@ const lineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
   ctx.stroke();
 };
 
-export { downLine, ifLines, lineWithoutElse };
+export { downLine, ifLines, lineWithoutElse, horizontalLine };
