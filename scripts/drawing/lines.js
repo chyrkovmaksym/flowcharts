@@ -10,17 +10,17 @@ const ifLines = (X, Y, rhoWidth) => {
   console.log('ifLines');
   const yLevel = Y + configs.uniHeight / configs.half;
   ctx.moveTo(X - rhoWidth / configs.half, yLevel);
-  if (rhoWidth > 600) ctx.lineTo(X - rhoWidth / configs.half, yLevel + configs.uniHeight);
-  else if (rhoWidth < 200) ctx.lineTo(X - 300, yLevel);
+  if (rhoWidth > configs.spaceX4) ctx.lineTo(X - rhoWidth / configs.half, yLevel + configs.uniHeight);
+  else if (rhoWidth < configs.spaceX1) ctx.lineTo(X - configs.spaceX3, yLevel);
   else ctx.lineTo(X - rhoWidth, yLevel);
-  if (rhoWidth < 200) ctx.lineTo(X - 300, yLevel + configs.uniHeight);
-  else if (rhoWidth < 600) ctx.lineTo(X - rhoWidth, yLevel + configs.uniHeight);
+  if (rhoWidth < configs.spaceX1) ctx.lineTo(X - configs.spaceX3, yLevel + configs.uniHeight);
+  else if (rhoWidth < configs.spaceX4) ctx.lineTo(X - rhoWidth, yLevel + configs.uniHeight);
   ctx.moveTo(X + rhoWidth / configs.half, yLevel);
-  if (rhoWidth > 600) ctx.lineTo(X + rhoWidth / configs.half, yLevel + configs.uniHeight);
-  else if (rhoWidth < 200) ctx.lineTo(X + 300, yLevel);
+  if (rhoWidth > configs.spaceX4) ctx.lineTo(X + rhoWidth / configs.half, yLevel + configs.uniHeight);
+  else if (rhoWidth < configs.spaceX1) ctx.lineTo(X + configs.spaceX3, yLevel);
   else ctx.lineTo(X + rhoWidth, yLevel);
-  if (rhoWidth < 200) ctx.lineTo(X + 300, yLevel + configs.uniHeight);
-  else if (rhoWidth < 600) ctx.lineTo(X + rhoWidth, yLevel + configs.uniHeight);
+  if (rhoWidth < configs.spaceX1) ctx.lineTo(X + configs.spaceX3, yLevel + configs.uniHeight);
+  else if (rhoWidth < configs.spaceX4) ctx.lineTo(X + rhoWidth, yLevel + configs.uniHeight);
   ctx.stroke();
 };
 

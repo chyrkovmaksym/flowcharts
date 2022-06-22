@@ -69,9 +69,9 @@ const types = {
     this.rhoWidth = rhombus.width;
     rhombus.draw();
     ifLines(X, Y, this.rhoWidth);
-    if (this.rhoWidth > 600) this.X += this.rhoWidth / 2;
-    else if (this.rhoWidth < 200) this.X += 300;
-    else this.X += this.rhoWidth / 2;
+    if (this.rhoWidth > configs.spaceX4) this.X += this.rhoWidth / configs.half;
+    else if (this.rhoWidth < configs.spaceX1) this.X += configs.spaceX3;
+    else this.X += this.rhoWidth;
     return rhombus;
   },
   cycle({ id }) {
@@ -104,25 +104,27 @@ const types = {
         : (mainIf = this.ifPrevId);
       this.X = cordinatX(mainIf, resFigures);
       this.Y = cordinatY(mainIf, resFigures);
-      if (this.rhoWidth > 600) this.X -= this.rhoWidth / 2;
-      else if (this.rhoWidth < 200) this.X -= 300;
-      else this.X -= this.rhoWidth / 2;
+      if (this.rhoWidth > configs.spaceX4) this.X -= this.rhoWidth / configs.half;
+      else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
+      else this.X -= this.rhoWidth;
       res = new ElseMove(this.X, this.Y);
     } else {
       this.X = cordinatX(this.idIf, resFigures);
       this.Y = cordinatY(this.idIf, resFigures);
       this.Y += configs.spaceY;
-      if (this.rhoWidth > 600) this.X -= this.rhoWidth / 2;
-      else if (this.rhoWidth < 200) this.X -= 300;
-      else this.X -= this.rhoWidth / 2;
+      if (this.rhoWidth > configs.spaceX4) this.X -= this.rhoWidth / configs.half;
+      else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
+      else this.X -= this.rhoWidth;
       const { X, Y, editedText } = this;
       res = new Rhombus(X, Y, configs.uniHeight, editedText);
       this.rhoWidth = res.width;
+      const arrowDown = new ArrowDown(X, Y);
+      arrowDown.draw();
       res.draw();
       ifLines(X, Y, this.rhoWidth);
-      if (this.rhoWidth > 600) this.X += this.rhoWidth / 2;
-      else if (this.rhoWidth < 200) this.X += 300;
-      else this.X += this.rhoWidth / 2;
+      if (this.rhoWidth > configs.spaceX4) this.X += this.rhoWidth / configs.half;
+      else if (this.rhoWidth < configs.spaceX1) this.X += configs.spaceX3;
+      else this.X += this.rhoWidth;
       this.idIf = id;
     }
     return res;

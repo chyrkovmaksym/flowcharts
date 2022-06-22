@@ -14,6 +14,8 @@ const configs = {
   spaceY: 75,
   spaceX1: 200,
   spaceX2: 400,
+  spaceX3: 300,
+  spaceX4: 600,
   xNumber: 10,
   yNumber: 5,
   half: 2,
