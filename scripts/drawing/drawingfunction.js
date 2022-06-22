@@ -5,11 +5,11 @@ import {
   EllipseRect,
   ArrowDown,
   ArrowRight,
-} from './figures.js';
+} from "./figures.js";
 
-import { highlightText } from './regexp.js';
-import { getType, types, cordinatX, cordinatY } from './config.js';
-import { downLine, lineWithoutElse } from './lines.js';
+import { highlightText } from "./regexp.js";
+import { getType, types, cordinatX, cordinatY } from "./config.js";
+import { downLine, lineWithoutElse } from "./lines.js";
 
 const resFigures = [];
 const figuresAfterIf = [];
@@ -23,7 +23,7 @@ const downConections = (flagLoopIf, X, Y) => {
     let currY = figuresAfterIf[i].y + configs.uniHeight;
     const currX = figuresAfterIf[i].x;
     if (flagLoopIf != null) {
-      if (flagLoopIf === 'left') {
+      if (flagLoopIf === "left") {
         if (i === 0) {
           currY += configs.spaceY;
           Y += configs.spaceY;
@@ -42,7 +42,7 @@ const downConections = (flagLoopIf, X, Y) => {
 };
 
 const afterIf = (prevId, X, Y, idLoop, flagLoopIf) => {
-  console.log('afterIf');
+  console.log("afterIf");
   X = cordinatX(prevId, resFigures);
   Y = cordinatY(prevId, resFigures);
   if (prevId !== 1 && prevId !== idLoop) X -= configs.spaceX1;
@@ -61,7 +61,7 @@ const afterIf = (prevId, X, Y, idLoop, flagLoopIf) => {
 };
 
 const afterLoop = (X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) => {
-  console.log('afterLoop');
+  console.log("afterLoop");
   Y += configs.spaceY;
   ctx.moveTo(X, Y);
   if (flagIfLoop !== false) X -= configs.spaceX2;
@@ -105,8 +105,9 @@ function Finder(array, x, y) {
   this.idElse = null;
   this.flagAfterIf = false;
   this.hexWidth;
+  this.rhoWidth;
 
-  const imgOfCanvas = document.getElementById('canvas');
+  const imgOfCanvas = document.getElementById("canvas");
 
   this.draw = () => {
     for (const obj of array) {
@@ -119,7 +120,7 @@ function Finder(array, x, y) {
         this.flagIf === false &&
         this.idIf !== null &&
         prevId !== this.idElse &&
-        type !== 'else';
+        type !== "else";
 
       const ifBeforeLoop = () =>
         this.idLoop != null && this.idIf != null && this.idLoop > this.idIf;
@@ -134,7 +135,7 @@ function Finder(array, x, y) {
         prevId !== this.idIf &&
         prevId !== this.idElse &&
         prevId !== this.idLoop &&
-        type !== 'else';
+        type !== "else";
 
       if (ifBeforeLoop()) {
         if (endLoop()) {
@@ -167,11 +168,18 @@ function Finder(array, x, y) {
             this.idElse == null &&
             resFigures[id - 2].x > configs.coordinatX
           ) {
-            console.log('id');
+            console.log("id");
             console.log(this.ifPrevId);
             console.log(this.idElse);
             console.log(this.idIf);
-            lineWithoutElse(this.X, this.Y, this.ifPrevId, this.idLoop, this.idIf);
+            lineWithoutElse(
+              this.X,
+              this.Y,
+              this.ifPrevId,
+              this.idLoop,
+              this.idIf,
+              this.rhoWidth
+            );
           }
           this.idElse, this.flagIfLoop, (this.idIf = null);
           this.flagIf, (this.flagAfterIf = false);
@@ -193,11 +201,18 @@ function Finder(array, x, y) {
             this.idElse == null &&
             resFigures[id - 2].x > configs.coordinatX
           ) {
-            console.log('id');
+            console.log("id");
             console.log(this.ifPrevId);
             console.log(this.idElse);
             console.log(this.idIf);
-            lineWithoutElse(this.X, this.Y, this.ifPrevId, this.idLoop, this.idIf);
+            lineWithoutElse(
+              this.X,
+              this.Y,
+              this.ifPrevId,
+              this.idLoop,
+              this.idIf,
+              this.rhoWidth
+            );
           }
           this.idElse, this.flagIfLoop, (this.idIf = null);
           this.flagIf, (this.flagAfterIf = false);
@@ -229,7 +244,7 @@ function Finder(array, x, y) {
       this.X,
       this.Y,
       configs.uniHeight,
-      'End',
+      "End",
       configs.uniHeight / configs.half
     );
     ellipseRect.draw();

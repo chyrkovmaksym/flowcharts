@@ -1,4 +1,4 @@
-import { downLine, ifLines } from './lines.js';
+import { downLine, ifLines } from "./lines.js";
 import {
   EllipseRect,
   ArrowDown,
@@ -8,18 +8,18 @@ import {
   Hexagon,
   ElseMove,
   configs,
-} from './figures.js';
+} from "./figures.js";
 
 const cordinatX = (prevId, resFigures) => resFigures[prevId - 1].x;
 
 const cordinatY = (prevId, resFigures) => resFigures[prevId - 1].y;
 
 const keyWords = {
-  customF: ['customF'],
-  expression: ['printf', 'scanf', 'def', 'expression'],
-  if: ['if'],
-  cycle: ['for', 'while'],
-  else: ['else'],
+  customF: ["customF"],
+  expression: ["printf", "scanf", "def", "expression"],
+  if: ["if"],
+  cycle: ["for", "while"],
+  else: ["else"],
 };
 
 const getType = (keyWord) => {
@@ -38,7 +38,7 @@ const types = {
       Y,
       configs.uniHeight,
       editedText,
-      configs.uniHeight / configs.half,
+      configs.uniHeight / configs.half
     );
     ellipseRect.draw();
     return ellipseRect;
@@ -48,9 +48,10 @@ const types = {
     const { X, Y, editedText } = this;
     const arrowDown = new ArrowDown(X, Y);
     arrowDown.draw();
-    const figure = type === 'expression'
-      ? new Rectangle(X, Y, configs.uniHeight, editedText)
-      : new Parallelogram45(X, Y, configs.uniHeight, editedText);
+    const figure =
+      type === "expression"
+        ? new Rectangle(X, Y, configs.uniHeight, editedText)
+        : new Parallelogram45(X, Y, configs.uniHeight, editedText);
     figure.draw();
     downLine(X, Y);
     return figure;
@@ -77,8 +78,8 @@ const types = {
   cycle({ id }) {
     if (this.idIf !== null) {
       this.idElse !== null
-        ? (this.flagLoopIf = 'right')
-        : (this.flagLoopIf = 'left');
+        ? (this.flagLoopIf = "right")
+        : (this.flagLoopIf = "left");
     }
     this.idLoop = id;
     this.Y += configs.spaceY;
@@ -91,12 +92,10 @@ const types = {
     downLine(X, Y);
     return hexagon;
   },
-  else({
-    figuresAfterIf, resFigures, id, prevId,
-  }) {
+  else({ figuresAfterIf, resFigures, id, prevId }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
-    if (this.editedText === '') {
+    if (this.editedText === "") {
       this.idElse = id;
       let mainIf = null;
       prevId === this.ifPrevId
@@ -104,7 +103,8 @@ const types = {
         : (mainIf = this.ifPrevId);
       this.X = cordinatX(mainIf, resFigures);
       this.Y = cordinatY(mainIf, resFigures);
-      if (this.rhoWidth > configs.spaceX4) this.X -= this.rhoWidth / configs.half;
+      if (this.rhoWidth > configs.spaceX4)
+        this.X -= this.rhoWidth / configs.half;
       else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
       else this.X -= this.rhoWidth;
       res = new ElseMove(this.X, this.Y);
@@ -112,7 +112,8 @@ const types = {
       this.X = cordinatX(this.idIf, resFigures);
       this.Y = cordinatY(this.idIf, resFigures);
       this.Y += configs.spaceY;
-      if (this.rhoWidth > configs.spaceX4) this.X -= this.rhoWidth / configs.half;
+      if (this.rhoWidth > configs.spaceX4)
+        this.X -= this.rhoWidth / configs.half;
       else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
       else this.X -= this.rhoWidth;
       const { X, Y, editedText } = this;
@@ -122,7 +123,8 @@ const types = {
       arrowDown.draw();
       res.draw();
       ifLines(X, Y, this.rhoWidth);
-      if (this.rhoWidth > configs.spaceX4) this.X += this.rhoWidth / configs.half;
+      if (this.rhoWidth > configs.spaceX4)
+        this.X += this.rhoWidth / configs.half;
       else if (this.rhoWidth < configs.spaceX1) this.X += configs.spaceX3;
       else this.X += this.rhoWidth;
       this.idIf = id;
@@ -130,6 +132,4 @@ const types = {
     return res;
   },
 };
-export {
-  types, getType, cordinatX, cordinatY,
-};
+export { types, getType, cordinatX, cordinatY };
