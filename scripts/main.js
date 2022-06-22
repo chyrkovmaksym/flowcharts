@@ -14,6 +14,7 @@ const getResult = (codeBlocks) => {
     if (block.type === 'customF') counter++;
   }
   if (counter === 1) {
+    console.log(codeBlocks);
     const scheme = new Finder(codeBlocks, configs.coordinatX, configs.coordinatY);
     scheme.draw();
     download.setAttribute('download', 'download');

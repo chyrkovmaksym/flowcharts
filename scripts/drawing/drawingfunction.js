@@ -104,8 +104,9 @@ function Finder(array, x, y) {
   this.ifPrevId = null;
   this.idElse = null;
   this.flagAfterIf = false;
-  this.hexWidth;
-  this.rhoWidth;
+  this.hexWidth = null;
+  this.rhoWidth = null;
+  this.idCase = null;
 
   const imgOfCanvas = document.getElementById("canvas");
 
@@ -162,16 +163,15 @@ function Finder(array, x, y) {
             this.idLoop,
             this.flagLoopIf
           );
+          console.log(idElse);
+          console.log(idIf);
           this.X = currCordinats.X;
           this.Y = currCordinats.Y;
-          if (
-            this.idElse == null &&
-            resFigures[id - 2].x > configs.coordinatX
-          ) {
-            console.log("id");
-            console.log(this.ifPrevId);
-            console.log(this.idElse);
-            console.log(this.idIf);
+          if ((
+            this.idElse == null && resFigures[id - 2].x >= configs.coordinatX)
+          ) 
+          {
+            console.log("withoutElse");
             lineWithoutElse(
               this.X,
               this.Y,
@@ -195,16 +195,15 @@ function Finder(array, x, y) {
             this.idLoop,
             this.flagLoopIf
           );
+          console.log(this.idElse);
+          console.log(this.idIf);
           this.X = currCordinats.X;
           this.Y = currCordinats.Y;
-          if (
-            this.idElse == null &&
-            resFigures[id - 2].x > configs.coordinatX
-          ) {
-            console.log("id");
-            console.log(this.ifPrevId);
-            console.log(this.idElse);
-            console.log(this.idIf);
+          if ((
+            this.idElse == null && resFigures[id - 2].x >= configs.coordinatX)
+          ) 
+          {
+            console.log("withoutElse");
             lineWithoutElse(
               this.X,
               this.Y,

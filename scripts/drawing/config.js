@@ -1,4 +1,4 @@
-import { downLine, ifLines } from "./lines.js";
+import { downLine, ifLines } from './lines.js';
 import {
   EllipseRect,
   ArrowDown,
@@ -8,18 +8,21 @@ import {
   Hexagon,
   ElseMove,
   configs,
-} from "./figures.js";
+} from './figures.js';
 
 const cordinatX = (prevId, resFigures) => resFigures[prevId - 1].x;
 
 const cordinatY = (prevId, resFigures) => resFigures[prevId - 1].y;
 
 const keyWords = {
-  customF: ["customF"],
-  expression: ["printf", "scanf", "def", "expression"],
-  if: ["if"],
-  cycle: ["for", "while"],
-  else: ["else"],
+  customF: ['customF'],
+  expression: ['printf', 'scanf', 'def', 'expression'],
+  if: ['if'],
+  cycle: ['for', 'while'],
+  else: ['else'],
+  switch: ['switch'],
+  case: ['case'],
+  default: ['default'],
 };
 
 const getType = (keyWord) => {
@@ -44,17 +47,20 @@ const types = {
     return ellipseRect;
   },
   expression({ type }) {
-    this.Y += configs.spaceY;
-    const { X, Y, editedText } = this;
-    const arrowDown = new ArrowDown(X, Y);
-    arrowDown.draw();
-    const figure =
-      type === "expression"
-        ? new Rectangle(X, Y, configs.uniHeight, editedText)
-        : new Parallelogram45(X, Y, configs.uniHeight, editedText);
-    figure.draw();
-    downLine(X, Y);
-    return figure;
+    const { editedText } = this;
+    if (editedText != 'break;') {
+      this.Y += configs.spaceY;
+      const { X, Y } = this;
+      const arrowDown = new ArrowDown(X, Y);
+      arrowDown.draw();
+      const figure =
+        type === 'expression'
+          ? new Rectangle(X, Y, configs.uniHeight, editedText)
+          : new Parallelogram45(X, Y, configs.uniHeight, editedText);
+      figure.draw();
+      downLine(X, Y);
+      return figure;
+    }
   },
   if({ id, prevId }) {
     if (this.idLoop != null) this.flagIfLoop = true;
@@ -78,8 +84,8 @@ const types = {
   cycle({ id }) {
     if (this.idIf !== null) {
       this.idElse !== null
-        ? (this.flagLoopIf = "right")
-        : (this.flagLoopIf = "left");
+        ? (this.flagLoopIf = 'right')
+        : (this.flagLoopIf = 'left');
     }
     this.idLoop = id;
     this.Y += configs.spaceY;
@@ -95,7 +101,7 @@ const types = {
   else({ figuresAfterIf, resFigures, id, prevId }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
-    if (this.editedText === "") {
+    if (this.editedText === '') {
       this.idElse = id;
       let mainIf = null;
       prevId === this.ifPrevId
@@ -130,6 +136,42 @@ const types = {
       this.idIf = id;
     }
     return res;
+  },
+  switch({}) {
+    console.log('switch');
+    this.Y += configs.spaceY;
+    const { X, Y, editedText } = this;
+    const arrowDown = new ArrowDown(X, Y);
+    arrowDown.draw();
+    const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
+    this.rhoWidth = rhombus.width;
+    rhombus.draw();
+  },
+  case({ id }) {
+    if (this.idCase != null) this.X -= configs.spaceX3;
+    if (this.idCase == null) this.idCase = id;
+    console.log('case');
+    //console.log(idCase);
+    console.log(this.Y);
+    this.Y += configs.spaceY;
+    console.log(this.Y);
+    const { X, Y, editedText } = this;
+    console.log(Y);
+    const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
+    this.rhoWidth = rhombus.width;
+    rhombus.draw();
+    this.Y -= configs.spaceY;
+    this.X += configs.spaceX3;
+    downLine(X, Y);
+    return rhombus;
+  },
+  default({}) {
+    this.Y += configs.spaceY;
+    const { X, Y, editedText } = this;
+    const rectangle = new Rectangle(X, Y, configs.uniHeight, editedText);
+    rectangle.draw();
+    this.X -= configs.spaceX3;
+    return rectangle;
   },
 };
 export { types, getType, cordinatX, cordinatY };
