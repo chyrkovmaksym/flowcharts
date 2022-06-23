@@ -5,11 +5,13 @@ import {
   EllipseRect,
   ArrowDown,
   ArrowRight,
-} from "./figures.js";
+} from './figures.js';
 
-import { highlightText } from "./regexp.js";
-import { getType, types, cordinatX, cordinatY } from "./config.js";
-import { downLine, lineWithoutElse } from "./lines.js";
+import { highlightText } from './regexp.js';
+import {
+  getType, types, cordinatX, cordinatY,
+} from './config.js';
+import { downLine, lineWithoutElse } from './lines.js';
 
 const resFigures = [];
 const figuresAfterIf = [];
@@ -23,7 +25,7 @@ const downConections = (flagLoopIf, X, Y) => {
     let currY = figuresAfterIf[i].y + configs.uniHeight;
     const currX = figuresAfterIf[i].x;
     if (flagLoopIf != null) {
-      if (flagLoopIf === "left") {
+      if (flagLoopIf === 'left') {
         if (i === 0) {
           currY += configs.spaceY;
           Y += configs.spaceY;
@@ -42,7 +44,7 @@ const downConections = (flagLoopIf, X, Y) => {
 };
 
 const afterIf = (prevId, X, Y, idLoop, flagLoopIf) => {
-  console.log("afterIf");
+  console.log('afterIf');
   X = cordinatX(prevId, resFigures);
   Y = cordinatY(prevId, resFigures);
   if (prevId !== 1 && prevId !== idLoop) X -= configs.spaceX1;
@@ -53,7 +55,7 @@ const afterIf = (prevId, X, Y, idLoop, flagLoopIf) => {
   downLine(
     X,
     Y + configs.spaceY / configs.third,
-    (configs.spaceY / configs.third) * configs.half
+    (configs.spaceY / configs.third) * configs.half,
   );
   Y += configs.spaceY;
   figuresAfterIf.length = null;
@@ -61,7 +63,7 @@ const afterIf = (prevId, X, Y, idLoop, flagLoopIf) => {
 };
 
 const afterLoop = (X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) => {
-  console.log("afterLoop");
+  console.log('afterLoop');
   Y += configs.spaceY;
   ctx.moveTo(X, Y);
   if (flagIfLoop !== false) X -= configs.spaceX2;
@@ -87,7 +89,7 @@ const afterLoop = (X, Y, idLoop, flagIfLoop, flagLoopIf, hexWidth) => {
   if (flagLoopIf !== null) X -= configs.spaceX1 / configs.quarter;
   const arrowRight = new ArrowRight(
     loopX - hexWidth / configs.half,
-    loopYLevel
+    loopYLevel,
   );
   arrowRight.draw();
   return { X, Y };
@@ -108,35 +110,33 @@ function Finder(array, x, y) {
   this.rhoWidth = null;
   this.idCase = null;
 
-  const imgOfCanvas = document.getElementById("canvas");
+  const imgOfCanvas = document.getElementById('canvas');
 
   this.draw = () => {
     for (const obj of array) {
-      const { type, text, id, prevId } = obj;
+      const {
+        type, text, id, prevId,
+      } = obj;
       console.log(id);
       this.editedText = highlightText(text, type);
 
-      const exitFromIf = () =>
-        this.flagAfterIf === true &&
-        this.flagIf === false &&
-        this.idIf !== null &&
-        prevId !== this.idElse &&
-        type !== "else";
+      const exitFromIf = () => this.flagAfterIf === true
+        && this.flagIf === false
+        && this.idIf !== null
+        && prevId !== this.idElse
+        && type !== 'else';
 
-      const ifBeforeLoop = () =>
-        this.idLoop != null && this.idIf != null && this.idLoop > this.idIf;
+      const ifBeforeLoop = () => this.idLoop != null && this.idIf != null && this.idLoop > this.idIf;
 
-      const endLoop = () =>
-        this.idLoop !== null &&
-        prevId !== this.idLoop &&
-        prevId !== this.idElse &&
-        prevId !== this.idIf;
+      const endLoop = () => this.idLoop !== null
+        && prevId !== this.idLoop
+        && prevId !== this.idElse
+        && prevId !== this.idIf;
 
-      const endIfWithoutElse = () =>
-        prevId !== this.idIf &&
-        prevId !== this.idElse &&
-        prevId !== this.idLoop &&
-        type !== "else";
+      const endIfWithoutElse = () => prevId !== this.idIf
+        && prevId !== this.idElse
+        && prevId !== this.idLoop
+        && type !== 'else';
 
       if (ifBeforeLoop()) {
         if (endLoop()) {
@@ -146,7 +146,7 @@ function Finder(array, x, y) {
             this.idLoop,
             this.flagIfLoop,
             this.flagLoopIf,
-            this.hexWidth
+            this.hexWidth,
           );
           this.X = currCordinats.X;
           this.Y = currCordinats.Y;
@@ -161,7 +161,7 @@ function Finder(array, x, y) {
             this.X,
             this.Y,
             this.idLoop,
-            this.flagLoopIf
+            this.flagLoopIf,
           );
           console.log(idElse);
           console.log(idIf);
@@ -169,16 +169,15 @@ function Finder(array, x, y) {
           this.Y = currCordinats.Y;
           if ((
             this.idElse == null && resFigures[id - 2].x >= configs.coordinatX)
-          ) 
-          {
-            console.log("withoutElse");
+          ) {
+            console.log('withoutElse');
             lineWithoutElse(
               this.X,
               this.Y,
               this.ifPrevId,
               this.idLoop,
               this.idIf,
-              this.rhoWidth
+              this.rhoWidth,
             );
           }
           this.idElse, this.flagIfLoop, (this.idIf = null);
@@ -193,7 +192,7 @@ function Finder(array, x, y) {
             this.X,
             this.Y,
             this.idLoop,
-            this.flagLoopIf
+            this.flagLoopIf,
           );
           console.log(this.idElse);
           console.log(this.idIf);
@@ -201,16 +200,15 @@ function Finder(array, x, y) {
           this.Y = currCordinats.Y;
           if ((
             this.idElse == null && resFigures[id - 2].x >= configs.coordinatX)
-          ) 
-          {
-            console.log("withoutElse");
+          ) {
+            console.log('withoutElse');
             lineWithoutElse(
               this.X,
               this.Y,
               this.ifPrevId,
               this.idLoop,
               this.idIf,
-              this.rhoWidth
+              this.rhoWidth,
             );
           }
           this.idElse, this.flagIfLoop, (this.idIf = null);
@@ -223,7 +221,7 @@ function Finder(array, x, y) {
             this.idLoop,
             this.flagIfLoop,
             this.flagLoopIf,
-            this.hexWidth
+            this.hexWidth,
           );
           this.X = currCordinats.X;
           this.Y = currCordinats.Y;
@@ -243,8 +241,8 @@ function Finder(array, x, y) {
       this.X,
       this.Y,
       configs.uniHeight,
-      "End",
-      configs.uniHeight / configs.half
+      'End',
+      configs.uniHeight / configs.half,
     );
     ellipseRect.draw();
     resFigures.push(ellipseRect);

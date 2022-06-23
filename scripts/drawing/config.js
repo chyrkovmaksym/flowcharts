@@ -41,7 +41,7 @@ const types = {
       Y,
       configs.uniHeight,
       editedText,
-      configs.uniHeight / configs.half
+      configs.uniHeight / configs.half,
     );
     ellipseRect.draw();
     return ellipseRect;
@@ -51,10 +51,9 @@ const types = {
     if (editedText != 'break;') {
       this.Y += configs.spaceY;
       const { X, Y } = this;
-      const figure =
-        type === 'expression'
-          ? new Rectangle(X, Y, configs.uniHeight, editedText)
-          : new Parallelogram45(X, Y, configs.uniHeight, editedText);
+      const figure = type === 'expression'
+        ? new Rectangle(X, Y, configs.uniHeight, editedText)
+        : new Parallelogram45(X, Y, configs.uniHeight, editedText);
       figure.draw();
       if (this.idCase == null) {
         downLine(X, Y);
@@ -66,7 +65,7 @@ const types = {
         downLine(
           X + configs.spaceX1 + configs.spaceX1 / 5,
           Y - configs.spaceY / 4,
-          configs.spaceY / 2
+          configs.spaceY / 2,
         );
       }
 
@@ -109,7 +108,9 @@ const types = {
     downLine(X, Y);
     return hexagon;
   },
-  else({ figuresAfterIf, resFigures, id, prevId }) {
+  else({
+    figuresAfterIf, resFigures, id, prevId,
+  }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
     if (this.editedText === '') {
@@ -120,8 +121,7 @@ const types = {
         : (mainIf = this.ifPrevId);
       this.X = cordinatX(mainIf, resFigures);
       this.Y = cordinatY(mainIf, resFigures);
-      if (this.rhoWidth > configs.spaceX4)
-        this.X -= this.rhoWidth / configs.half;
+      if (this.rhoWidth > configs.spaceX4) this.X -= this.rhoWidth / configs.half;
       else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
       else this.X -= this.rhoWidth;
       res = new ElseMove(this.X, this.Y);
@@ -129,8 +129,7 @@ const types = {
       this.X = cordinatX(this.idIf, resFigures);
       this.Y = cordinatY(this.idIf, resFigures);
       this.Y += configs.spaceY;
-      if (this.rhoWidth > configs.spaceX4)
-        this.X -= this.rhoWidth / configs.half;
+      if (this.rhoWidth > configs.spaceX4) this.X -= this.rhoWidth / configs.half;
       else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
       else this.X -= this.rhoWidth;
       const { X, Y, editedText } = this;
@@ -140,8 +139,7 @@ const types = {
       arrowDown.draw();
       res.draw();
       ifLines(X, Y, this.rhoWidth);
-      if (this.rhoWidth > configs.spaceX4)
-        this.X += this.rhoWidth / configs.half;
+      if (this.rhoWidth > configs.spaceX4) this.X += this.rhoWidth / configs.half;
       else if (this.rhoWidth < configs.spaceX1) this.X += configs.spaceX3;
       else this.X += this.rhoWidth;
       this.idIf = id;
@@ -189,4 +187,6 @@ const types = {
     return rectangle;
   },
 };
-export { types, getType, cordinatX, cordinatY };
+export {
+  types, getType, cordinatX, cordinatY,
+};

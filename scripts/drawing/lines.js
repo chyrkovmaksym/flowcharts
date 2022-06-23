@@ -18,23 +18,17 @@ const ifLines = (X, Y, rhoWidth) => {
   console.log('ifLines');
   const yLevel = Y + configs.uniHeight / configs.half;
   ctx.moveTo(X - rhoWidth / configs.half, yLevel);
-  if (rhoWidth > configs.spaceX4)
-    ctx.lineTo(X - rhoWidth / configs.half, yLevel + configs.uniHeight);
+  if (rhoWidth > configs.spaceX4) ctx.lineTo(X - rhoWidth / configs.half, yLevel + configs.uniHeight);
   else if (rhoWidth < configs.spaceX1) ctx.lineTo(X - configs.spaceX3, yLevel);
   else ctx.lineTo(X - rhoWidth, yLevel);
-  if (rhoWidth < configs.spaceX1)
-    ctx.lineTo(X - configs.spaceX3, yLevel + configs.uniHeight);
-  else if (rhoWidth < configs.spaceX4)
-    ctx.lineTo(X - rhoWidth, yLevel + configs.uniHeight);
+  if (rhoWidth < configs.spaceX1) ctx.lineTo(X - configs.spaceX3, yLevel + configs.uniHeight);
+  else if (rhoWidth < configs.spaceX4) ctx.lineTo(X - rhoWidth, yLevel + configs.uniHeight);
   ctx.moveTo(X + rhoWidth / configs.half, yLevel);
-  if (rhoWidth > configs.spaceX4)
-    ctx.lineTo(X + rhoWidth / configs.half, yLevel + configs.uniHeight);
+  if (rhoWidth > configs.spaceX4) ctx.lineTo(X + rhoWidth / configs.half, yLevel + configs.uniHeight);
   else if (rhoWidth < configs.spaceX1) ctx.lineTo(X + configs.spaceX3, yLevel);
   else ctx.lineTo(X + rhoWidth, yLevel);
-  if (rhoWidth < configs.spaceX1)
-    ctx.lineTo(X + configs.spaceX3, yLevel + configs.uniHeight);
-  else if (rhoWidth < configs.spaceX4)
-    ctx.lineTo(X + rhoWidth, yLevel + configs.uniHeight);
+  if (rhoWidth < configs.spaceX1) ctx.lineTo(X + configs.spaceX3, yLevel + configs.uniHeight);
+  else if (rhoWidth < configs.spaceX4) ctx.lineTo(X + rhoWidth, yLevel + configs.uniHeight);
   ctx.stroke();
 };
 
@@ -45,10 +39,8 @@ const lineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
   const ifX = cordinatX(currId, resFigures);
   const ifY = cordinatY(currId, resFigures);
   const ifYLevel = ifY + configs.uniHeight / 2;
-  if (rhoWidth > configs.spaceX4)
-    ctx.moveTo(X - rhoWidth / configs.half, ifYLevel);
-  else if (rhoWidth < configs.spaceX1)
-    ctx.moveTo(ifX - configs.spaceX3, ifYLevel);
+  if (rhoWidth > configs.spaceX4) ctx.moveTo(X - rhoWidth / configs.half, ifYLevel);
+  else if (rhoWidth < configs.spaceX1) ctx.moveTo(ifX - configs.spaceX3, ifYLevel);
   else ctx.moveTo(X - rhoWidth, ifYLevel);
   if (rhoWidth > configs.spaceX4) ctx.line.to(X - rhoWidth / configs.half, Y);
   else if (rhoWidth < configs.spaceX1) ctx.lineTo(ifX - configs.spaceX3, Y);
@@ -57,4 +49,6 @@ const lineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
   ctx.stroke();
 };
 
-export { downLine, ifLines, lineWithoutElse, horizontalLine };
+export {
+  downLine, ifLines, lineWithoutElse, horizontalLine,
+};

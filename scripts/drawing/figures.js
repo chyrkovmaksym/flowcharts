@@ -1,8 +1,8 @@
-const canvas = document.getElementById("c1");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('c1');
+const ctx = canvas.getContext('2d');
 
 const configs = {
-  sizeAndFont: "20px helvetica",
+  sizeAndFont: '20px helvetica',
   xTextMove: 10,
   yTextMove: 30,
   arrowMove: 10,
@@ -51,7 +51,7 @@ class EllipseRect {
       halfWidthCordsPlus,
       this.y,
       halfWidthCordsPlus,
-      yLevel
+      yLevel,
     );
     ctx.quadraticCurveTo(halfWidthCordsPlus, yDiameter, left, yDiameter);
     ctx.lineTo(right, yDiameter);
@@ -59,14 +59,14 @@ class EllipseRect {
       halfWidthCordsMinus,
       yDiameter,
       halfWidthCordsMinus,
-      yLevel
+      yLevel,
     );
     ctx.quadraticCurveTo(halfWidthCordsMinus, this.y, right, this.y);
     ctx.font = configs.sizeAndFont;
     ctx.fillText(
       this.text,
       this.x - this.width / configs.half + this.radius,
-      this.y + configs.yTextMove
+      this.y + configs.yTextMove,
     );
     ctx.stroke();
   }
@@ -100,7 +100,7 @@ class Parallelogram45 {
     ctx.fillText(
       this.text,
       halfWidthCordsMinus + this.height,
-      this.y + configs.yTextMove
+      this.y + configs.yTextMove,
     );
     ctx.stroke();
   }
@@ -131,7 +131,7 @@ class Rectangle {
     ctx.fillText(
       this.text,
       halfWidthCordsMinus + configs.xTextMove,
-      this.y + configs.yTextMove
+      this.y + configs.yTextMove,
     );
     ctx.stroke();
   }
@@ -154,29 +154,29 @@ class Rhombus {
     ctx.moveTo(this.x, this.y);
     ctx.lineTo(
       this.x + this.width / configs.half,
-      this.y + this.height / configs.half
+      this.y + this.height / configs.half,
     );
     ctx.lineTo(this.x, this.y + this.height);
     ctx.lineTo(
       this.x - this.width / configs.half,
-      this.y + this.height / configs.half
+      this.y + this.height / configs.half,
     );
     ctx.lineTo(this.x, this.y);
     ctx.font = configs.sizeAndFont;
     ctx.fillText(
       this.text,
       this.x - this.width / configs.quarter,
-      this.y + configs.yTextMove
+      this.y + configs.yTextMove,
     );
     ctx.fillText(
-      "0",
+      '0',
       this.x - this.width / configs.half - configs.xNumber,
-      this.y + configs.uniHeight / configs.half - configs.yNumber
+      this.y + configs.uniHeight / configs.half - configs.yNumber,
     );
     ctx.fillText(
-      "1",
+      '1',
       this.x + this.width / configs.half,
-      this.y + configs.uniHeight / configs.half - configs.xNumber
+      this.y + configs.uniHeight / configs.half - configs.xNumber,
     );
     ctx.stroke();
   }
@@ -203,11 +203,11 @@ class Hexagon {
     ctx.lineTo(halfWidthCordsPlus, this.y + this.height / configs.half);
     ctx.lineTo(
       halfWidthCordsPlus - this.height / configs.half,
-      this.y + this.height
+      this.y + this.height,
     );
     ctx.lineTo(
       this.x - this.width / configs.half + this.height / configs.half,
-      this.y + this.height
+      this.y + this.height,
     );
     ctx.lineTo(halfWidthCordsMinus, this.y + this.height / configs.half);
     ctx.lineTo(halfWidthCordsMinus + this.height / configs.half, this.y);
@@ -215,7 +215,7 @@ class Hexagon {
     ctx.fillText(
       this.text,
       halfWidthCordsMinus + this.height / configs.half,
-      this.y + configs.yTextMove
+      this.y + configs.yTextMove,
     );
     ctx.stroke();
   }
