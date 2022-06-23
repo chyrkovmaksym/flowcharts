@@ -1,33 +1,31 @@
-const dropbtnInst = selectElement('.dropbtn-inst');
-const dropbtnGit = selectElement('.dropbtn-git');
-const dropbtnTg = selectElement('.dropbtn-tg');
-const supportBtn = selectElement('.support');
-const termsOfServiceBtn = selectElement('.termsOfSupport');
-const FAQBtn = selectElement('.FAQ');
+const buttons = {
+  dropbtnInst: selectElement('.dropbtn-inst'),
+  dropbtnGit: selectElement('.dropbtn-git'),
+  dropbtnTg: selectElement('.dropbtn-tg'),
+  supportBtn: selectElement('.support'),
+  termsOfServiceBtn: selectElement('.termsOfSupport'),
+  FAQBtn: selectElement('.FAQ'),
+};
 
-dropbtnInst.addEventListener('click', () => {
-  const dropdownInst = selectElement('.dropdown-inst');
-  dropdownInst.classList.toggle('active');
-});
+const toggle = (button, type) => {
+  button.addEventListener('click', () => {
+    const dropdown = selectElement(`.dropdown-${type}`);
+    dropdown.classList.toggle('active');
+  });
+};
 
-dropbtnGit.addEventListener('click', () => {
-  const dropdownGit = selectElement('.dropdown-git');
-  dropdownGit.classList.toggle('active');
-});
+toggle(buttons.dropbtnInst, 'inst');
+toggle(buttons.dropbtnGit, 'git');
+toggle(buttons.dropbtnTg, 'tg');
 
-dropbtnTg.addEventListener('click', () => {
-  const dropdownTg = selectElement('.dropdown-tg');
-  dropdownTg.classList.toggle('active');
-});
-
-supportBtn.addEventListener('click', () => {
+buttons.supportBtn.addEventListener('click', () => {
   modalSupport.open();
 });
 
-termsOfServiceBtn.addEventListener('click', () => {
+buttons.termsOfServiceBtn.addEventListener('click', () => {
   modalTermsOfService.open();
 });
 
-FAQBtn.addEventListener('click', () => {
+buttons.FAQBtn.addEventListener('click', () => {
   modalFAQ.open();
 });
