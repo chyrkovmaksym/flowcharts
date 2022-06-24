@@ -109,6 +109,8 @@ function Finder(array, x, y) {
   this.hexWidth = null;
   this.rhoWidth = null;
   this.idCase = null;
+  this.rectWidth = null;
+  this.rhoSwitchWidth = null;
 
   const imgOfCanvas = document.getElementById('canvas');
 

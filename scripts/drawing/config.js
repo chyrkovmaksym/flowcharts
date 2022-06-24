@@ -8,6 +8,8 @@ import {
   Hexagon,
   ElseMove,
   configs,
+  ArrowLeft,
+  ctx,
 } from './figures.js';
 
 const cordinatX = (prevId, resFigures) => resFigures[prevId - 1].x;
@@ -61,11 +63,11 @@ const types = {
         arrowDown.draw();
       }
       if (this.idCase != null) {
-        horizontalLine(X + configs.spaceX1 / 4, Y);
+        horizontalLine(X + configs.spaceX1 / configs.quarter, Y);
         downLine(
-          X + configs.spaceX1 + configs.spaceX1 / 5,
-          Y - configs.spaceY / 4,
-          configs.spaceY / 2,
+          X + configs.spaceX1 + configs.spaceX1 / configs.fifth,
+          Y - configs.uniHeight / 2,
+          configs.uniHeight,
         );
       }
 
@@ -166,8 +168,10 @@ const types = {
     console.log(this.Y);
     const { X, Y, editedText } = this;
     console.log(Y);
+    const arrowDown = new ArrowDown(X, Y);
+    arrowDown.draw();
     const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
-    this.rhoWidth = rhombus.width;
+    this.rhoSwitchWidth = rhombus.width;
     rhombus.draw();
     this.Y -= configs.spaceY;
     this.X += configs.spaceX3;
@@ -180,8 +184,16 @@ const types = {
     this.Y += configs.spaceY;
     this.X -= configs.spaceX3;
     const { X, Y, editedText } = this;
+    const yLevel = Y + configs.uniHeight / configs.half;
+    const arrowDown = new ArrowDown(X, Y);
+    arrowDown.draw();
     const rectangle = new Rectangle(X, Y, configs.uniHeight, editedText);
+    this.rectWidth = rectangle.width;
     rectangle.draw();
+    const arrowLeft = new ArrowLeft(X + this.rectWidth / 2, yLevel);
+    arrowLeft.draw();
+    ctx.moveTo(X + this.rhoSwitchWidth / configs.half, yLevel);
+    ctx.lineTo(X + this.rectWidth / configs.half, yLevel);
     downLine(X, Y);
     horizontalLine(X, Y, configs.spaceX3 + 50);
     return rectangle;

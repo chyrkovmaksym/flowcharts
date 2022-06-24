@@ -21,6 +21,7 @@ const configs = {
   half: 2,
   third: 3,
   quarter: 4,
+  fifth: 5,
 };
 
 class EllipseRect {
@@ -322,4 +323,5 @@ export {
   EllipseRect,
   ArrowDown,
   ArrowRight,
+  ArrowLeft,
 };

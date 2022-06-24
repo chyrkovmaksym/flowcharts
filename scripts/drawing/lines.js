@@ -3,8 +3,9 @@ import { cordinatX, cordinatY } from './config.js';
 import { resFigures } from './drawingfunction.js';
 
 const horizontalLine = (X, Y, space = null) => {
-  ctx.moveTo(X + configs.spaceX1 / 3, Y + configs.uniHeight / 2);
-  ctx.lineTo(X + configs.spaceX1 - 10 + space, Y + configs.uniHeight / 2);
+  const yLevel = Y + configs.uniHeight / configs.half;
+  ctx.moveTo(X + configs.spaceX1 / 3, yLevel);
+  ctx.lineTo(X + configs.spaceX1 - 10 + space, yLevel);
   ctx.stroke();
 };
 
