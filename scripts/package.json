@@ -1,5 +1,5 @@
 {
-  "name": "course_project",
+  "name": "flowcharts",
   "version": "1.0.0",
   "description": "this project was done by students",
   "main": "main.js",
@@ -14,7 +14,7 @@
     "project"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "^8.17.0",
     "eslint-config-airbnb-base": "^15.0.0",
