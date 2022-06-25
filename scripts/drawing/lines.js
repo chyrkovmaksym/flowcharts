@@ -44,13 +44,13 @@ const lineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
   const ifX = cordinatX(currId, resFigures);
   const ifY = cordinatY(currId, resFigures);
   const ifYLevel = ifY + configs.uniHeight / 2;
-  if (rhoWidth > configs.spaceX4)
+  if (rhoWidth >= configs.spaceX4)
     ctx.moveTo(X - rhoWidth / configs.half, ifYLevel);
-  else if (rhoWidth < configs.spaceX1)
+  else if (rhoWidth <= configs.spaceX1)
     ctx.moveTo(ifX - configs.spaceX3, ifYLevel);
   else ctx.moveTo(X - rhoWidth, ifYLevel);
-  if (rhoWidth > configs.spaceX4) ctx.line.to(X - rhoWidth / configs.half, Y);
-  else if (rhoWidth < configs.spaceX1) ctx.lineTo(ifX - configs.spaceX3, Y);
+  if (rhoWidth >= configs.spaceX4) ctx.line.to(X - rhoWidth / configs.half, Y);
+  else if (rhoWidth <= configs.spaceX1) ctx.lineTo(ifX - configs.spaceX3, Y);
   else ctx.moveTo(X - rhoWidth, Y);
   ctx.lineTo(X, Y);
   ctx.stroke();
