@@ -1,6 +1,6 @@
-import { ctx, configs, ArrowRight, ArrowLeft } from './figures.js';
-import { cordinatX, cordinatY } from './config.js';
-import { resFigures } from './drawingfunction.js';
+import { ctx, configs } from "./figures.js";
+import { cordinatX, cordinatY } from "./config.js";
+import { resFigures } from "./drawingfunction.js";
 
 const horizontalLine = (X, Y, space = null) => {
   ctx.moveTo(X, Y);
@@ -15,23 +15,22 @@ const downLine = (X, Y, space = null) => {
 };
 
 const ifLines = (X, Y, rhoWidth) => {
-  console.log('ifLines');
   const yLevel = Y + configs.uniHeight / configs.half;
   ctx.moveTo(X - rhoWidth / configs.half, yLevel);
-  if (rhoWidth > configs.spaceX4)
+  if (rhoWidth >= configs.spaceX4)
     ctx.lineTo(X - rhoWidth / configs.half, yLevel + configs.uniHeight);
-  else if (rhoWidth < configs.spaceX1) ctx.lineTo(X - configs.spaceX3, yLevel);
+  else if (rhoWidth <= configs.spaceX1) ctx.lineTo(X - configs.spaceX3, yLevel);
   else ctx.lineTo(X - rhoWidth, yLevel);
-  if (rhoWidth < configs.spaceX1)
+  if (rhoWidth <= configs.spaceX1)
     ctx.lineTo(X - configs.spaceX3, yLevel + configs.uniHeight);
   else if (rhoWidth < configs.spaceX4)
     ctx.lineTo(X - rhoWidth, yLevel + configs.uniHeight);
   ctx.moveTo(X + rhoWidth / configs.half, yLevel);
-  if (rhoWidth > configs.spaceX4)
+  if (rhoWidth >= configs.spaceX4)
     ctx.lineTo(X + rhoWidth / configs.half, yLevel + configs.uniHeight);
-  else if (rhoWidth < configs.spaceX1) ctx.lineTo(X + configs.spaceX3, yLevel);
+  else if (rhoWidth <= configs.spaceX1) ctx.lineTo(X + configs.spaceX3, yLevel);
   else ctx.lineTo(X + rhoWidth, yLevel);
-  if (rhoWidth < configs.spaceX1)
+  if (rhoWidth <= configs.spaceX1)
     ctx.lineTo(X + configs.spaceX3, yLevel + configs.uniHeight);
   else if (rhoWidth < configs.spaceX4)
     ctx.lineTo(X + rhoWidth, yLevel + configs.uniHeight);

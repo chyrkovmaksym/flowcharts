@@ -1,4 +1,4 @@
-import { downLine, ifLines, horizontalLine } from './lines.js';
+import { downLine, ifLines, horizontalLine } from "./lines.js";
 import {
   EllipseRect,
   ArrowDown,
@@ -11,21 +11,34 @@ import {
   ArrowLeft,
   ctx,
   ArrowRight,
-} from './figures.js';
+} from "./figures.js";
 
 const cordinatX = (prevId, resFigures) => resFigures[prevId - 1].x;
 
 const cordinatY = (prevId, resFigures) => resFigures[prevId - 1].y;
 
+const fillRhoNumbers = (X, Y, rhoWidth) => {
+  ctx.fillText(
+    "0",
+    X - rhoWidth / configs.half - configs.xNumber,
+    Y + configs.uniHeight / configs.half - configs.yNumber
+  );
+  ctx.fillText(
+    "1",
+    X + rhoWidth / configs.half,
+    Y + configs.uniHeight / configs.half - configs.xNumber
+  );
+};
+
 const keyWords = {
-  customF: ['customF'],
-  expression: ['printf', 'scanf', 'def', 'expression'],
-  if: ['if'],
-  cycle: ['for', 'while'],
-  else: ['else'],
-  switch: ['switch'],
-  case: ['case'],
-  default: ['default'],
+  customF: ["customF"],
+  expression: ["printf", "scanf", "def", "expression"],
+  if: ["if"],
+  cycle: ["for", "while"],
+  else: ["else"],
+  switch: ["switch"],
+  case: ["case"],
+  default: ["default"],
 };
 
 const getType = (keyWord) => {
@@ -52,23 +65,20 @@ const types = {
 
   expression({ type }) {
     const { editedText } = this;
-    if (editedText != 'break;') {
+    if (editedText !== "break;") {
       let space1 = null;
       let space2 = null;
       let arrowX = null;
       this.Y += configs.spaceY;
       const { X, Y } = this;
       let figure;
-      if (type === 'expression') {
+      if (type === "expression") {
         figure = new Rectangle(X, Y, configs.uniHeight, editedText);
-        space1 = 0;
-        space2 = 0;
-        arrowX = 0;
       } else {
         figure = new Parallelogram45(X, Y, configs.uniHeight, editedText);
-        space1 = -20;
-        space2 = 20;
-        arrowX = 20;
+        space1 = -configs.uniHeight / configs.half;
+        space2 = configs.uniHeight / configs.half;
+        arrowX = configs.uniHeight / configs.half;
       }
       this.figWidth = figure.width;
       figure.draw();
@@ -79,21 +89,22 @@ const types = {
       }
       if (this.idCase != null) {
         const yLevel = Y + configs.uniHeight / configs.half;
-        space1 += -configs.spaceX3 + this.figWidth / 2;
+        space1 += -configs.spaceX3 + this.figWidth / configs.half;
         horizontalLine(X + configs.spaceX3, yLevel, space1);
-        space2 += configs.spaceX3 - this.rhoSwitchWidth / 2 - this.figWidth / 2;
-        // const arrowRight = new ArrowRight(X + configs.spaceX3, yLevel);
-        // arrowRight.draw();
+        space2 +=
+          configs.spaceX3 -
+          this.rhoSwitchWidth / configs.half -
+          this.figWidth / configs.half;
         horizontalLine(
-          X - configs.spaceX3 + this.rhoSwitchWidth / 2,
+          X - configs.spaceX3 + this.rhoSwitchWidth / configs.half,
           yLevel,
           space2
         );
-        arrowX += X - this.figWidth / 2;
+        arrowX += X - this.figWidth / configs.half;
         const arrowRight = new ArrowRight(arrowX, yLevel);
         arrowRight.draw();
         downLine(
-          X + 300,
+          X + configs.spaceX3,
           Y - configs.uniHeight / configs.half,
           configs.uniHeight
         );
@@ -114,6 +125,7 @@ const types = {
     arrowDown.draw();
     const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
     this.rhoWidth = rhombus.width;
+    fillRhoNumbers(X, Y, this.rhoWidth);
     rhombus.draw();
     ifLines(X, Y, this.rhoWidth);
     if (this.rhoWidth > configs.spaceX4) this.X += this.rhoWidth / configs.half;
@@ -125,8 +137,8 @@ const types = {
   cycle({ id }) {
     if (this.idIf !== null) {
       this.idElse !== null
-        ? (this.flagLoopIf = 'right')
-        : (this.flagLoopIf = 'left');
+        ? (this.flagLoopIf = "right")
+        : (this.flagLoopIf = "left");
     }
     this.idLoop = id;
     this.Y += configs.spaceY;
@@ -143,7 +155,7 @@ const types = {
   else({ figuresAfterIf, resFigures, id, prevId }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
-    if (this.editedText === '') {
+    if (this.editedText === "") {
       this.idElse = id;
       let mainIf = null;
       prevId === this.ifPrevId
@@ -151,18 +163,18 @@ const types = {
         : (mainIf = this.ifPrevId);
       this.X = cordinatX(mainIf, resFigures);
       this.Y = cordinatY(mainIf, resFigures);
-      if (this.rhoWidth > configs.spaceX4)
+      if (this.rhoWidth > configs.spaceX4) {
         this.X -= this.rhoWidth / configs.half;
-      else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
+      } else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
       else this.X -= this.rhoWidth;
       res = new ElseMove(this.X, this.Y);
     } else {
       this.X = cordinatX(this.idIf, resFigures);
       this.Y = cordinatY(this.idIf, resFigures);
       this.Y += configs.spaceY;
-      if (this.rhoWidth > configs.spaceX4)
+      if (this.rhoWidth > configs.spaceX4) {
         this.X -= this.rhoWidth / configs.half;
-      else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
+      } else if (this.rhoWidth < configs.spaceX1) this.X -= configs.spaceX3;
       else this.X -= this.rhoWidth;
       const { X, Y, editedText } = this;
       res = new Rhombus(X, Y, configs.uniHeight, editedText);
@@ -171,9 +183,9 @@ const types = {
       arrowDown.draw();
       res.draw();
       ifLines(X, Y, this.rhoWidth);
-      if (this.rhoWidth > configs.spaceX4)
+      if (this.rhoWidth > configs.spaceX4) {
         this.X += this.rhoWidth / configs.half;
-      else if (this.rhoWidth < configs.spaceX1) this.X += configs.spaceX3;
+      } else if (this.rhoWidth < configs.spaceX1) this.X += configs.spaceX3;
       else this.X += this.rhoWidth;
       this.idIf = id;
     }
@@ -181,21 +193,18 @@ const types = {
   },
 
   switch({}) {
-    console.log('switch');
     this.Y += configs.spaceY;
     const { X, Y, editedText } = this;
     const arrowDown = new ArrowDown(X, Y);
     arrowDown.draw();
     const rhombus = new Rhombus(X, Y, configs.uniHeight, editedText);
-    //this.rhoWidth = rhombus.width;
     rhombus.draw();
     downLine(X, Y);
   },
 
   case({ id }) {
-    if (this.idCase != null) this.X -= 300;
+    if (this.idCase != null) this.X -= configs.spaceX3;
     if (this.idCase == null) this.idCase = id;
-    console.log('case');
     this.Y += configs.spaceY;
     const { X, Y, editedText } = this;
     const arrowDown = new ArrowDown(X, Y);
@@ -204,7 +213,7 @@ const types = {
     this.rhoSwitchWidth = rhombus.width;
     rhombus.draw();
     this.Y -= configs.spaceY;
-    this.X += 300;
+    this.X += configs.spaceX3;
     downLine(X, Y);
     return rhombus;
   },
@@ -212,7 +221,7 @@ const types = {
   default({}) {
     this.idCase = null;
     this.Y += configs.spaceY;
-    this.X -= 300;
+    this.X -= configs.spaceX3;
     const { X, Y, editedText } = this;
     const yLevel = Y + configs.uniHeight / configs.half;
     const arrowDown = new ArrowDown(X, Y);
@@ -220,12 +229,11 @@ const types = {
     const rectangle = new Rectangle(X, Y, configs.uniHeight, editedText);
     this.rectWidth = rectangle.width;
     rectangle.draw();
-    const arrowLeft = new ArrowLeft(X + this.rectWidth / 2, yLevel);
+    const arrowLeft = new ArrowLeft(X + this.rectWidth / configs.half, yLevel);
     arrowLeft.draw();
-    ctx.moveTo(X + 600, yLevel);
+    ctx.moveTo(X + configs.spaceX4, yLevel);
     ctx.lineTo(X + this.rectWidth / configs.half, yLevel);
     downLine(X, Y);
-    //horizontalLine(X, Y, configs.spaceX3 + 50);
     return rectangle;
   },
 };
