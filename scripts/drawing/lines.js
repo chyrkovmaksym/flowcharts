@@ -1,12 +1,16 @@
-import { ctx, configs } from './figures.js';
+import { ctx, configs, ArrowRight } from './figures.js';
 import { cordinatX, cordinatY } from './config.js';
 import { resFigures } from './drawingfunction.js';
 
-const horizontalLine = (X, Y, space = null) => {
+const horizontalLine = (X, Y, rhoSwitchWidth, figWidth) => {
   const yLevel = Y + configs.uniHeight / configs.half;
-  ctx.moveTo(X + configs.spaceX1 / 3, yLevel);
-  ctx.lineTo(X + configs.spaceX1 - 10 + space, yLevel);
+  ctx.moveTo(X + 600, yLevel);
+  ctx.lineTo(X + 300 + figWidth/2, yLevel);
+  ctx.moveTo(X + 300 - figWidth/2, yLevel);
+  ctx.lineTo(X + rhoSwitchWidth/2, yLevel);
   ctx.stroke();
+  const arrowRight = new ArrowRight(X + 300 - figWidth/2, yLevel);
+  arrowRight.draw();
 };
 
 const downLine = (X, Y, space = null) => {

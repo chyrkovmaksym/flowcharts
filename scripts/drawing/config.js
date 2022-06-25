@@ -56,6 +56,7 @@ const types = {
       const figure = type === 'expression'
         ? new Rectangle(X, Y, configs.uniHeight, editedText)
         : new Parallelogram45(X, Y, configs.uniHeight, editedText);
+        this.figWidth = figure.width;
       figure.draw();
       if (this.idCase == null) {
         downLine(X, Y);
@@ -63,10 +64,10 @@ const types = {
         arrowDown.draw();
       }
       if (this.idCase != null) {
-        horizontalLine(X + configs.spaceX1 / configs.quarter, Y);
+        //horizontalLine(X + configs.spaceX1 / configs.quarter, Y);
         downLine(
-          X + configs.spaceX1 + configs.spaceX1 / configs.fifth,
-          Y - configs.uniHeight / 2,
+          X + 300,
+          Y - configs.uniHeight / configs.half,
           configs.uniHeight,
         );
       }
@@ -160,7 +161,7 @@ const types = {
     downLine(X, Y);
   },
   case({ id }) {
-    if (this.idCase != null) this.X -= configs.spaceX3;
+    if (this.idCase != null) this.X -= 300;
     if (this.idCase == null) this.idCase = id;
     console.log('case');
     console.log(this.Y);
@@ -174,15 +175,15 @@ const types = {
     this.rhoSwitchWidth = rhombus.width;
     rhombus.draw();
     this.Y -= configs.spaceY;
-    this.X += configs.spaceX3;
+    this.X += 300;
     downLine(X, Y);
-    horizontalLine(X, Y);
+    horizontalLine(X, Y, this.rhoSwitchWidth, this.figWidth);
     return rhombus;
   },
   default({}) {
     this.idCase = null;
     this.Y += configs.spaceY;
-    this.X -= configs.spaceX3;
+    this.X -= 300;
     const { X, Y, editedText } = this;
     const yLevel = Y + configs.uniHeight / configs.half;
     const arrowDown = new ArrowDown(X, Y);
@@ -192,10 +193,10 @@ const types = {
     rectangle.draw();
     const arrowLeft = new ArrowLeft(X + this.rectWidth / 2, yLevel);
     arrowLeft.draw();
-    ctx.moveTo(X + this.rhoSwitchWidth / configs.half, yLevel);
+    ctx.moveTo(X + 600, yLevel);
     ctx.lineTo(X + this.rectWidth / configs.half, yLevel);
     downLine(X, Y);
-    horizontalLine(X, Y, configs.spaceX3 + 50);
+    //horizontalLine(X, Y, configs.spaceX3 + 50);
     return rectangle;
   },
 };

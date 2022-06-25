@@ -229,43 +229,6 @@ class ElseMove {
   }
 }
 
-// Can be deleted in the future
-class VerticalLine {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-
-  set lengthSet(value) {
-    this.length = value;
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x, this.y + this.length);
-    ctx.stroke();
-  }
-}
-
-class HorizontalLine {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-
-  set lengthSet(value) {
-    this.length = value;
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x + this.length, this.y);
-    ctx.stroke();
-  }
-}
-
 class ArrowDown {
   constructor(x, y) {
     this.x = x;
@@ -274,9 +237,9 @@ class ArrowDown {
 
   draw() {
     ctx.beginPath();
-    ctx.moveTo(this.x - configs.arrowMove, this.y - configs.arrowMove);
+    ctx.moveTo(this.x - 5, this.y - configs.arrowMove);
     ctx.lineTo(this.x, this.y);
-    ctx.lineTo(this.x + configs.arrowMove, this.y - configs.arrowMove);
+    ctx.lineTo(this.x + 5, this.y - configs.arrowMove);
     ctx.stroke();
   }
 }
@@ -289,9 +252,9 @@ class ArrowRight {
 
   draw() {
     ctx.beginPath();
-    ctx.moveTo(this.x - configs.arrowMove, this.y - configs.arrowMove);
+    ctx.moveTo(this.x - configs.arrowMove, this.y - 5);
     ctx.lineTo(this.x, this.y);
-    ctx.lineTo(this.x - configs.arrowMove, this.y + configs.arrowMove);
+    ctx.lineTo(this.x - configs.arrowMove, this.y + 5);
     ctx.stroke();
   }
 }
@@ -304,9 +267,9 @@ class ArrowLeft {
 
   draw() {
     ctx.beginPath();
-    ctx.moveTo(this.x + configs.arrowMove, this.y - configs.arrowMove);
+    ctx.moveTo(this.x + configs.arrowMove, this.y - 5);
     ctx.lineTo(this.x, this.y);
-    ctx.lineTo(this.x + configs.arrowMove, this.y + configs.arrowMove);
+    ctx.lineTo(this.x + configs.arrowMove, this.y + 5);
     ctx.stroke();
   }
 }
