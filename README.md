@@ -9,4 +9,17 @@ We are a team of five students from ImiX flow of Kyiv Politechnic Institute: <br
 
 The theme of our project is a <b>web service for creating block diagrams of code in the C language.</b>
 
+
 The project is created <i>collectively</i>: we look at each other's code, supplement it and refactor it, reconcile the changes and commit the changes to this repository.
+
+The project consists of a parser, a visual part (dynamically processes the results of the parser from an array of objects). Also in the project there is text processing on RegExp.
+
+<b>Our project is able to display:</b>
+1. if/else(dynamic)
+2. loops(can be use also with if/else)
+3. swith
+4. etc...
+
+# USAGE <br>
+
+Add you C code on the site and watch result)
