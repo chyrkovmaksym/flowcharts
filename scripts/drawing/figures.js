@@ -5,7 +5,8 @@ const configs = {
   sizeAndFont: "20px helvetica",
   xTextMove: 10,
   yTextMove: 30,
-  arrowMove: 10,
+  arrowMove1: 5,
+  arrowMove2: 10,
   toText1: 15,
   toText2: 10,
   uniHeight: 50,
@@ -227,9 +228,9 @@ class ArrowDown {
 
   draw() {
     ctx.beginPath();
-    ctx.moveTo(this.x - 5, this.y - configs.arrowMove);
+    ctx.moveTo(this.x - configs.arrowMove1, this.y - configs.arrowMove2);
     ctx.lineTo(this.x, this.y);
-    ctx.lineTo(this.x + 5, this.y - configs.arrowMove);
+    ctx.lineTo(this.x + configs.arrowMove1, this.y - configs.arrowMove2);
     ctx.stroke();
   }
 }
@@ -242,9 +243,9 @@ class ArrowRight {
 
   draw() {
     ctx.beginPath();
-    ctx.moveTo(this.x - configs.arrowMove, this.y - 5);
+    ctx.moveTo(this.x - configs.arrowMove2, this.y - configs.arrowMove1);
     ctx.lineTo(this.x, this.y);
-    ctx.lineTo(this.x - configs.arrowMove, this.y + 5);
+    ctx.lineTo(this.x - configs.arrowMove2, this.y + configs.arrowMove1);
     ctx.stroke();
   }
 }
@@ -257,9 +258,9 @@ class ArrowLeft {
 
   draw() {
     ctx.beginPath();
-    ctx.moveTo(this.x + configs.arrowMove, this.y - 5);
+    ctx.moveTo(this.x + configs.arrowMove2, this.y - configs.arrowMove1);
     ctx.lineTo(this.x, this.y);
-    ctx.lineTo(this.x + configs.arrowMove, this.y + 5);
+    ctx.lineTo(this.x + configs.arrowMove2, this.y + configs.arrowMove1);
     ctx.stroke();
   }
 }
