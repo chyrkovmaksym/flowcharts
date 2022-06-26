@@ -41,7 +41,7 @@ const keyWords = {
   default: ["default"],
 };
 
-const getType = (keyWord) => {
+const getType = keyWord => {
   for (const key of Object.keys(keyWords)) {
     if (keyWords[key].includes(keyWord)) return key;
   }
@@ -179,6 +179,7 @@ const types = {
       const { X, Y, editedText } = this;
       res = new Rhombus(X, Y, configs.uniHeight, editedText);
       this.rhoWidth = res.width;
+      fillRhoNumbers(X, Y, this.rhoWidth);
       const arrowDown = new ArrowDown(X, Y);
       arrowDown.draw();
       res.draw();

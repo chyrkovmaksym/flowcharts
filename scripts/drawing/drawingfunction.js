@@ -18,16 +18,14 @@ const downConections = (flagLoopIf, X, Y) => {
   for (let i = 0; i < figuresAfterIf.length; i++) {
     let currY = figuresAfterIf[i].y + configs.uniHeight;
     const currX = figuresAfterIf[i].x;
-    if (flagLoopIf != null) {
-      if (flagLoopIf === "left") {
-        if (i === 0) {
-          currY += configs.spaceY;
-          Y += configs.spaceY;
-        }
-      } else {
-        if (i === 0) Y += configs.spaceY;
-        if (i === 1) currY += configs.spaceY;
+    if (flagLoopIf === "left") {
+      if (i === 0) {
+        currY += configs.spaceY;
+        Y += configs.spaceY;
       }
+    } else if (flagLoopIf === "right") {
+      if (i === 0) Y += configs.spaceY;
+      if (i === 1) currY += configs.spaceY;
     }
     ctx.moveTo(currX, currY);
     ctx.lineTo(currX, Y + configs.spaceY);
@@ -181,6 +179,7 @@ function Finder(array, x, y) {
         if (endIfWithoutElse()) this.flagIf = false;
         if (exitFromIf()) {
           figuresAfterIf.push(resFigures[id - 2]);
+          console.log("AfterIf2");
           const currCordinats = afterIf(
             prevId,
             this.X,
@@ -190,9 +189,19 @@ function Finder(array, x, y) {
           );
           this.X = currCordinats.X;
           this.Y = currCordinats.Y;
+          if (resFigures[id - 2].x >= resFigures[this.idIf - 1].x) {
+            lineWithoutElse(
+              this.X,
+              this.Y,
+              this.ifPrevId,
+              this.idLoop,
+              this.idIf,
+              this.rhoWidth
+            );
+          }
           if (
-            this.idElse == null &&
-            resFigures[id - 2].x >= configs.coordinatX
+            this.ifPrevId != null &&
+            resFigures[id - 2].x >= resFigures[this.ifPrevId - 1].x
           ) {
             lineWithoutElse(
               this.X,
