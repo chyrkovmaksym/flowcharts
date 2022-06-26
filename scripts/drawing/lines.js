@@ -14,46 +14,90 @@ const downLine = (X, Y, space = null) => {
   ctx.stroke();
 };
 
-const ifLines = (X, Y, rhoWidth) => {
+const processingMaxLength = (X, Y, rhoWidth) => {
   const yLevel = Y + configs.uniHeight / configs.half;
-  ctx.moveTo(X - rhoWidth / configs.half, yLevel);
-  if (rhoWidth >= configs.spaceX4)
-    ctx.lineTo(X - rhoWidth / configs.half, yLevel + configs.uniHeight);
-  else if (rhoWidth <= configs.spaceX1) ctx.lineTo(X - configs.spaceX3, yLevel);
-  else ctx.lineTo(X - rhoWidth, yLevel);
-  if (rhoWidth <= configs.spaceX1)
-    ctx.lineTo(X - configs.spaceX3, yLevel + configs.uniHeight);
-  else if (rhoWidth < configs.spaceX4)
-    ctx.lineTo(X - rhoWidth, yLevel + configs.uniHeight);
-  ctx.moveTo(X + rhoWidth / configs.half, yLevel);
-  if (rhoWidth >= configs.spaceX4)
-    ctx.lineTo(X + rhoWidth / configs.half, yLevel + configs.uniHeight);
-  else if (rhoWidth <= configs.spaceX1) ctx.lineTo(X + configs.spaceX3, yLevel);
-  else ctx.lineTo(X + rhoWidth, yLevel);
-  if (rhoWidth <= configs.spaceX1)
-    ctx.lineTo(X + configs.spaceX3, yLevel + configs.uniHeight);
-  else if (rhoWidth < configs.spaceX4)
-    ctx.lineTo(X + rhoWidth, yLevel + configs.uniHeight);
+  const yMove = yLevel + configs.uniHeight;
+  const xRhoBorderLeft = X - rhoWidth / configs.half;
+  const xRhoBorderRight = X + rhoWidth / configs.half;
+  ctx.moveTo(xRhoBorderLeft, yLevel);
+  ctx.lineTo(xRhoBorderLeft, yMove);
+  ctx.moveTo(xRhoBorderRight, yLevel);
+  ctx.lineTo(xRhoBorderRight, yMove);
   ctx.stroke();
-};
+}
 
-const lineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
+const processingMidLength = (X, Y, rhoWidth) => {
+  const yLevel = Y + configs.uniHeight / configs.half;
+  const yMove = yLevel + configs.uniHeight;
+  const xRhoBorderLeft = X - rhoWidth / configs.half;
+  const xRhoBorderRight = X + rhoWidth / configs.half;
+  const xMoveLeft = X - rhoWidth;
+  const xMoveRight = X + rhoWidth;
+  ctx.moveTo(xRhoBorderLeft, yLevel);
+  ctx.lineTo(xMoveLeft, yLevel);
+  ctx.lineTo(xMoveLeft, yMove);
+  ctx.moveTo(xRhoBorderRight, yLevel);
+  ctx.lineTo(xMoveRight, yLevel);
+  ctx.lineTo(xMoveRight, yMove);
+  ctx.stroke();
+}
+
+const processingMinLength = (X, Y, rhoWidth) => {
+  const yLevel = Y + configs.uniHeight / configs.half;
+  const yMove = yLevel + configs.uniHeight
+  const xRhoBorderLeft = X - rhoWidth / configs.half
+  const xRhoBorderRight = X + rhoWidth / configs.half
+  const xMoveLeft = X - configs.spaceX3;
+  const xMoveRight = X + configs.spaceX3;
+  ctx.moveTo(xRhoBorderLeft, yLevel);
+  ctx.lineTo(xMoveLeft, yLevel);
+  ctx.lineTo(xMoveLeft, yMove);
+  ctx.moveTo(xRhoBorderRight, yLevel);
+  ctx.lineTo(xMoveRight, yLevel);
+  ctx.lineTo(xMoveRight, yMove);
+  ctx.stroke();
+}
+
+const maxlineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
   const currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
-  console.log(currId);
-  console.log(resFigures);
   const ifX = cordinatX(currId, resFigures);
   const ifY = cordinatY(currId, resFigures);
-  const ifYLevel = ifY + configs.uniHeight / 2;
-  if (rhoWidth >= configs.spaceX4)
-    ctx.moveTo(X - rhoWidth / configs.half, ifYLevel);
-  else if (rhoWidth <= configs.spaceX1)
-    ctx.moveTo(ifX - configs.spaceX3, ifYLevel);
-  else ctx.moveTo(X - rhoWidth, ifYLevel);
-  if (rhoWidth >= configs.spaceX4) ctx.line.to(X - rhoWidth / configs.half, Y);
-  else if (rhoWidth <= configs.spaceX1) ctx.lineTo(ifX - configs.spaceX3, Y);
-  else ctx.moveTo(X - rhoWidth, Y);
+  const ifYLevel = ifY + configs.uniHeight / configs.half;
+  ctx.moveTo(ifX - rhoWidth / configs.half, ifYLevel);
+  ctx.lineTo(ifX - rhoWidth / configs.half, Y);
   ctx.lineTo(X, Y);
   ctx.stroke();
 };
 
-export { downLine, ifLines, lineWithoutElse, horizontalLine };
+const minlineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
+  const currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
+  const ifX = cordinatX(currId, resFigures);
+  const ifY = cordinatY(currId, resFigures);
+  const ifYLevel = ifY + configs.uniHeight / configs.half;
+  ctx.moveTo(ifX - configs.spaceX3, ifYLevel);
+  ctx.lineTo(ifX - configs.spaceX3, Y);
+  ctx.lineTo(X, Y);
+  ctx.stroke();
+}
+
+const midlineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
+  const currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
+  const ifX = cordinatX(currId, resFigures);
+  const ifY = cordinatY(currId, resFigures);
+  const ifYLevel = ifY + configs.uniHeight / configs.half;
+  ctx.moveTo(ifX - rhoWidth, ifYLevel);
+  ctx.lineTo(ifX - rhoWidth, Y);
+  ctx.lineTo(X, Y);
+  ctx.stroke();
+}
+
+export {
+  downLine,
+  processingMaxLength,
+  processingMidLength,
+  processingMinLength,
+  maxlineWithoutElse,
+  minlineWithoutElse,
+  midlineWithoutElse,
+  horizontalLine
+};

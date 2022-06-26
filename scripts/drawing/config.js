@@ -1,4 +1,11 @@
-import { downLine, ifLines, horizontalLine } from "./lines.js";
+import { 
+  downLine, 
+  processingMaxLength,
+  processingMidLength,
+  processingMinLength,
+  horizontalLine
+} from "./lines.js";
+
 import {
   EllipseRect,
   ArrowDown,
@@ -127,10 +134,18 @@ const types = {
     this.rhoWidth = rhombus.width;
     fillRhoNumbers(X, Y, this.rhoWidth);
     rhombus.draw();
-    ifLines(X, Y, this.rhoWidth);
-    if (this.rhoWidth > configs.spaceX4) this.X += this.rhoWidth / configs.half;
-    else if (this.rhoWidth < configs.spaceX1) this.X += configs.spaceX3;
-    else this.X += this.rhoWidth;
+    if (this.rhoWidth >= configs.spaceX4) {
+      processingMaxLength(X, Y, this.rhoWidth);
+      this.X += this.rhoWidth / configs.half;
+    }
+    else if (this.rhoWidth <= configs.spaceX1) {
+      processingMinLength(X, Y, this.rhoWidth);
+      this.X += configs.spaceX3;
+    }
+    else {
+      processingMidLength(X, Y, this.rhoWidth);
+      this.X += this.rhoWidth;
+    }
     return rhombus;
   },
 
@@ -183,11 +198,18 @@ const types = {
       const arrowDown = new ArrowDown(X, Y);
       arrowDown.draw();
       res.draw();
-      ifLines(X, Y, this.rhoWidth);
-      if (this.rhoWidth > configs.spaceX4) {
+      if (this.rhoWidth >= configs.spaceX4) {
+        processingMaxLength(X, Y, this.rhoWidth);
         this.X += this.rhoWidth / configs.half;
-      } else if (this.rhoWidth < configs.spaceX1) this.X += configs.spaceX3;
-      else this.X += this.rhoWidth;
+      }
+      else if (this.rhoWidth <= configs.spaceX1) {
+        processingMinLength(X, Y, this.rhoWidth);
+        this.X += configs.spaceX3;
+      }
+      else {
+        processingMidLength(X, Y, this.rhoWidth);
+        this.X += this.rhoWidth;
+      }
       this.idIf = id;
     }
     return res;

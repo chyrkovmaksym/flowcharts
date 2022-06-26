@@ -7,9 +7,15 @@ import {
   ArrowRight,
 } from "./figures.js";
 
+import { 
+  downLine,
+  maxlineWithoutElse,
+  minlineWithoutElse,
+  midlineWithoutElse, 
+} from "./lines.js";
+
 import { highlightText } from "./regexp.js";
 import { getType, types, cordinatX, cordinatY } from "./config.js";
-import { downLine, lineWithoutElse } from "./lines.js";
 
 const resFigures = [];
 const figuresAfterIf = [];
@@ -163,14 +169,36 @@ function Finder(array, x, y) {
             this.idElse == null &&
             resFigures[id - 2].x >= configs.coordinatX
           ) {
-            lineWithoutElse(
-              this.X,
-              this.Y,
-              this.ifPrevId,
-              this.idLoop,
-              this.idIf,
-              this.rhoWidth
-            );
+            if (this.rhoWidth >= configs.spaceX4) {
+              maxlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
+            else if (this.rhoWidth <= configs.spaceX1) {
+              minlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
+            else {
+              midlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
           }
           this.idElse, this.flagIfLoop, (this.idIf = null);
           this.flagIf, (this.flagAfterIf = false);
@@ -190,27 +218,71 @@ function Finder(array, x, y) {
           this.X = currCordinats.X;
           this.Y = currCordinats.Y;
           if (resFigures[id - 2].x >= resFigures[this.idIf - 1].x) {
-            lineWithoutElse(
-              this.X,
-              this.Y,
-              this.ifPrevId,
-              this.idLoop,
-              this.idIf,
-              this.rhoWidth
-            );
+            if (this.rhoWidth >= configs.spaceX4) {
+              maxlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
+            else if (this.rhoWidth <= configs.spaceX1) {
+              minlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
+            else {
+              midlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
           }
           if (
             this.ifPrevId != null &&
             resFigures[id - 2].x >= resFigures[this.ifPrevId - 1].x
           ) {
-            lineWithoutElse(
-              this.X,
-              this.Y,
-              this.ifPrevId,
-              this.idLoop,
-              this.idIf,
-              this.rhoWidth
-            );
+            if (this.rhoWidth >= configs.spaceX4) {
+              maxlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
+            else if (this.rhoWidth <= configs.spaceX1) {
+              minlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
+            else {
+              midlineWithoutElse(
+                this.X,
+                this.Y,
+                this.ifPrevId,
+                this.idLoop,
+                this.idIf,
+                this.rhoWidth
+              );
+            }
           }
           this.idElse, this.flagIfLoop, (this.idIf = null);
           this.flagIf, (this.flagAfterIf = false);
