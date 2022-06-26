@@ -1,5 +1,5 @@
 # FLOWCHARTS <br>
-We are a team of five students from ImiX flow of Kyiv Politechnic Institute: <br>
+We are a team of __five students__ from ImiX flow of Kyiv Politechnic Institute: <br>
 
 | Contributors         | GitHub             |Telegram|
 | :-------------------:|:------------------:| :-----:|
