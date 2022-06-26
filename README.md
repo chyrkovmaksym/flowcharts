@@ -22,4 +22,4 @@ The project consists of a parser, a visual part (dynamically processes the resul
 
 # USAGE <br>
 
-Add you C code on the site and watch result)
+Add you C code on the site and watch the result!
