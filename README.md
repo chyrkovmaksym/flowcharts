@@ -14,7 +14,7 @@ The theme of our project is a <b>web service for creating block diagrams of code
 
 The project is created <i>collectively</i>: we look at each other's code, supplement it and refactor it, reconcile the changes and commit the changes to this repository.
 
-The project consists of a parser, a visual part (dynamically processes the results of the parser from an array of objects). Also in the project there is text processing on RegExp.
+The project consists of a parser, a visual part (Dynamically processes the results of the parser from an array of objects. Implemented with canvas). Also in the project there is text processing on RegExp.
 
 ## <b>Our project is able to:</b>
 1. display variable declaration
