@@ -14,90 +14,65 @@ const downLine = (X, Y, space = null) => {
   ctx.stroke();
 };
 
-const processingMaxLength = (X, Y, rhoWidth) => {
+const processingLength = (X, Y, rhoWidth) => {
   const yLevel = Y + configs.uniHeight / configs.half;
   const yMove = yLevel + configs.uniHeight;
   const xRhoBorderLeft = X - rhoWidth / configs.half;
   const xRhoBorderRight = X + rhoWidth / configs.half;
-  ctx.moveTo(xRhoBorderLeft, yLevel);
-  ctx.lineTo(xRhoBorderLeft, yMove);
-  ctx.moveTo(xRhoBorderRight, yLevel);
-  ctx.lineTo(xRhoBorderRight, yMove);
-  ctx.stroke();
-}
+  let xMoveLeft;
+  let xMoveRight;
 
-const processingMidLength = (X, Y, rhoWidth) => {
-  const yLevel = Y + configs.uniHeight / configs.half;
-  const yMove = yLevel + configs.uniHeight;
-  const xRhoBorderLeft = X - rhoWidth / configs.half;
-  const xRhoBorderRight = X + rhoWidth / configs.half;
-  const xMoveLeft = X - rhoWidth;
-  const xMoveRight = X + rhoWidth;
-  ctx.moveTo(xRhoBorderLeft, yLevel);
-  ctx.lineTo(xMoveLeft, yLevel);
-  ctx.lineTo(xMoveLeft, yMove);
-  ctx.moveTo(xRhoBorderRight, yLevel);
-  ctx.lineTo(xMoveRight, yLevel);
-  ctx.lineTo(xMoveRight, yMove);
-  ctx.stroke();
-}
+  if (rhoWidth >= configs.spaceX4) {
+    X += rhoWidth / configs.half;
+  } else if (rhoWidth <= configs.spaceX1) {
+    xMoveLeft = X - configs.spaceX3;
+    xMoveRight = X + configs.spaceX3;
+    X += configs.spaceX3;
+  } else {
+    xMoveLeft = X - rhoWidth;
+    xMoveRight = X + rhoWidth;
+    X += rhoWidth;
+  }
 
-const processingMinLength = (X, Y, rhoWidth) => {
-  const yLevel = Y + configs.uniHeight / configs.half;
-  const yMove = yLevel + configs.uniHeight
-  const xRhoBorderLeft = X - rhoWidth / configs.half
-  const xRhoBorderRight = X + rhoWidth / configs.half
-  const xMoveLeft = X - configs.spaceX3;
-  const xMoveRight = X + configs.spaceX3;
-  ctx.moveTo(xRhoBorderLeft, yLevel);
-  ctx.lineTo(xMoveLeft, yLevel);
-  ctx.lineTo(xMoveLeft, yMove);
-  ctx.moveTo(xRhoBorderRight, yLevel);
-  ctx.lineTo(xMoveRight, yLevel);
-  ctx.lineTo(xMoveRight, yMove);
-  ctx.stroke();
-}
-
-const maxlineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
-  const currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
-  const ifX = cordinatX(currId, resFigures);
-  const ifY = cordinatY(currId, resFigures);
-  const ifYLevel = ifY + configs.uniHeight / configs.half;
-  ctx.moveTo(ifX - rhoWidth / configs.half, ifYLevel);
-  ctx.lineTo(ifX - rhoWidth / configs.half, Y);
-  ctx.lineTo(X, Y);
-  ctx.stroke();
+  if (rhoWidth >= configs.spaceX4) {
+    ctx.moveTo(xRhoBorderLeft, yLevel);
+    ctx.lineTo(xRhoBorderLeft, yMove);
+    ctx.moveTo(xRhoBorderRight, yLevel);
+    ctx.lineTo(xRhoBorderRight, yMove);
+    ctx.stroke();
+  } else {
+    ctx.moveTo(xRhoBorderLeft, yLevel);
+    ctx.lineTo(xMoveLeft, yLevel);
+    ctx.lineTo(xMoveLeft, yMove);
+    ctx.moveTo(xRhoBorderRight, yLevel);
+    ctx.lineTo(xMoveRight, yLevel);
+    ctx.lineTo(xMoveRight, yMove);
+    ctx.stroke();
+  }
+  return X;
 };
 
-const minlineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
+const lineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
   const currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
   const ifX = cordinatX(currId, resFigures);
   const ifY = cordinatY(currId, resFigures);
   const ifYLevel = ifY + configs.uniHeight / configs.half;
-  ctx.moveTo(ifX - configs.spaceX3, ifYLevel);
-  ctx.lineTo(ifX - configs.spaceX3, Y);
-  ctx.lineTo(X, Y);
-  ctx.stroke();
-}
-
-const midlineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
-  const currId = ifPrevId !== 1 && ifPrevId !== idLoop ? ifPrevId : idIf;
-  const ifX = cordinatX(currId, resFigures);
-  const ifY = cordinatY(currId, resFigures);
-  const ifYLevel = ifY + configs.uniHeight / configs.half;
-  ctx.moveTo(ifX - rhoWidth, ifYLevel);
-  ctx.lineTo(ifX - rhoWidth, Y);
-  ctx.lineTo(X, Y);
-  ctx.stroke();
-}
-
-export {
-  downLine,
-  processingMaxLength,
-  processingMidLength,
-  processingMinLength,
-  maxlineWithoutElse,
-  minlineWithoutElse,
-  midlineWithoutElse,
-  horizontalLine
+  if (rhoWidth >= configs.spaceX4) {
+    ctx.moveTo(ifX - rhoWidth / configs.half, ifYLevel);
+    ctx.lineTo(ifX - rhoWidth / configs.half, Y);
+    ctx.lineTo(X, Y);
+    ctx.stroke();
+  } else if (rhoWidth <= configs.spaceX1) {
+    ctx.moveTo(ifX - configs.spaceX3, ifYLevel);
+    ctx.lineTo(ifX - configs.spaceX3, Y);
+    ctx.lineTo(X, Y);
+    ctx.stroke();
+  } else {
+    ctx.moveTo(ifX - rhoWidth, ifYLevel);
+    ctx.lineTo(ifX - rhoWidth, Y);
+    ctx.lineTo(X, Y);
+    ctx.stroke();
+  }
 };
+
+export { downLine, processingLength, lineWithoutElse, horizontalLine };
