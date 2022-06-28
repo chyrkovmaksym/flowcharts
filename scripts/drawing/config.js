@@ -1,4 +1,4 @@
-import { downLine, processingLength, horizontalLine } from "./lines.js";
+import { downLine, processingLength, horizontalLine } from './lines.js';
 
 import {
   EllipseRect,
@@ -12,7 +12,7 @@ import {
   ArrowLeft,
   ctx,
   ArrowRight,
-} from "./figures.js";
+} from './figures.js';
 
 const cordinatX = (prevId, resFigures) => resFigures[prevId - 1].x;
 
@@ -20,29 +20,29 @@ const cordinatY = (prevId, resFigures) => resFigures[prevId - 1].y;
 
 const fillRhoNumbers = (X, Y, rhoWidth) => {
   ctx.fillText(
-    "0",
+    '0',
     X - rhoWidth / configs.half - configs.xNumber,
-    Y + configs.uniHeight / configs.half - configs.yNumber
+    Y + configs.uniHeight / configs.half - configs.yNumber,
   );
   ctx.fillText(
-    "1",
+    '1',
     X + rhoWidth / configs.half,
-    Y + configs.uniHeight / configs.half - configs.xNumber
+    Y + configs.uniHeight / configs.half - configs.xNumber,
   );
 };
 
 const keyWords = {
-  customF: ["customF"],
-  expression: ["printf", "scanf", "def", "expression"],
-  if: ["if"],
-  cycle: ["for", "while"],
-  else: ["else"],
-  switch: ["switch"],
-  case: ["case"],
-  default: ["default"],
+  customF: ['customF'],
+  expression: ['printf', 'scanf', 'def', 'expression'],
+  if: ['if'],
+  cycle: ['for', 'while'],
+  else: ['else'],
+  switch: ['switch'],
+  case: ['case'],
+  default: ['default'],
 };
 
-const getType = keyWord => {
+const getType = (keyWord) => {
   for (const key of Object.keys(keyWords)) {
     if (keyWords[key].includes(keyWord)) return key;
   }
@@ -58,7 +58,7 @@ const types = {
       Y,
       configs.uniHeight,
       editedText,
-      configs.uniHeight / configs.half
+      configs.uniHeight / configs.half,
     );
     ellipseRect.draw();
     return ellipseRect;
@@ -66,14 +66,14 @@ const types = {
 
   expression({ type }) {
     const { editedText } = this;
-    if (editedText == "break;") return;
+    if (editedText == 'break;') return;
     let space1 = null;
     let space2 = null;
     let arrowX = null;
     this.Y += configs.spaceY;
     const { X, Y } = this;
     let figure;
-    if (type === "expression") {
+    if (type === 'expression') {
       figure = new Rectangle(X, Y, configs.uniHeight, editedText);
     } else {
       figure = new Parallelogram45(X, Y, configs.uniHeight, editedText);
@@ -92,14 +92,14 @@ const types = {
       const yLevel = Y + configs.uniHeight / configs.half;
       space1 += -configs.spaceX3 + this.figWidth / configs.half;
       horizontalLine(X + configs.spaceX3, yLevel, space1);
-      space2 +=
-        configs.spaceX3 -
-        this.rhoSwitchWidth / configs.half -
-        this.figWidth / configs.half;
+      space2
+        += configs.spaceX3
+        - this.rhoSwitchWidth / configs.half
+        - this.figWidth / configs.half;
       horizontalLine(
         X - configs.spaceX3 + this.rhoSwitchWidth / configs.half,
         yLevel,
-        space2
+        space2,
       );
       arrowX += X - this.figWidth / configs.half;
       const arrowRight = new ArrowRight(arrowX, yLevel);
@@ -107,7 +107,7 @@ const types = {
       downLine(
         X + configs.spaceX3,
         Y - configs.uniHeight / configs.half,
-        configs.uniHeight
+        configs.uniHeight,
       );
     }
     return figure;
@@ -134,8 +134,8 @@ const types = {
   cycle({ id }) {
     if (this.idIf !== null) {
       this.idElse !== null
-        ? (this.flagLoopIf = "right")
-        : (this.flagLoopIf = "left");
+        ? (this.flagLoopIf = 'right')
+        : (this.flagLoopIf = 'left');
     }
     this.idLoop = id;
     this.Y += configs.spaceY;
@@ -149,10 +149,12 @@ const types = {
     return hexagon;
   },
 
-  else({ figuresAfterIf, resFigures, id, prevId }) {
+  else({
+    figuresAfterIf, resFigures, id, prevId,
+  }) {
     figuresAfterIf.push(resFigures[id - 2]);
     let res;
-    if (this.editedText === "") {
+    if (this.editedText === '') {
       this.idElse = id;
       let mainIf = null;
       prevId === this.ifPrevId
@@ -237,4 +239,6 @@ const types = {
     return rectangle;
   },
 };
-export { types, getType, cordinatX, cordinatY };
+export {
+  types, getType, cordinatX, cordinatY,
+};

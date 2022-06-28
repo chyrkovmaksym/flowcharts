@@ -1,6 +1,6 @@
-import { ctx, configs } from "./figures.js";
-import { cordinatX, cordinatY } from "./config.js";
-import { resFigures } from "./drawingfunction.js";
+import { ctx, configs } from './figures.js';
+import { cordinatX, cordinatY } from './config.js';
+import { resFigures } from './drawingfunction.js';
 
 const horizontalLine = (X, Y, space = null) => {
   ctx.moveTo(X, Y);
@@ -75,4 +75,6 @@ const lineWithoutElse = (X, Y, ifPrevId, idLoop, idIf, rhoWidth) => {
   }
 };
 
-export { downLine, processingLength, lineWithoutElse, horizontalLine };
+export {
+  downLine, processingLength, lineWithoutElse, horizontalLine,
+};
