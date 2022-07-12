@@ -1,0 +1,229 @@
+
+.header {
+    background: #1abc9c;
+    color: white;
+}
+
+.navbar {
+    background-color: #333;
+}
+
+.navbar a {
+    color: white;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.navbar a.active {
+    background-color: #666;
+    color: white;
+}
+
+.side {
+    background-color: #f1f1f1;
+}
+
+.main {
+    background-color: white;
+}
+
+.fakeimg {
+    background: linear-gradient(135deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 0%));
+    border: 1px solid rgb(255 255 255 / 18%);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
+}
+
+.text_about_us {
+    background: linear-gradient(135deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 0%));
+    border: 1px solid rgb(255 255 255 / 18%);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
+}
+
+textarea {
+    background: linear-gradient(135deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 0%));
+    border: 1px solid rgb(255 255 255 / 18%);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
+}
+
+.contacts,
+.headers,
+.about_us {
+    color: #121315;
+}
+
+.dropbtn-inst, .dropbtn-git, .dropbtn-tg {
+    background-color: white;
+    border: #1abc9c 3px solid;
+    color: black;
+}
+
+  .dropbtn-inst:hover, .dropbtn-git:hover, .dropbtn-tg:hover {
+    border-color: darkgray;
+}
+
+  .dropdown-inst-content, .dropdown-git-content, .dropdown-tg-content {
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+}
+
+  .dropdown-inst-content a, .dropdown-git-content a, .dropdown-tg-content a{
+    color: black;
+}
+
+.dropdown-inst-content a:hover,
+.dropdown-git-content a:hover,
+.dropdown-tg-content a:hover {
+    background-color: #ddd;
+}
+  
+.dropdown-inst.active .dropbtn-inst, 
+.dropdown-git.active .dropbtn-git, 
+.dropdown-tg.active .dropbtn-tg {
+    background-color: #1abc9c;
+     border-color:darkgray;
+}
+
+footer {
+    background-color: #121315;
+    color: #a7a7a7;
+}
+
+.column h3 {
+    color: white;
+}
+
+.footer-list li a {
+    color: #a7a7a7;
+}
+
+.footer-list li a:hover {
+    color: #2a8ded;
+}
+
+.button-send {
+    background-color: #1abc9c;
+    color: #fff;
+}
+
+.button-clear {
+    background-color: #e45c2a;
+    color: #fff;
+}
+
+.copyright {
+    background-color: #25262e;
+}
+
+.button {
+    box-shadow: 0 0 40px 40px #1abc9c inset, 0 0 0 0 #1abc9c;
+    color: white;
+}
+
+.button:hover {
+    box-shadow: 0 0 10px 0 #F137A6 inset, 0 0 10px 4px #F137A6;
+    color: #F137A6;
+}
+
+.title {
+    color: white;
+    border-right: 5px solid white;
+}
+
+@keyframes flashing-border {
+    0% {
+        border-color: white;
+    }
+
+    50% {
+        border-color: transparent;
+    }
+
+    100% {
+        border-color: white;
+    }
+}
+
+@keyframes text {
+    from {
+        width: 0;
+    }
+}
+
+.img-footer :nth-child(1) {
+    color: #c7940a;
+}
+
+.img-footer :nth-child(1):hover {
+    color: #2a8ded;
+}
+
+.img-footer :nth-child(2) {
+    border: #c7940a 2px solid;
+}
+
+.modal.active .modal-overlay {
+    background: rgb(0 0 0 / 50%);
+}
+
+.modal.active .dropdown-inst-content a:hover {background-color: #ddd;}
+
+.modal.active .dropdown-inst:hover .dropbtn-inst,
+.modal.active .dropdown-git:hover .dropbtn-git,
+.modal.active .dropdown-tg:hover .dropbtn-tg
+ {background-color: #1abc9c; border-color:darkgray;}
+
+
+.modal-overlay {
+    background-color: rgb(0 0 0 / 0%);
+}
+
+.modal-window {
+    background-color: white;
+}
+
+.modal-header {
+    border-bottom: 2px solid cadetblue;
+}
+
+#c1 {
+    border: #121315 solid 2px;
+}
+
+.button-download {
+    background-color: #1abc9c;
+    color: #fff;
+    border: gray 2px solid;
+}
+
+.square {
+    background:#E8E8E8;
+  }
+
+  .square li {
+    border-top: 2px solid #787A77;
+  }
+
+  .square li::before {
+    border-top: 2px solid #787A77;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    background: #787A77;
+    color: white;
+  }
+  .square li:hover {border-top: 2px solid #1abc9c;}
+
+  .square li:hover::before {
+    border: 2px solid #787A77;
+    background: #1abc9c;
+  }
+
+  .FAQ-list {
+    border-left: 10px solid #e45c2a;
+  }
+
+  .FAQ-list li:nth-child(odd) {background: #dadada;}
+  .FAQ-list li:nth-child(even) {background: white;}
