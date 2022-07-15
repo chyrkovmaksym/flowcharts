@@ -11,6 +11,7 @@ function selectTheme() {
     applyTheme('light');
   } else {
     applyTheme('dark');
+    alert(date.getHours);
   }
   setTimeout(() => selectTheme(), HALF_AN_HOUR);
 }
