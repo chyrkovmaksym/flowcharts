@@ -1,141 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
+    <script src="https://platform.illow.io/banner.js?siteId=79c98e63-4fd2-496d-b459-eb242018f7b8"></script>
     <title>FLOWCHARTS</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" title="theme" href="#">
-    <link rel="stylesheet" href="styles/fonts.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-        rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" title="theme" href="#" />
+    <link rel="stylesheet" href="styles/fonts.css" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <script src="scripts/plugins/theme.js"></script>
     <div class="header">
-        <div class="wrapper">
-            <p class="title">FLOWCHARTS</p>
-        </div>
+      <div class="wrapper">
+        <p class="title">FLOWCHARTS</p>
+      </div>
     </div>
     <div class="navbar">
-        <a href="#" class="active">Home</a>
-        <a href="#inf_pro">Information</a>
-        <a href="#inf_contacts">Contacts</a>
+      <a href="#" class="active">Home</a>
+      <a href="#inf_pro">Information</a>
+      <a href="#inf_contacts">Contacts</a>
     </div>
     <div class="row">
-        <div class="side">
-            <a name="inf_pro"></a>
-            <h2 class="about_us">About us</h2>
-            <div class="text_about_us" style="height:auto;">
-                <h4 class="inf_pro">Information of our project:</h4>
-                <p class="inf_pro">We are a team of five students from ImiX flow of Kyiv Politechnic Institute.
-
-                    The theme of this site is a web service for creating block diagrams of code in the C programming language.
-                    
-                    You can also download your flowchart as an image and add it to your projects.
-                    
-                    The source code is publicly available in the GitHub repository.
-                    </p>
-            </div>
-            <a name="inf_contacts"></a>
-            <h2 class="contacts">Our contacts</h2>
-                <div class="dropdown-inst">
-                    <button class="dropbtn-inst">Instagram</button>
-                    <div class="dropdown-inst-content">
-                    </div>
-                </div>
-                <div class="dropdown-git">
-                    <button class="dropbtn-git">GitHub</button>
-                    <div class="dropdown-git-content">
-                    </div>
-                </div>
-                <div class="dropdown-tg">
-                    <button class="dropbtn-tg">Telegram</button>
-                    <div class="dropdown-tg-content">
-                    </div>
-                </div>
-            
+      <div class="side">
+        <a name="inf_pro"></a>
+        <h2 class="about_us">About us</h2>
+        <div class="text_about_us" style="height: auto">
+          <h4 class="inf_pro">Information of our project:</h4>
+          <p class="inf_pro">
+            We are a team of five students from ImiX flow of Kyiv Politechnic
+            Institute. The theme of this site is a web service for creating
+            block diagrams of code in the C programming language. You can also
+            download your flowchart as an image and add it to your projects. The
+            source code is publicly available in the GitHub repository.
+          </p>
         </div>
-        <div class="main">
-            <h2 class="headers">Let's start creating a flowchart</h2>
-            <textarea name="code" id="code" class="code_" style="height: 300px;" placeholder="Your code..."></textarea>
-            <div class="buttons-code">
-                <button id="button-send" class="button-send">Send</button>
-                <button id="button-clear" class="button-clear">Clear</button>
-            </div>
-            <h3>Code Requirements!</h3>
-            <p>Your code must be written correctly, follow the syntax rules! Also it must consist of a single "main" function, any other external functions will not be processed!</p>
-            <p>Our project is under development, so some of your programs may not be processed correctly. If you have a problem, please contact us!</p>
-            <br>
-            <h2 class="headers">A flowchart will be displayed here</h2>
-            <div class="fakeimg">
-                <canvas id="c1" width="2200px" height="1100px"></canvas>
-                <img src="" id="canvas" alt="">
-            </div>
-            <div class="dowload-buttons">
-                <a id="download" href="" class="button-download">Download</a>
-            </div>
-            <h3>Attention!</h3>
-            <p>Since our service is still under development, sometimes errors may occur that can lead to incorrect display of the flowchart.</p>
-            <p>In this case, contact the developers and report the problem to them!</p>
+        <a name="inf_contacts"></a>
+        <h2 class="contacts">Our contacts</h2>
+        <div class="dropdown-inst">
+          <button class="dropbtn-inst">Instagram</button>
+          <div class="dropdown-inst-content"></div>
         </div>
+        <div class="dropdown-git">
+          <button class="dropbtn-git">GitHub</button>
+          <div class="dropdown-git-content"></div>
+        </div>
+        <div class="dropdown-tg">
+          <button class="dropbtn-tg">Telegram</button>
+          <div class="dropdown-tg-content"></div>
+        </div>
+      </div>
+      <div class="main">
+        <h2 class="headers">Let's start creating a flowchart</h2>
+        <textarea
+          name="code"
+          id="code"
+          class="code_"
+          style="height: 300px"
+          placeholder="Your code..."
+        ></textarea>
+        <div class="buttons-code">
+          <button id="button-send" class="button-send">Send</button>
+          <button id="button-clear" class="button-clear">Clear</button>
+        </div>
+        <h3>Code Requirements!</h3>
+        <p>
+          Your code must be written correctly, follow the syntax rules! Also it
+          must consist of a single "main" function, any other external functions
+          will not be processed!
+        </p>
+        <p>
+          Our project is under development, so some of your programs may not be
+          processed correctly. If you have a problem, please contact us!
+        </p>
+        <br />
+        <h2 class="headers">A flowchart will be displayed here</h2>
+        <div class="fakeimg">
+          <canvas id="c1" width="2200px" height="1100px"></canvas>
+          <img src="" id="canvas" alt="" />
+        </div>
+        <div class="dowload-buttons">
+          <a id="download" href="" class="button-download">Download</a>
+        </div>
+        <h3>Attention!</h3>
+        <p>
+          Since our service is still under development, sometimes errors may
+          occur that can lead to incorrect display of the flowchart.
+        </p>
+        <p>
+          In this case, contact the developers and report the problem to them!
+        </p>
+      </div>
     </div>
     <footer>
-        <div class="row primary">
-            <div class="column about">
-                <h3>FLOWCHARTS</h3>
-                <p>
-                    This site is a web service for creating the flowcharts of code in the C programming language.
-                </p>
-            </div>
-            <div class="column links">
-                <h3>Some Links</h3>
-                <ul class="footer-list">
-                    <li>
-                        <a class="FAQ" href="#faq">F.A.Q</a>
-                    </li>
-                    <li>
-                        <a class="termsOfSupport" href="#terms-of-services">Terms Of Service</a>
-                    </li>
-                    <li>
-                        <a class="support" href="#modal">Support</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="column links">
-                <h3>Some Links</h3>
-                <ul class="footer-list">
-                    <li>
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        <a href="#inf_pro">Information</a>
-                    </li>
-                    <li>
-                        <a href="#inf_contacts">Contacts</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="column subscribe">
-                <h3>Updates</h3>
-                <div class="img-footer">
-                    <span>
-                        <a target="_blank" id="link_fot" href="">Last commit was made by!</a>
-                    </span>
-                    <img src="" id="img_fot" alt="There is an img">
-                </div>
-            </div>
+      <div class="row primary">
+        <div class="column about">
+          <h3>FLOWCHARTS</h3>
+          <p>
+            This site is a web service for creating the flowcharts of code in
+            the C programming language.
+          </p>
         </div>
-        <div class="row copyright">
-            <p>Copyright &copy; 2022 Course Team</p>
+        <div class="column links">
+          <h3>Some Links</h3>
+          <ul class="footer-list">
+            <li>
+              <a class="FAQ" href="#faq">F.A.Q</a>
+            </li>
+            <li>
+              <a class="termsOfSupport" href="#terms-of-services"
+                >Terms Of Service</a
+              >
+            </li>
+            <li>
+              <a class="support" href="#modal">Support</a>
+            </li>
+          </ul>
         </div>
+        <div class="column links">
+          <h3>Some Links</h3>
+          <ul class="footer-list">
+            <li>
+              <a href="#">Home</a>
+            </li>
+            <li>
+              <a href="#inf_pro">Information</a>
+            </li>
+            <li>
+              <a href="#inf_contacts">Contacts</a>
+            </li>
+          </ul>
+        </div>
+        <div class="column subscribe">
+          <h3>Updates</h3>
+          <div class="img-footer">
+            <span>
+              <a target="_blank" id="link_fot" href=""
+                >Last commit was made by!</a
+              >
+            </span>
+            <img src="" id="img_fot" alt="There is an img" />
+          </div>
+        </div>
+      </div>
+      <div class="row copyright">
+        <p>Copyright &copy; 2022 Course Team</p>
+      </div>
     </footer>
 
     <script src="scripts/plugins/creatinglink.js"></script>
@@ -147,5 +170,5 @@
     <script src="scripts/drawing/figures.js" type="module"></script>
     <script src="scripts/drawing/drawingfunction.js" type="module"></script>
     <script src="scripts/main.js" type="module"></script>
-</body>
+  </body>
 </html>
